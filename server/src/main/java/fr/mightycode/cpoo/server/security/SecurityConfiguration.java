@@ -1,5 +1,6 @@
 package fr.mightycode.cpoo.server.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -8,16 +9,25 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import javax.sql.DataSource;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+
+  @Autowired
+  private DataSource dataSource;
+
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -49,7 +59,7 @@ public class SecurityConfiguration {
   }
 
   @Bean
-  public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
+  /*public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
     UserDetails user = User.withUsername("user")
       .password(passwordEncoder.encode("user"))
       .roles("USER")
@@ -59,5 +69,36 @@ public class SecurityConfiguration {
       .roles("USER", "ADMIN")
       .build();
     return new InMemoryUserDetailsManager(user, admin);
+  }*/
+  public UserDetailsManager userDetailsManager(PasswordEncoder passwordEncoder) {
+    UserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
+
+    try {
+      // Create a user account to be used by end-to-end tests
+      UserDetails user = User.withUsername("user")
+        .password(passwordEncoder.encode("user"))
+        .roles("USER")
+        .build();
+      userDetailsManager.createUser(user);
+    }
+    catch (Exception e) {
+      System.out.println("'user' account already created");
+      System.out.println(e);
+    }
+
+    try {
+      // Create an administrator account
+      UserDetails admin = User.withUsername("admin")
+        .password(passwordEncoder.encode("admin"))
+        .roles("USER", "ADMIN")
+        .build();
+      userDetailsManager.createUser(admin);
+    }
+    catch (Exception e) {
+      System.out.println("'admin' account already created");
+      System.out.println(e);
+    }
+
+    return userDetailsManager;
   }
 }

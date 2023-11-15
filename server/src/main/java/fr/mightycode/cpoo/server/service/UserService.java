@@ -14,10 +14,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +32,9 @@ public class UserService {
 
   private final PasswordEncoder passwordEncoder;
 
-  private final UserDetailsManager userDetailsManager;
+  //private final UserDetailsManager userDetailsManager;
+  @Autowired
+  private UserDetailsManager userDetailsManager;
 
   private final HttpServletRequest httpServletRequest;
   private final Map<String, String> listEmails = new HashMap<String, String>();
