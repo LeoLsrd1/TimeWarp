@@ -105,23 +105,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/currentuser:
-    post:
-      tags : 
-       - authentication                  
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserDTO'
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
   /user/settings:
     get:
       tags:
@@ -291,6 +274,47 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/DiscussionDTO'
+    post:
+      tags:
+        - messaging
+      summary: Create a new discussion with a user
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              title: user
+              type: string
+      responses:
+        '201':
+          description: Conversation created successfully
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+    patch:
+      tags:
+        - messaging
+      summary: Set timestamp to actual time
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              title: discussionID
+              type: string
+              format: uuid
+      responses:
+        '200':
+          description: Timestamp change successfully
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
                   
   /discussions/{discussion_id}/messages:
     get:
@@ -353,27 +377,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /discussions/create:
-    post:
-      tags:
-        - messaging
-      summary: Create a new discussion with a user
-      requestBody:
-        required: true
-        content:
-          text/plain:
-            schema:
-              title: user
-              type: string
-      responses:
-        '200':
-          description: Conversation created successfully
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
+
 components:
   schemas:
     UserDTO:
