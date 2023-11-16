@@ -23,10 +23,10 @@ export class DiscussionService {
   // Create a new discussion between two users
   createDiscussion(loggedUser: string, recipient: string): Observable<any> {
 
-    return this.http.post(this.baseUrl + '/create', recipient, { observe: 'response' }).pipe(
+    return this.http.post(this.baseUrl, recipient, { observe: 'response' }).pipe(
       tap((response: HttpResponse<any>) => {
         if (response.status === 201) {
-          const discussion = new Discussion(response.body.id, loggedUser, recipient);
+          const discussion = new Discussion(response.body.id, response.body.timestamp, loggedUser, recipient);
           this.discussions.unshift(discussion); // Add the new discussion to the beginning of the list
         }
       })
@@ -36,6 +36,25 @@ export class DiscussionService {
   // Get discussions for a specific user
   getDiscussions(): Observable<Discussion[]> {
     return this.http.get<Discussion[]>(this.baseUrl);
+  }
+
+  // Update timestamp of a discussion and sort the list
+  updateTimestampDiscussion(discussionId: string){
+    this.http.patch<void>(this.baseUrl, discussionId, { observe: 'response' }).pipe(
+      tap((response: HttpResponse<any>) => {
+        if (response.status === 200) {
+          const discussion = this.discussions.find((d) => d.id == discussionId);
+          if(discussion){
+            discussion.timestamp = new Date().getTime();
+          }
+          this.discussions.sort((d1, d2) => d2.timestamp - d1.timestamp)
+        }
+      })
+    )
+    .subscribe({
+      error: (e) => console.error('An error has occurred for updateTimestampDiscussion: ', e),
+      complete: () => console.info('Update discussion timestamp complete')
+    });
   }
 
   // Post a new message to a discussion
@@ -50,6 +69,7 @@ export class DiscussionService {
         if (response.status === 201) {
           const message = new Message(response.body.id, response.body.timestamp, response.body.from, response.body.to, response.body.type, response.body.body);
           this.messages.push(message); // Add the new message to the messages list
+          this.updateTimestampDiscussion(this.selectedDiscussionId);
         }
       })
     );
@@ -86,6 +106,7 @@ export class DiscussionService {
           }
         );
         }
+        else this.updateTimestampDiscussion(discussion.id);
 
         // Add the message to the discussion
         if(discussion?.id == this.selectedDiscussionId)

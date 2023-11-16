@@ -42,6 +42,7 @@ export class HomeComponent {
         discussions.forEach((discussion) => {
           this.discussions.unshift(discussion);
         });
+        this.discussions.sort((d1, d2) => d2.timestamp - d1.timestamp); 
       },
       error: (e) => console.error('An error has occurred for getDiscussions: ', e),
       complete: () => console.info('Get discussions complete')
@@ -100,6 +101,7 @@ export class HomeComponent {
         messages.forEach((message) => {
           this.messages.push(message);
         });
+        this.messages.sort((m1, m2) => m1.timestamp - m2.timestamp);
       },
       error: (e) => console.error('An error has occurred: ', e),
       complete: () => {
