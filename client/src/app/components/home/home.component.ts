@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DiscussionService } from 'src/app/services/discussion.service';
@@ -13,9 +13,11 @@ import { User } from 'src/app/models/user';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
   discussions: Discussion[] = [];
   messages: Message[] = [];
+  
+  newDiscussionUsername: string = ''; // Variable to store the new discussion's username
   selectedDiscussionId: string = '';
   newMessageContent: string = '';
 
@@ -57,6 +59,8 @@ export class HomeComponent {
       }
     });
 
+
+
     // Start polling new messages and updating discussions
     this.discussionService.startPollingNewMessages(this.stopPolling);
   }
@@ -87,6 +91,23 @@ export class HomeComponent {
     this.new_conv_popup = false;
   }
   /* ----------------------------------------------------------------------------------------------------------------------------------------- */
+
+  // Function to create a new discussion
+  createDiscussion(): void {
+    this.discussionService.createDiscussion(this.loggedUser, this.newDiscussionUsername).subscribe(
+      {
+        next: (response) => {
+          // Select discussion created
+          this.selectedDiscussionId = this.discussionService.selectedDiscussionId = response.body.id;
+          // Clear messages for the selected discussion
+          this.messages = this.discussionService.messages = [];
+        },
+        error: (e) => console.error('Error createDiscussion: ', e), // Log any error that occurs during discussion creation
+        complete: () => console.info('Create discussion complete') // Log when the discussion creation is complete
+      }
+    );
+    this.newDiscussionUsername = ''; // Clear the input field after creating a discussion
+  }
 
   // Select a discussion and set the recipient based on user1 and user2
   selectDiscussion(discussionId: string, user1: string, user2: string): void {
