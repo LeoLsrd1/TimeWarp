@@ -62,7 +62,14 @@ export class HomeComponent implements OnInit{
 
 
     // Start polling new messages and updating discussions
-    this.discussionService.startPollingNewMessages(this.stopPolling);
+    this.discussionService.startPollingNewMessages(this.stopPolling).subscribe({
+      next: () => {
+        setTimeout(() => {
+          this.scrollToBottom();
+        }); // Without the delay (of 0 here), it does not take into account the last message
+      },
+      error: (e) => console.error('Error getMessage: ', e)
+    });
   }
 
   ngOnDestroy(): void {

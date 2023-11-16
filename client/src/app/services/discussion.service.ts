@@ -87,7 +87,7 @@ export class DiscussionService {
   startPollingNewMessages(stopPolling: Observable<void>) {
 
     // Poll the next new message
-    this.http.get<Message>(this.baseUrl + '/message').pipe(
+    return this.http.get<Message>(this.baseUrl + '/message').pipe(
       map(message => {
 
         // If no message yet, nothing to do
@@ -116,6 +116,6 @@ export class DiscussionService {
       retry({ delay: 1000 }), // on error, retry after 1s
       share(), // be sure to never duplicate this observable
       takeUntil(stopPolling) // stop polling if an event is sent on control observable
-    ).subscribe();
+    );
   }
 }
