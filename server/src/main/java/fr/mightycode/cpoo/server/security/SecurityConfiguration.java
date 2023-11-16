@@ -1,5 +1,7 @@
 package fr.mightycode.cpoo.server.security;
 
+import fr.mightycode.cpoo.server.Manager.TimeWarpUser;
+import fr.mightycode.cpoo.server.Manager.TimeWarpUserDetailsManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -70,13 +72,15 @@ public class SecurityConfiguration {
       .build();
     return new InMemoryUserDetailsManager(user, admin);
   }*/
-  public UserDetailsManager userDetailsManager(PasswordEncoder passwordEncoder) {
-    UserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
+  public TimeWarpUserDetailsManager timeWarpUserDetailsManager(PasswordEncoder passwordEncoder) {
+    TimeWarpUserDetailsManager userDetailsManager = new TimeWarpUserDetailsManager(dataSource);
 
     try {
       // Create a user account to be used by end-to-end tests
-      UserDetails user = User.withUsername("user")
+      TimeWarpUser user = TimeWarpUser
+        .withUsernameTW("user")
         .password(passwordEncoder.encode("user"))
+        .email("user")
         .roles("USER")
         .build();
       userDetailsManager.createUser(user);
@@ -88,8 +92,9 @@ public class SecurityConfiguration {
 
     try {
       // Create an administrator account
-      UserDetails admin = User.withUsername("admin")
+      TimeWarpUser admin = TimeWarpUser.withUsernameTW("admin")
         .password(passwordEncoder.encode("admin"))
+        .email("admin")
         .roles("USER", "ADMIN")
         .build();
       userDetailsManager.createUser(admin);

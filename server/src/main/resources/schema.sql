@@ -1,5 +1,6 @@
 create table if not exists users(
                     username varchar_ignorecase(50) not null primary key,
+                    email varchar_ignorecase(500) not null,
                     password varchar_ignorecase(500) not null,
                     enabled boolean not null
 );
