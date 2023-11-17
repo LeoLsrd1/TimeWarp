@@ -56,6 +56,10 @@ public class DiscussionDTO {
   @SerializedName(SERIALIZED_NAME_ID)
   private UUID id;
 
+  public static final String SERIALIZED_NAME_TIMESTAMP = "timestamp";
+  @SerializedName(SERIALIZED_NAME_TIMESTAMP)
+  private Long timestamp;
+
   public static final String SERIALIZED_NAME_USER1 = "user1";
   @SerializedName(SERIALIZED_NAME_USER1)
   private String user1;
@@ -85,6 +89,27 @@ public class DiscussionDTO {
 
   public void setId(UUID id) {
     this.id = id;
+  }
+
+
+  public DiscussionDTO timestamp(Long timestamp) {
+    
+    this.timestamp = timestamp;
+    return this;
+  }
+
+   /**
+   * Get timestamp
+   * @return timestamp
+  **/
+  @javax.annotation.Nullable
+  public Long getTimestamp() {
+    return timestamp;
+  }
+
+
+  public void setTimestamp(Long timestamp) {
+    this.timestamp = timestamp;
   }
 
 
@@ -141,13 +166,14 @@ public class DiscussionDTO {
     }
     DiscussionDTO discussionDTO = (DiscussionDTO) o;
     return Objects.equals(this.id, discussionDTO.id) &&
+        Objects.equals(this.timestamp, discussionDTO.timestamp) &&
         Objects.equals(this.user1, discussionDTO.user1) &&
         Objects.equals(this.user2, discussionDTO.user2);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, user1, user2);
+    return Objects.hash(id, timestamp, user1, user2);
   }
 
   @Override
@@ -155,6 +181,7 @@ public class DiscussionDTO {
     StringBuilder sb = new StringBuilder();
     sb.append("class DiscussionDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    user1: ").append(toIndentedString(user1)).append("\n");
     sb.append("    user2: ").append(toIndentedString(user2)).append("\n");
     sb.append("}");
@@ -180,6 +207,7 @@ public class DiscussionDTO {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("id");
+    openapiFields.add("timestamp");
     openapiFields.add("user1");
     openapiFields.add("user2");
 

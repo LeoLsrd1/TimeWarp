@@ -72,13 +72,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/delete:
-    post:
+  /user/{username}:
+    delete:
+      summary: Delete a user account
+      description: Delete the account of the user matching the given username.
+        Only the administrator can use this endpoint.
       tags:
-        - authentication
+        - administration
+      parameters:
+        - description: username of the user account to delete.
+          in: path
+          name: username
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Success
+        '404':
+          description: 'Not found: User account not found.'
         default:
           description: Error
           content:
@@ -99,6 +111,23 @@ paths:
       responses:
         '200':
           description: Success
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+  /user/currentuser:
+    post:
+      tags : 
+       - authentication                  
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
         default:
           description: Error
           content:
@@ -224,12 +253,10 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                themeId:
-                  type: integer
+          text/plain:
+            schema :
+              title : themeId
+              type: integer
       responses:
         '200':
           description: Theme changed successfully
@@ -288,6 +315,10 @@ paths:
       responses:
         '201':
           description: Conversation created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscussionDTO'
         default:
           description: Error
           content:
@@ -305,10 +336,14 @@ paths:
             schema:
               title: discussionID
               type: string
-              format: uuid
       responses:
         '200':
           description: Timestamp change successfully
+          content:
+            text/plain:
+              schema:
+                type: integer
+                format: int64
         default:
           description: Error
           content:
@@ -350,8 +385,12 @@ paths:
             schema:
               $ref: '#/components/schemas/PostMessageDTO'
       responses:
-        '200':
+        '201':
           description: Message sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageDTO'
         default:
           description: Error
           content:
@@ -377,7 +416,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-
+                
 components:
   schemas:
     UserDTO:
@@ -459,6 +498,10 @@ components:
           type: string
           format: uuid
           example: 667bdc23-3de4-482f-a0f4-3391452a7742
+        timestamp:
+          type: integer
+          format: int64
+          example: 1720294759999
         user1:
           type: string
           example: alice@acme

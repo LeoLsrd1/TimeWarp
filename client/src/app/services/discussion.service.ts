@@ -40,12 +40,12 @@ export class DiscussionService {
 
   // Update timestamp of a discussion and sort the list
   updateTimestampDiscussion(discussionId: string){
-    this.http.patch<void>(this.baseUrl, discussionId, { observe: 'response' }).pipe(
+    this.http.patch(this.baseUrl, discussionId, { observe: 'response' }).pipe(
       tap((response: HttpResponse<any>) => {
         if (response.status === 200) {
           const discussion = this.discussions.find((d) => d.id == discussionId);
           if(discussion){
-            discussion.timestamp = new Date().getTime();
+            discussion.timestamp = response.body;
           }
           this.discussions.sort((d1, d2) => d2.timestamp - d1.timestamp)
         }

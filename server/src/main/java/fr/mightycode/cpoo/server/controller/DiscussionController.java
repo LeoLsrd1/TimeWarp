@@ -43,9 +43,11 @@ public class DiscussionController {
         return new ResponseEntity<>(discussion, HttpStatus.CREATED);
     }
 
-    @PatchMapping(consumes = MediaType.TEXT_PLAIN_VALUE)
-    public void changeTimestampDiscussion(@RequestBody final String discussion_id) {
-        discussionService.changeTimestampDiscussion(UUID.fromString(discussion_id));
+    @PatchMapping()
+    public ResponseEntity<Long> changeTimestampDiscussion(@RequestBody final String discussion_id) {
+        UUID uuid = UUID.fromString(discussion_id);
+        long newTimestamp = discussionService.changeTimestampDiscussion(uuid);
+        return new ResponseEntity<>(newTimestamp, HttpStatus.OK);
     }
 }
 

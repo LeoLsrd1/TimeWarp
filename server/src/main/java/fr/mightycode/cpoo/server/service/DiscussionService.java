@@ -44,8 +44,10 @@ public class DiscussionService {
     }
 
     @Transactional
-    public void changeTimestampDiscussion(UUID discussionId){
-        discussionRepository.updateTimestampById(discussionId, System.currentTimeMillis());        
+    public long changeTimestampDiscussion(UUID discussionId){
+        long timestamp = System.currentTimeMillis();
+        discussionRepository.updateTimestampById(discussionId, timestamp);     
+        return timestamp;   
     }
 
     /**

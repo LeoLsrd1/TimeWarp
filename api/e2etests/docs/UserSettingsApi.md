@@ -150,7 +150,7 @@ null (empty response body)
 
 <a id="userChangeThemePatch"></a>
 # **userChangeThemePatch**
-> userChangeThemePatch(userChangeThemePatchRequest)
+> userChangeThemePatch(body)
 
 Change user theme
 
@@ -176,9 +176,9 @@ public class Example {
     //CookieAuth.setApiKeyPrefix("Token");
 
     UserSettingsApi apiInstance = new UserSettingsApi(defaultClient);
-    UserChangeThemePatchRequest userChangeThemePatchRequest = new UserChangeThemePatchRequest(); // UserChangeThemePatchRequest | 
+    Integer body = 56; // Integer | 
     try {
-      apiInstance.userChangeThemePatch(userChangeThemePatchRequest);
+      apiInstance.userChangeThemePatch(body);
     } catch (ApiException e) {
       System.err.println("Exception when calling UserSettingsApi#userChangeThemePatch");
       System.err.println("Status code: " + e.getCode());
@@ -194,7 +194,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **userChangeThemePatchRequest** | [**UserChangeThemePatchRequest**](UserChangeThemePatchRequest.md)|  | |
+| **body** | **Integer**|  | |
 
 ### Return type
 
@@ -206,7 +206,7 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: text/plain
  - **Accept**: application/json
 
 ### HTTP response details
