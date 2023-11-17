@@ -1,31 +1,35 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { DiscussionService } from 'src/app/services/discussion.service';
+import { UserService } from 'src/app/services/user.service';
 import { Discussion } from 'src/app/models/discussion';
 import { Message } from 'src/app/models/message';
-import { Subject, delay } from 'rxjs';
-import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
+import { Subject, delay } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit, OnDestroy {
+  // Arrays to store discussions and messages
   discussions: Discussion[] = [];
   messages: Message[] = [];
-  
-  newDiscussionUsername: string = ''; // Variable to store the new discussion's username
+
+  // Variables to store input values and selected discussion
+  newDiscussionUsername: string = '';
   selectedDiscussionId: string = '';
   newMessageContent: string = '';
 
+  // Variables for user information
   loggedUser: string = ''; // The username of the currently logged-in user
   recipient: string = ''; // The recipient for new messages
 
+  // Subject to stop polling messages on component destruction
   private stopPolling = new Subject<void>();
 
+  // Constructor with dependency injection
   constructor(
     private router: Router,
     private discussionService: DiscussionService,
@@ -36,6 +40,7 @@ export class HomeComponent implements OnInit{
     this.discussions = this.discussionService.discussions;
   }
 
+  // Lifecycle hook - executed after the component is initialized
   ngOnInit() {
     this.discussionService.discussions.length=0;
     // Fetch discussions from the service for the logged-in user
@@ -44,48 +49,45 @@ export class HomeComponent implements OnInit{
         discussions.forEach((discussion) => {
           this.discussions.unshift(discussion);
         });
-        this.discussions.sort((d1, d2) => d2.timestamp - d1.timestamp); 
+        this.discussions.sort((d1, d2) => d2.timestamp - d1.timestamp);
       },
       error: (e) => console.error('An error has occurred for getDiscussions: ', e),
       complete: () => console.info('Get discussions complete')
     });
 
+    // Get the current user
     this.userService.getCurrentUser().subscribe({
       next: (user: User) => {
         this.loggedUser = user.username;
       },
-      error: (e) => {
-        console.error('An error has occurred for getCurrentUser : ', e);
-      }
+      error: (e) => console.error('An error has occurred for getCurrentUser: ', e)
     });
-
-
 
     // Start polling new messages and updating discussions
     this.discussionService.startPollingNewMessages(this.stopPolling).subscribe({
       next: () => {
         setTimeout(() => {
           this.scrollToBottom();
-        }); // Without the delay (of 0 here), it does not take into account the last message
+        });
       },
       error: (e) => console.error('Error getMessage: ', e)
     });
   }
 
+  // Lifecycle hook - executed just before Angular destroys the component
   ngOnDestroy(): void {
-
-    // Stop polling messages
+    // Stop polling messages when the component is destroyed
     this.stopPolling.next(void 0);
   }
-
 
   // Redirect to the settings page
   homeToSettings(): void {
     this.router.navigate(['/settings']);
   }
 
-  /* ----- New Conversation Popup Management ----------------------------------------- */
+  /* ----- New Conversation Popup Management ----- */
 
+  // Variable to control the visibility of the new conversation popup
   new_conv_popup: boolean = false;
 
   // Display the new conversation popup
@@ -97,7 +99,7 @@ export class HomeComponent implements OnInit{
   hide_new_conv_popup() {
     this.new_conv_popup = false;
   }
-  /* ----------------------------------------------------------------------------------------------------------------------------------------- */
+  /* --------------------------------------------- */
 
   // Function to create a new discussion
   createDiscussion(): void {
@@ -109,8 +111,8 @@ export class HomeComponent implements OnInit{
           // Clear messages for the selected discussion
           this.messages = this.discussionService.messages = [];
         },
-        error: (e) => console.error('Error createDiscussion: ', e), // Log any error that occurs during discussion creation
-        complete: () => console.info('Create discussion complete') // Log when the discussion creation is complete
+        error: (e) => console.error('Error createDiscussion: ', e),
+        complete: () => console.info('Create discussion complete')
       }
     );
     this.newDiscussionUsername = ''; // Clear the input field after creating a discussion
@@ -153,7 +155,7 @@ export class HomeComponent implements OnInit{
           console.info('PostMessage complete');
         }
       });
-      this.newMessageContent = '';
+      this.newMessageContent = ''; // Clear the input field after posting a message
     }
   }
 
@@ -165,6 +167,7 @@ export class HomeComponent implements OnInit{
     }
   }
 
+  // Placeholder URLs for profile pictures and contact images
   ownprofilpicture: string = '../../../assets/images/pp_user1.jpg';
   contact: string = '../../../assets/images/light_contact.svg';
 }

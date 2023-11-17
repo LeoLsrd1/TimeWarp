@@ -30,7 +30,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,10 +70,9 @@ public class MessagingApiTest {
             // Sign in
             authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
     
-            // Get all discussions
-            messageApi.discussionsPost("bob@acme");
-            List<DiscussionDTO> discussions = messageApi.discussionsGet();
-            UUID uuid = discussions.get(0).getId();
+            // Create discussion
+            DiscussionDTO discussion = messageApi.discussionsPost("bob@acme");
+            UUID uuid = discussion.getId();
     
             // Get all messages
             List<MessageDTO> messages = messageApi.discussionsDiscussionIdMessagesGet(uuid);
@@ -215,7 +213,7 @@ public class MessagingApiTest {
             }
             catch (ApiException e) {
             Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
-            }
+        }
     
             // Sign in
             authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
@@ -239,7 +237,7 @@ public class MessagingApiTest {
     public void discussionsPostTest() throws ApiException {
         // Getting messages while not signed in should fail with FORBIDDEN
         try {
-            messageApi.discussionsPost("bob@acme");
+            messageApi.discussionsPost("test@timewarp");
             Assertions.fail();
             }
             catch (ApiException e) {
@@ -250,13 +248,13 @@ public class MessagingApiTest {
             authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
     
             // Get all discussions
-            messageApi.discussionsPost("bob@acme");
+            messageApi.discussionsPost("test@timewarp");
             List<DiscussionDTO> discussions = messageApi.discussionsGet();
     
             //Set foundbob to true if the discussion with bob@acme is found
             boolean foundBob = false;
             for (DiscussionDTO discussionDTO : discussions) {
-                if(discussionDTO.getUser1().equals("bob@acme") || discussionDTO.getUser2().equals("bob@acme")) foundBob = true;
+                if(discussionDTO.getUser1().equals("test@timewarp") || discussionDTO.getUser2().equals("test@timewarp")) foundBob = true;
             }
             
             Assertions.assertTrue(foundBob);
