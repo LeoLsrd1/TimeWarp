@@ -110,12 +110,14 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.selectedDiscussionId = this.discussionService.selectedDiscussionId = response.body.id;
           // Clear messages for the selected discussion
           this.messages = this.discussionService.messages = [];
+          // Set the new recipient
+          this.recipient = this.newDiscussionUsername;
+          this.newDiscussionUsername = ''; // Clear the input field after creating a discussion
         },
         error: (e) => console.error('Error createDiscussion: ', e),
         complete: () => console.info('Create discussion complete')
       }
     );
-    this.newDiscussionUsername = ''; // Clear the input field after creating a discussion
   }
 
   // Select a discussion and set the recipient based on user1 and user2
