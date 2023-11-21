@@ -147,7 +147,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // Post a new message to the recipient
   postMessage(): void {
-    if (this.recipient != '') {
+    if (this.recipient != '' && this.newMessageContent!='') {
       this.discussionService.postMessage(this.recipient, this.newMessageContent).subscribe({
         error: (e) => console.error('Error postMessage: ', e),
         complete: () => {
