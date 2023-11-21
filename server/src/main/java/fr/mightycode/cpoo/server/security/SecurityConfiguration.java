@@ -60,8 +60,11 @@ public class SecurityConfiguration {
     return new BCryptPasswordEncoder();
   }
 
+
+  /*
+  //Like TimeWarpUserDetailsManager but with the data stock in the memory and no in a database
   @Bean
-  /*public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
+  public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
     UserDetails user = User.withUsername("user")
       .password(passwordEncoder.encode("user"))
       .roles("USER")
@@ -71,7 +74,10 @@ public class SecurityConfiguration {
       .roles("USER", "ADMIN")
       .build();
     return new InMemoryUserDetailsManager(user, admin);
-  }*/
+  }
+  */
+
+  @Bean
   public TimeWarpUserDetailsManager timeWarpUserDetailsManager(PasswordEncoder passwordEncoder) {
     TimeWarpUserDetailsManager userDetailsManager = new TimeWarpUserDetailsManager(dataSource);
 

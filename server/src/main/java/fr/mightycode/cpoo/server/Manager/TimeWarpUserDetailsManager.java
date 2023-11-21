@@ -12,6 +12,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+/***
+ * JdbcUserDetailsManager but with email more, so we had email in the create database and we add the different access
+ * We add the email exist
+ * We also add the function of JdbcUserDetailsManager which were private
+ */
 public class TimeWarpUserDetailsManager extends JdbcUserDetailsManager {
   private String createUserSql = "insert into users (username, email, password, enabled) values (?,?,?,?)";
   private String createAuthoritySql = "insert into authorities (username, authority) values (?,?)";
@@ -22,6 +27,10 @@ public class TimeWarpUserDetailsManager extends JdbcUserDetailsManager {
     this.setDataSource(dataSource);
   }
 
+  /***
+   * Create an user in the database
+   * @param user TimeWarpUser
+   */
   public void createUser(final TimeWarpUser user) {
     this.validateUserDetails(user);
     this.getJdbcTemplate().update(this.createUserSql, (ps) -> {
@@ -41,6 +50,12 @@ public class TimeWarpUserDetailsManager extends JdbcUserDetailsManager {
     }
 }
 
+  /***
+   * Search in the database if an email already exists
+   * @param email String
+   * @return true if email already exists / false else
+   * @throws IncorrectResultSizeDataAccessException if there are more than one user found with this email
+   */
   public boolean emailExists(String email) {
     List<String> emails = this.getJdbcTemplate().queryForList(this.emailExistsSql, new String[]{email}, String.class);
     if (emails.size() > 1) {
