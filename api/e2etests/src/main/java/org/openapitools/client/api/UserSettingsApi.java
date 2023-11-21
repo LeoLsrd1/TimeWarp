@@ -30,7 +30,6 @@ import java.io.IOException;
 import org.openapitools.client.model.ChangePasswordDTO;
 import org.openapitools.client.model.ErrorDTO;
 import org.openapitools.client.model.NotificationsDTO;
-import org.openapitools.client.model.UserChangeThemePatchRequest;
 import org.openapitools.client.model.UserSettingsDTO;
 
 import java.lang.reflect.Type;
@@ -324,7 +323,7 @@ public class UserSettingsApi {
     }
     /**
      * Build call for userChangeThemePatch
-     * @param userChangeThemePatchRequest  (required)
+     * @param body  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -335,7 +334,7 @@ public class UserSettingsApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userChangeThemePatchCall(UserChangeThemePatchRequest userChangeThemePatchRequest, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call userChangeThemePatchCall(Integer body, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -349,7 +348,7 @@ public class UserSettingsApi {
             basePath = null;
         }
 
-        Object localVarPostBody = userChangeThemePatchRequest;
+        Object localVarPostBody = body;
 
         // create path and map variables
         String localVarPath = "/user/change-theme";
@@ -369,7 +368,7 @@ public class UserSettingsApi {
         }
 
         final String[] localVarContentTypes = {
-            "application/json"
+            "text/plain"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
@@ -381,20 +380,20 @@ public class UserSettingsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call userChangeThemePatchValidateBeforeCall(UserChangeThemePatchRequest userChangeThemePatchRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'userChangeThemePatchRequest' is set
-        if (userChangeThemePatchRequest == null) {
-            throw new ApiException("Missing the required parameter 'userChangeThemePatchRequest' when calling userChangeThemePatch(Async)");
+    private okhttp3.Call userChangeThemePatchValidateBeforeCall(Integer body, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException("Missing the required parameter 'body' when calling userChangeThemePatch(Async)");
         }
 
-        return userChangeThemePatchCall(userChangeThemePatchRequest, _callback);
+        return userChangeThemePatchCall(body, _callback);
 
     }
 
     /**
      * Change user theme
      * 
-     * @param userChangeThemePatchRequest  (required)
+     * @param body  (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -403,14 +402,14 @@ public class UserSettingsApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public void userChangeThemePatch(UserChangeThemePatchRequest userChangeThemePatchRequest) throws ApiException {
-        userChangeThemePatchWithHttpInfo(userChangeThemePatchRequest);
+    public void userChangeThemePatch(Integer body) throws ApiException {
+        userChangeThemePatchWithHttpInfo(body);
     }
 
     /**
      * Change user theme
      * 
-     * @param userChangeThemePatchRequest  (required)
+     * @param body  (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -420,15 +419,15 @@ public class UserSettingsApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> userChangeThemePatchWithHttpInfo(UserChangeThemePatchRequest userChangeThemePatchRequest) throws ApiException {
-        okhttp3.Call localVarCall = userChangeThemePatchValidateBeforeCall(userChangeThemePatchRequest, null);
+    public ApiResponse<Void> userChangeThemePatchWithHttpInfo(Integer body) throws ApiException {
+        okhttp3.Call localVarCall = userChangeThemePatchValidateBeforeCall(body, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      * Change user theme (asynchronously)
      * 
-     * @param userChangeThemePatchRequest  (required)
+     * @param body  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -439,9 +438,9 @@ public class UserSettingsApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userChangeThemePatchAsync(UserChangeThemePatchRequest userChangeThemePatchRequest, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call userChangeThemePatchAsync(Integer body, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = userChangeThemePatchValidateBeforeCall(userChangeThemePatchRequest, _callback);
+        okhttp3.Call localVarCall = userChangeThemePatchValidateBeforeCall(body, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }

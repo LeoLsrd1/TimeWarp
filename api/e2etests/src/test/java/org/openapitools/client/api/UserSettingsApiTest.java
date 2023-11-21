@@ -81,7 +81,7 @@ public class UserSettingsApiTest {
      */
     @Test
     public void userChangeThemePatchTest() throws ApiException {
-        UserChangeThemePatchRequest userChangeThemePatchRequest = null;
+        int userChangeThemePatchRequest = 0;
         UserSettingsapi.userChangeThemePatch(userChangeThemePatchRequest);
         // TODO: test validations
     }

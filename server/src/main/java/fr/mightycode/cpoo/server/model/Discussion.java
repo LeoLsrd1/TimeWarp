@@ -14,6 +14,9 @@ public class Discussion {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Column(name = "timestamp", nullable = false)
+    private long timestamp;
     
     @Column(name = "user1", nullable = false)
     private String user1;
