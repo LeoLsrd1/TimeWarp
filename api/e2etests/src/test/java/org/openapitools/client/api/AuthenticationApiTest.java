@@ -100,7 +100,7 @@ public class AuthenticationApiTest {
      */
     @Test
     public void userSignoutPostTest() throws ApiException {
-        UserDTO userDTO = new UserDTO().username("testSignout").password("testSignout");
+        UserDTO userDTO = new UserDTO().username("testSignout").email("testSignout").password("testSignout");
 
         // Delete the test account if exists
         authenticationApi.userSigninPost(new UserDTO().username("admin").email("admin").password("admin"));

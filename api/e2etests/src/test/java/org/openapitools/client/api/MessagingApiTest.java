@@ -129,6 +129,14 @@ public class MessagingApiTest {
         PostMessageDTO postMessage = new PostMessageDTO().to("user@timewarp").type("text/plain").body(body);
         messageApi.discussionsMessagePost(postMessage);
 
+        // Wait for the message to be delivered
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            // Handle the exception, e.g. print an error message
+            e.printStackTrace();
+        }
+
         // Get the message
         MessageDTO newMessage = messageApi.discussionsMessageGet();
 
