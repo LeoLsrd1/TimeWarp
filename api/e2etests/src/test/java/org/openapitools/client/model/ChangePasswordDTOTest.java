@@ -1,6 +1,6 @@
 /*
  * CPOO Server API
- * This is a prototype of CPOO Project's front/back API. 
+ * This is a prototype of CPOO Project's front/back API.
  *
  * The version of the OpenAPI document: 0.0.1
  * Contact: contact@mightycode.fr
@@ -20,8 +20,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.UUID;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Model tests for ChangePasswordDTO
@@ -34,7 +38,13 @@ public class ChangePasswordDTOTest {
      */
     @Test
     public void testChangePasswordDTO() {
-        // TODO: test ChangePasswordDTO
+      ChangePasswordDTO chg = new ChangePasswordDTO();
+      chg.setNewPassword("test");
+      chg.setOldPassword("user");
+
+      // Check that properties have been correctly defined
+      assertEquals("test", chg.getNewPassword());
+      assertEquals("user", chg.getOldPassword());
     }
 
     /**
@@ -42,7 +52,9 @@ public class ChangePasswordDTOTest {
      */
     @Test
     public void oldPasswordTest() {
-        // TODO: test oldPassword
+      ChangePasswordDTO chg = new ChangePasswordDTO();
+      chg.setOldPassword("user");
+      assertEquals("user", chg.getOldPassword());
     }
 
     /**
@@ -50,7 +62,9 @@ public class ChangePasswordDTOTest {
      */
     @Test
     public void newPasswordTest() {
-        // TODO: test newPassword
+      ChangePasswordDTO chg = new ChangePasswordDTO();
+      chg.setNewPassword("test");
+      assertEquals("test", chg.getNewPassword());
     }
 
 }

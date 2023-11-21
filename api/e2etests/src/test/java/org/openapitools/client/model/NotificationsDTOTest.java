@@ -1,6 +1,6 @@
 /*
  * CPOO Server API
- * This is a prototype of CPOO Project's front/back API. 
+ * This is a prototype of CPOO Project's front/back API.
  *
  * The version of the OpenAPI document: 0.0.1
  * Contact: contact@mightycode.fr
@@ -20,8 +20,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.Arrays;
+
+import org.junit.Assert;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Model tests for NotificationsDTO
@@ -34,7 +38,12 @@ public class NotificationsDTOTest {
      */
     @Test
     public void testNotificationsDTO() {
-        // TODO: test NotificationsDTO
+      NotificationsDTO n = new NotificationsDTO();
+      n.setBadges(true);
+      n.setSounds(false);
+
+      assertEquals(true, n.getBadges());
+      assertEquals(false,n.getSounds());
     }
 
     /**
@@ -42,7 +51,9 @@ public class NotificationsDTOTest {
      */
     @Test
     public void soundsTest() {
-        // TODO: test sounds
+      NotificationsDTO n = new NotificationsDTO();
+      n.setSounds(true);
+      assertEquals(true,n.getSounds());
     }
 
     /**
@@ -50,7 +61,9 @@ public class NotificationsDTOTest {
      */
     @Test
     public void badgesTest() {
-        // TODO: test badges
+      NotificationsDTO n = new NotificationsDTO();
+      n.setBadges(false);
+      assertEquals(false, n.getBadges());
     }
 
 }

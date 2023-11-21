@@ -1,6 +1,6 @@
 /*
  * CPOO Server API
- * This is a prototype of CPOO Project's front/back API. 
+ * This is a prototype of CPOO Project's front/back API.
  *
  * The version of the OpenAPI document: 0.0.1
  * Contact: contact@mightycode.fr
@@ -23,6 +23,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Model tests for UserDTO
  */
@@ -34,7 +36,14 @@ public class UserDTOTest {
      */
     @Test
     public void testUserDTO() {
-        // TODO: test UserDTO
+      UserDTO user = new UserDTO();
+      user.setEmail("testE");
+      user.setPassword("testP");
+      user.setUsername("testU");
+
+      assertEquals("testE", user.getEmail());
+      assertEquals("testP", user.getPassword());
+      assertEquals("testU", user.getUsername());
     }
 
     /**
@@ -42,7 +51,9 @@ public class UserDTOTest {
      */
     @Test
     public void usernameTest() {
-        // TODO: test username
+      UserDTO user = new UserDTO();
+      user.setUsername("test");
+      assertEquals("test", user.getUsername());
     }
 
     /**
@@ -50,7 +61,9 @@ public class UserDTOTest {
      */
     @Test
     public void emailTest() {
-        // TODO: test email
+      UserDTO user = new UserDTO();
+      user.setEmail("test");
+      assertEquals("test", user.getEmail());
     }
 
     /**
@@ -58,7 +71,9 @@ public class UserDTOTest {
      */
     @Test
     public void passwordTest() {
-        // TODO: test password
+      UserDTO user = new UserDTO();
+      user.setPassword("test");
+      assertEquals("test", user.getPassword());
     }
 
 }
