@@ -1,0 +1,224 @@
+2023-11-21 11:52:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'\\00ab Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.... (2054)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'\\00ab Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.... (2054)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 11:52:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'\\00ab Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.... (2054)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'\\00ab Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.... (2054)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 11:53:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (710)"
+Value too long for column "BODY CHARACTER VARYING(255)": "' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (710)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 11:53:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (426)"
+Value too long for column "BODY CHARACTER VARYING(255)": "' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (426)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 11:53:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (285)"
+Value too long for column "BODY CHARACTER VARYING(255)": "' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (285)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 11:53:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (710)"
+Value too long for column "BODY CHARACTER VARYING(255)": "' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (710)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 11:53:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (310)"
+Value too long for column "BODY CHARACTER VARYING(255)": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (310)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 11:53:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (273)"
+Value too long for column "BODY CHARACTER VARYING(255)": "' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (273)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 11:53:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (263)"
+Value too long for column "BODY CHARACTER VARYING(255)": "' aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (263)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 11:54:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (1422)"
+Value too long for column "BODY CHARACTER VARYING(255)": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (1422)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 11:54:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (1896)"
+Value too long for column "BODY CHARACTER VARYING(255)": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... (1896)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 11:58:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'La lueur douce du cr\\00e9puscule baigne la ville endormie. Les \\00e9toiles s'... (303)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'La lueur douce du cr\\00e9puscule baigne la ville endormie. Les \\00e9toiles s'... (303)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 11:58:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'La lueur douce du cr\\00e9puscule baigne la ville endormie. Les \\00e9toiles s'... (302)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'La lueur douce du cr\\00e9puscule baigne la ville endormie. Les \\00e9toiles s'... (302)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 11:59:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (286)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (286)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 11:59:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (267)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (267)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:00:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (262)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (262)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:00:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (258)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (258)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:00:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (256)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (256)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:00:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (259)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (259)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:00:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (257)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (257)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:00:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (256)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (256)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:00:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (256)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Les feux de la ville s''\\00e9teignent lentement, laissant place \\00e0 l''obsc... (256)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:01:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"
+Value too long for column "BODY CHARACTER VARYING(255)": "U&'Le grand cabia\\00ef ou capybara (Hydrochoerus hydrochaeris) est une esp\\00e8c... (2462)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:11:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(2000)": "U&'Le terme soupeur d\\00e9signe ainsi tout d''abord des individus qui \\00e9prouv... (5142)"
+Value too long for column "BODY CHARACTER VARYING(2000)": "U&'Le terme soupeur d\\00e9signe ainsi tout d''abord des individus qui \\00e9prouv... (5142)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:13:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (3587)"
+Value too long for column "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (3587)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:13:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (4977)"
+Value too long for column "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (4977)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:13:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (49771)"
+Value too long for column "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (49771)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:13:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (4977)"
+Value too long for column "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (4977)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:13:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (3319)"
+Value too long for column "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (3319)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:13:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (3319)"
+Value too long for column "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (3319)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:13:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (3318)"
+Value too long for column "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (3318)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
+2023-11-21 12:13:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valeur trop longue pour la colonne "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (4977)"
+Value too long for column "BODY CHARACTER VARYING(2000)": "U&'1re d\\00e9finition : du pain imbib\\00e9 d''urine  Le terme soupeur d\\00e9sign... (4977)"; SQL statement:
+insert into messages (body,"from",timestamp,"to",type,id) values (?,?,?,?,?,?) [22001-214]
