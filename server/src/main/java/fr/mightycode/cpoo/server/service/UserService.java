@@ -34,20 +34,21 @@ public class UserService {
 
   private final PasswordEncoder passwordEncoder;
 
-  //private final UserDetailsManager userDetailsManager;
   @Autowired
   private TimeWarpUserDetailsManager timeWarpUserDetailsManager;
 
   private final HttpServletRequest httpServletRequest;
-  private final Map<String, String> listEmails = new HashMap<String, String>();
-  //private final Map<String, Boolean> listOfConnect = new HashMap<String, Boolean>();
+
 
 
   /***
-   * 0 if Username already exists
-   * 1 if Email already exists
-   * 2 if it's OK7
-   ***/
+   * @param username
+   * @param email
+   * @param password
+   * @return 0 if Username already exists /
+   *  1 if Email already exists /
+   * 2 if it's OK
+   */
   public int signup(final String username, final String email, final String password) {
     if (timeWarpUserDetailsManager.userExists(username))
       return 0;
@@ -59,6 +60,13 @@ public class UserService {
   }
 
 
+  /***
+   * @param login
+   * @param password
+   * @return  false if an user is already signin /
+   * true if it's a success
+   * @throws ServletException   if there are bad credentials
+   */
   public boolean signin(final String login, final String password) throws ServletException {
     final HttpSession session = httpServletRequest.getSession(false);
     if (session != null)
@@ -74,20 +82,29 @@ public class UserService {
   }
 
 
-
+  /***
+   * @param username
+   * @return
+   * false if user doesn't exist /
+   * true if it's a success
+   */
   public boolean delete(String username) {
     if (!timeWarpUserDetailsManager.userExists(username))
       return false;
     timeWarpUserDetailsManager.deleteUser(username);
-    listEmails.remove(username);
     return true;
   }
 
+
   /***
-   * 0 if it's OK
-   * 1 User not logged in
+   * @param oldPwd
+   * @param newPwd
+   * @return
+   * 0 if it's OK /
+   * 1 User not logged in /
    * 2 if Incorrect Old Password
-   ***/
+   * @throws ServletException
+   */
   public int changePwd(String oldPwd, String newPwd) throws ServletException {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

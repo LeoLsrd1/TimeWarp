@@ -10,31 +10,73 @@ import org.springframework.util.Assert;
 import java.util.*;
 import java.util.function.Function;
 
+
 public class TimeWarpUser extends User {
   private String email;
+
+  /***
+   * Will create an TimeWarpUser, which is an User but with email more
+   * So we call the User constructor
+   * Simplified builder's version
+   * @param username String
+   * @param email String
+   * @param password String
+   * @param authorities
+   */
   public TimeWarpUser(String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
     super(username, password,  authorities);
     this.email = email;
   }
 
+  /***
+   * Will create an TimeWarpUser, which is an User but with email more
+   * So we call the User constructor
+   * Complete builder's version
+   * @param username
+   * @param email
+   * @param password
+   * @param enabled
+   * @param accountNonExpired
+   * @param credentialsNonExpired
+   * @param accountNonLocked
+   * @param authorities
+   */
   public TimeWarpUser(String username, String email, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
     super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
     this.email = email;
   }
+
+  /***
+   * Starts creating a TimeWarpUserBuilder with username as first characteristic
+   * @param username String
+   * @return a TimeWarpUserBuilder
+   */
   public static TimeWarpUserBuilder withUsernameTW(String username) {
     return builderTW().username(username);
   }
 
+  /***
+   * Starts creating a TimeWarpUserBuilder
+   * @return a TimeWarpUserBuilder
+   */
   public static TimeWarpUserBuilder builderTW() {
     return new TimeWarpUserBuilder();
   }
 
+  /***
+   * Get the email of the user
+   * @return String email
+   */
   public String getEmail() {
     return this.email;
   }
 
 
-  public static final class TimeWarpUserBuilder {     //User.UserBuilder but with email
+  /***
+   *  User.UserBuilder but with email
+   *  Allow to create a user with different characteristics, then use build to call the TimeWarpUser constructor.
+   */
+  public static final class TimeWarpUserBuilder {
     private String username;
     private String password;
     private String email;
