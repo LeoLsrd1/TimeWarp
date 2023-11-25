@@ -69,7 +69,9 @@
         <div class = "home_conversation_tosend_message" >
           <input type="text" id="message" name="Enter a message ..." placeholder="Enter a message ..." (keyup.enter)="postMessage()" [(ngModel)]="newMessageContent">
         </div>
-        <img class="home_conversation_tosend_send" src="/assets/icons/send_icon.png" (click)="postMessage()">
+        <span class="material-symbols-rounded" (click)="postMessage()">
+          send
+        </span>
       </div>
 
     

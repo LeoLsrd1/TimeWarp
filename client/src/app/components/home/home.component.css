@@ -299,19 +299,19 @@
     border-radius: 30px;
 }
 
-.home_conversation_tosend_send {
-    cursor: pointer;
+.home_conversation_tosend .material-symbols-rounded{
     margin-right: 10px;
+    cursor: pointer;
+    font-size: 40px;
 }
 
-
-.home_conversation_tosend_send:hover{
-    content: url(/assets/icons/send_icon_hower.png);
+.home_conversation_tosend .material-symbols-rounded:hover{
+    color: var(--secondary-color);
 }
 
-.home_conversation_tosend_send:active {
-    content: url(/assets/icons/send_icon_active.png);
- }
+.home_conversation_tosend .material-symbols-rounded:active{
+    color: var(--tertiary-color);
+}
 
 #message {
     background-position: left 10px center; 
