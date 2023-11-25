@@ -28,6 +28,16 @@ public class UserController {
 
   private final UserService userService;
 
+
+  /***
+   * Create the user
+   * @param user which is an UserDTO
+   * @return
+   * 200 if SignUp is a success /
+   * 409 with Username Already Exists /
+   * 409 with Email Already Exists /
+   * 500 for others issues
+   */
   @PostMapping(value = "signup", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Object> signup(@RequestBody final UserDTO user) {
     int res = userService.signup(user.username(), user.email(), user.password());
@@ -57,6 +67,15 @@ public class UserController {
     }
   }
 
+  /***
+   * Connect the user
+   * @param user which is an UserDTO
+   * @return
+   * 409 if user already signed in /
+   * 200 if success /
+   * 401 if bad credentials /
+   * 500 for others issues
+   */
   @PostMapping(value = "signin", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Object> signin(@RequestBody final UserDTO user) {
     ErrorDTO retour = new ErrorDTO();
@@ -84,6 +103,10 @@ public class UserController {
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Another error has occurred");
   }
 
+  /***
+   * Disconnect the User
+   * @throws Exception   if there is a problem
+   */
   @PostMapping(value = "signout")
   public void signout() {
     try {
@@ -94,7 +117,13 @@ public class UserController {
     }
   }
 
-/*** Get the current user (Yes it's a Post request we will see that later) ***/
+  /***
+   * Get the current user (Yes it's a Post request we will see that later)
+   * @param user which is the user connect in the cookie
+   * @return
+   * 200 with the current user /
+   * 500 for an error
+   */
   @PostMapping(value= "currentuser")
   public ResponseEntity<UserDTO> currentuser(Principal user) {
     try {
@@ -107,29 +136,22 @@ public class UserController {
   }
 
 
-  /*** Disconnect function, alternative to the signout version. We send a return 200 if it succeeds ***/
-  /*
- @PostMapping(value = "signout2", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ErrorDTO> signout2(@RequestBody final UserDTO user)  {
-    try {
-      userService.signout2(user.username());
-      ErrorDTO success = new ErrorDTO();
-      success.setStatus(HttpStatus.OK.value());
-      success.setError("Success");
-      success.setMessage("Successful Registration");
-      return ResponseEntity.status(HttpStatus.OK).body(success); // Success (200)
-    } catch (final ServletException ex) {
-      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
-    }
-  }
-  */
-
   @DeleteMapping(value = "/{username}")
   public void delete(Principal user, @PathVariable("username") String username) {
     if (!userService.delete(username))
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User does not exist");
   }
 
+  /***
+   * Change the password of the user
+   * @param pwd  which is a ChangePasswordDTO
+   * @param user which is the user connect in the cookie
+   * @return
+   * 200 if the password change is a success /
+   * 401 if user not logged in /
+   * 401 if old password is incorrect /
+   * 500 for others issues
+   */
   @PatchMapping(value = "changepwd", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Object> changepwd(@RequestBody final ChangePasswordDTO pwd, Principal user) {
     try {

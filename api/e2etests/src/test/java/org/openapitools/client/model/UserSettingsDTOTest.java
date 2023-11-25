@@ -1,6 +1,6 @@
 /*
  * CPOO Server API
- * This is a prototype of CPOO Project's front/back API. 
+ * This is a prototype of CPOO Project's front/back API.
  *
  * The version of the OpenAPI document: 0.0.1
  * Contact: contact@mightycode.fr
@@ -23,6 +23,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Model tests for UserSettingsDTO
  */
@@ -34,7 +36,18 @@ public class UserSettingsDTOTest {
      */
     @Test
     public void testUserSettingsDTO() {
-        // TODO: test UserSettingsDTO
+      UserSettingsDTO user = new UserSettingsDTO();
+      user.setLanguage("testL");
+      user.setTheme(1);
+      user.setProfileImage("testPI");
+      user.setNotificationSound(true);
+      user.setUnreadBadges(false);
+
+      assertEquals(false,user.getUnreadBadges());
+      assertEquals(true, user.getNotificationSound());
+      assertEquals("testPI", user.getProfileImage());
+      assertEquals(1, user.getTheme());
+      assertEquals("testL", user.getLanguage());
     }
 
     /**
@@ -42,7 +55,9 @@ public class UserSettingsDTOTest {
      */
     @Test
     public void themeTest() {
-        // TODO: test theme
+      UserSettingsDTO user = new UserSettingsDTO();
+      user.setTheme(2);
+      assertEquals(2, user.getTheme());
     }
 
     /**
@@ -50,7 +65,9 @@ public class UserSettingsDTOTest {
      */
     @Test
     public void languageTest() {
-        // TODO: test language
+      UserSettingsDTO user = new UserSettingsDTO();
+      user.setLanguage("testL");
+      assertEquals("testL", user.getLanguage());
     }
 
     /**
@@ -58,7 +75,9 @@ public class UserSettingsDTOTest {
      */
     @Test
     public void unreadBadgesTest() {
-        // TODO: test unreadBadges
+      UserSettingsDTO user = new UserSettingsDTO();
+      user.setUnreadBadges(true);
+      assertEquals(true,user.getUnreadBadges());
     }
 
     /**
@@ -66,7 +85,9 @@ public class UserSettingsDTOTest {
      */
     @Test
     public void notificationSoundTest() {
-        // TODO: test notificationSound
+      UserSettingsDTO user = new UserSettingsDTO();
+      user.setNotificationSound(false);
+      assertEquals(false, user.getNotificationSound());
     }
 
     /**
@@ -74,7 +95,9 @@ public class UserSettingsDTOTest {
      */
     @Test
     public void profileImageTest() {
-        // TODO: test profileImage
+      UserSettingsDTO user = new UserSettingsDTO();
+      user.setProfileImage("testPI");
+      assertEquals("testPI", user.getProfileImage());
     }
 
 }

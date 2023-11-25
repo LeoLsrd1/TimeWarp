@@ -1,6 +1,6 @@
 /*
  * CPOO Server API
- * This is a prototype of CPOO Project's front/back API. 
+ * This is a prototype of CPOO Project's front/back API.
  *
  * The version of the OpenAPI document: 0.0.1
  * Contact: contact@mightycode.fr
@@ -23,6 +23,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Model tests for ErrorDTO
  */
@@ -34,7 +36,18 @@ public class ErrorDTOTest {
      */
     @Test
     public void testErrorDTO() {
-        // TODO: test ErrorDTO
+      ErrorDTO err = new ErrorDTO();
+      err.setError("test1");
+      err.setMessage("test2");
+      err.setPath("test3");
+      err.setStatus(200);
+      err.setTimestamp("test4");
+
+      assertEquals("test1", err.getError());
+      assertEquals("test2", err.getMessage());
+      assertEquals("test3", err.getPath());
+      assertEquals(200, err.getStatus());
+      assertEquals("test4", err.getTimestamp());
     }
 
     /**
@@ -42,7 +55,10 @@ public class ErrorDTOTest {
      */
     @Test
     public void timestampTest() {
-        // TODO: test timestamp
+      ErrorDTO err = new ErrorDTO();
+      err.setTimestamp("test");
+
+      assertEquals("test", err.getTimestamp());
     }
 
     /**
@@ -50,7 +66,10 @@ public class ErrorDTOTest {
      */
     @Test
     public void statusTest() {
-        // TODO: test status
+      ErrorDTO err = new ErrorDTO();
+      err.setStatus(401);
+
+      assertEquals(401, err.getStatus());
     }
 
     /**
@@ -58,7 +77,10 @@ public class ErrorDTOTest {
      */
     @Test
     public void errorTest() {
-        // TODO: test error
+      ErrorDTO err = new ErrorDTO();
+      err.setError("test");
+
+      assertEquals("test", err.getError());
     }
 
     /**
@@ -66,7 +88,9 @@ public class ErrorDTOTest {
      */
     @Test
     public void messageTest() {
-        // TODO: test message
+      ErrorDTO err = new ErrorDTO();
+      err.setMessage("test");
+      assertEquals("test", err.getMessage());
     }
 
     /**
@@ -74,7 +98,10 @@ public class ErrorDTOTest {
      */
     @Test
     public void pathTest() {
-        // TODO: test path
+      ErrorDTO err = new ErrorDTO();
+      err.setPath("test");
+
+      assertEquals("test", err.getPath());
     }
 
 }

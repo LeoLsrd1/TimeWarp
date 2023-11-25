@@ -30,7 +30,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,45 +43,12 @@ public class MessagingApiTest {
     @BeforeEach
     public void init() {
 
-    // Simulate the behavior of a web browser by remembering cookies set by the server
-    OkHttpClient.Builder builder = new OkHttpClient.Builder();
-    OkHttpClient okHttpClient = builder.cookieJar(new MyCookieJar()).build();
-    ApiClient apiClient = new ApiClient(okHttpClient);
-    messageApi.setApiClient(apiClient);
-    authenticationApi.setApiClient(apiClient);
-    }
-
-    /**
-     * Create a new discussion with a user
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void discussionsCreatePostTest() throws ApiException {
-
-        // Getting messages while not signed in should fail with FORBIDDEN
-        try {
-        messageApi.discussionsCreatePost("bob@acme");
-        Assertions.fail();
-        }
-        catch (ApiException e) {
-        Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
-        }
-
-        // Sign in
-        authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
-
-        // Get all discussions
-        messageApi.discussionsCreatePost("bob@acme");
-        List<DiscussionDTO> discussions = messageApi.discussionsGet();
-
-        //Set foundbob to true if the discussion with bob@acme is found
-        boolean foundBob = false;
-        for (DiscussionDTO discussionDTO : discussions) {
-            if(discussionDTO.getUser1().equals("bob@acme") || discussionDTO.getUser2().equals("bob@acme")) foundBob = true;
-        }
-        
-        Assertions.assertTrue(foundBob);
+        // Simulate the behavior of a web browser by remembering cookies set by the server
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        OkHttpClient okHttpClient = builder.cookieJar(new MyCookieJar()).build();
+        ApiClient apiClient = new ApiClient(okHttpClient);
+        messageApi.setApiClient(apiClient);
+        authenticationApi.setApiClient(apiClient);
     }
 
     /**
@@ -94,24 +60,23 @@ public class MessagingApiTest {
     public void discussionsDiscussionIdMessagesGetTest() throws ApiException {
         // Getting messages while not signed in should fail with FORBIDDEN
         try {
-        messageApi.discussionsDiscussionIdMessagesGet(UUID.randomUUID());
-        Assertions.fail();
-        }
-        catch (ApiException e) {
-        Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
-        }
-
-        // Sign in
-        authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
-
-        // Get all discussions
-        messageApi.discussionsCreatePost("bob@acme");
-        List<DiscussionDTO> discussions = messageApi.discussionsGet();
-        UUID uuid = discussions.get(0).getId();
-
-        // Get all messages
-        List<MessageDTO> messages = messageApi.discussionsDiscussionIdMessagesGet(uuid);
-        Assertions.assertNotNull(messages);
+            messageApi.discussionsDiscussionIdMessagesGet(UUID.randomUUID());
+            Assertions.fail();
+            }
+            catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+            }
+    
+            // Sign in
+            authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
+    
+            // Create discussion
+            DiscussionDTO discussion = messageApi.discussionsPost("bob@acme");
+            UUID uuid = discussion.getId();
+    
+            // Get all messages
+            List<MessageDTO> messages = messageApi.discussionsDiscussionIdMessagesGet(uuid);
+            Assertions.assertNotNull(messages);
     }
 
     /**
@@ -121,25 +86,24 @@ public class MessagingApiTest {
      */
     @Test
     public void discussionsGetTest() throws ApiException {
-
         // Getting messages while not signed in should fail with FORBIDDEN
         try {
-        messageApi.discussionsGet();
-        Assertions.fail();
-        }
-        catch (ApiException e) {
-        Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
-        }
-
-        // Sign in
-        authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
-
-        // Get all discussions
-        messageApi.discussionsCreatePost("bob@acme");
-        List<DiscussionDTO> discussions = messageApi.discussionsGet();
-
-        Assertions.assertTrue(discussions.size() >= 1);
-  }
+            messageApi.discussionsGet();
+            Assertions.fail();
+            }
+            catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+            }
+    
+            // Sign in
+            authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
+    
+            // Get all discussions
+            messageApi.discussionsPost("bob@acme");
+            List<DiscussionDTO> discussions = messageApi.discussionsGet();
+    
+            Assertions.assertTrue(discussions.size() >= 1);
+    }
 
     /**
      * Receive a message
@@ -164,6 +128,14 @@ public class MessagingApiTest {
         String body = UUID.randomUUID().toString();
         PostMessageDTO postMessage = new PostMessageDTO().to("user@timewarp").type("text/plain").body(body);
         messageApi.discussionsMessagePost(postMessage);
+
+        // Wait for the message to be delivered
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            // Handle the exception, e.g. print an error message
+            e.printStackTrace();
+        }
 
         // Get the message
         MessageDTO newMessage = messageApi.discussionsMessageGet();
@@ -190,7 +162,6 @@ public class MessagingApiTest {
      */
     @Test
     public void discussionsMessagePostTest() throws ApiException {
-        
         // Posting messages while not signed in should fail with FORBIDDEN
         try {
             messageApi.discussionsMessagePost(new PostMessageDTO().to("bob@timewarp").type("text/plain").body("This is a test"));
@@ -203,16 +174,12 @@ public class MessagingApiTest {
         // Sign in
         authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
         
-        // Get all discussions
-        List<DiscussionDTO> discussionsBefore = messageApi.discussionsGet();
-        // Get all messages
-        List<MessageDTO> messagesBefore = new ArrayList<>();
-        for (DiscussionDTO discussionDTO : discussionsBefore) {
-            messagesBefore.addAll(messageApi.discussionsDiscussionIdMessagesGet(discussionDTO.getId()));
-        }
-        
         // Create a new discussion
-        messageApi.discussionsCreatePost("bob@timewarp");
+        DiscussionDTO discussion = messageApi.discussionsPost("bob@timewarp");
+
+        // Get all messages of the discussion
+        List<MessageDTO> messagesBefore = messageApi.discussionsDiscussionIdMessagesGet(discussion.getId());
+
         // Post a new message
         PostMessageDTO newMessage = new PostMessageDTO().to("bob@timewarp").type("text/plain").body("This is a test");
         messageApi.discussionsMessagePost(newMessage);
@@ -224,15 +191,10 @@ public class MessagingApiTest {
             // Handle the exception, e.g. print an error message
             e.printStackTrace();
         }
-    
-        //Get all discussions
-        List<DiscussionDTO> discussionsAfter = messageApi.discussionsGet();
-        Assertions.assertTrue(discussionsAfter.size()>=discussionsBefore.size());
-        // Get all messages
-        List<MessageDTO> messagesAfter = new ArrayList<>();
-        for (DiscussionDTO discussionDTO : discussionsAfter) {
-            messagesAfter.addAll(messageApi.discussionsDiscussionIdMessagesGet(discussionDTO.getId()));
-        }
+
+        // Get all messages of the discussion
+        List<MessageDTO> messagesAfter = messageApi.discussionsDiscussionIdMessagesGet(discussion.getId());
+
         // We should have one more message
         Assertions.assertEquals(messagesAfter.size(), messagesBefore.size() + 1);
     
@@ -242,6 +204,68 @@ public class MessagingApiTest {
         Assertions.assertEquals(newMessage.getTo(), firstMessage.getTo());
         Assertions.assertEquals(newMessage.getType(), firstMessage.getType());
         Assertions.assertEquals(newMessage.getBody(), firstMessage.getBody());
-        Assertions.assertNotNull(firstMessage.getId());    
+        Assertions.assertNotNull(firstMessage.getId());  
     }
+
+    /**
+     * Set timestamp to actual time
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void discussionsPatchTest() throws ApiException {
+        // Update timestamp while not signed in should fail with FORBIDDEN
+        try {
+            messageApi.discussionsPatch(UUID.randomUUID().toString());
+            Assertions.fail();
+            }
+            catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+        }
+    
+            // Sign in
+            authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
+
+            // Create a discussion and get timestamp
+            DiscussionDTO discussion = messageApi.discussionsPost("bob@acme");
+            long timestampInit = discussion.getTimestamp();
+
+            //Update timestamp
+            long newTimestamp = messageApi.discussionsPatch(discussion.getId().toString());
+
+            Assertions.assertNotEquals(timestampInit, newTimestamp);
+    }
+
+    /**
+     * Create a new discussion with a user
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void discussionsPostTest() throws ApiException {
+        // Getting messages while not signed in should fail with FORBIDDEN
+        try {
+            messageApi.discussionsPost("test@timewarp");
+            Assertions.fail();
+            }
+            catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+            }
+    
+            // Sign in
+            authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
+    
+            // Get all discussions
+            messageApi.discussionsPost("test@timewarp");
+            List<DiscussionDTO> discussions = messageApi.discussionsGet();
+    
+            //Set foundbob to true if the discussion with bob@acme is found
+            boolean foundBob = false;
+            for (DiscussionDTO discussionDTO : discussions) {
+                if(discussionDTO.getUser1().equals("test@timewarp") || discussionDTO.getUser2().equals("test@timewarp")) foundBob = true;
+            }
+            
+            Assertions.assertTrue(foundBob);
+    }
+
 }

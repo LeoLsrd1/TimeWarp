@@ -16,3 +16,4 @@
 # Log files
 logs/
 **/*.log
+server/cpoo.mv.db
