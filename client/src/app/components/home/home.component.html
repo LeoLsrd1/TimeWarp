@@ -1,9 +1,14 @@
-
-  <header class="home_header">
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+</head>
+ 
+ <header class="home_header">
     <div class ="home_header_title">TimeWarp</div>
 
-    <div class="home_header_div_button">
-      <img (click)="homeToSettings()" class="home_header_button" src="/assets/icons/home_header_button.png">
+    <div class="home_header_button">
+      <span class="material-symbols-rounded" (click)="homeToSettings()">
+        tune
+      </span>
     </div>
   </header>
 
@@ -16,8 +21,10 @@
 
       <div class = "home_list_title">        
         <div class="home_list_title_txt">Discussions</div>
-        <div class="home_list_title_button_div">
-          <img (click)="display_new_conv_popup()" class="home_list_title_button" src="/assets/icons/new_message_button.png">
+        <div class="home_list_title_button">
+          <span class="material-symbols-rounded" (click)="display_new_conv_popup()">
+            add_circle
+          </span>
         </div>
       </div>  
 
@@ -78,7 +85,9 @@
               New Discussion
           </div>
           <div class ="back_button">
-              <img  class ="back_button_img"  (click)="hide_new_conv_popup()" src="/assets/icons/hide_home_popup.png">
+            <span class="material-symbols-rounded" (click)="hide_new_conv_popup()">
+              close
+            </span>
           </div>
       </div>
   

@@ -20,29 +20,35 @@
     height: 100%;
 }
 
-.home_header_div_button{
-    width: 7vh;
+.home_header_button{
+    width: 6vh;
+    height: 6vh;
 	padding: auto 0% auto 0% ;
 	margin: 0% 2% 0% 0%;
     display: flex;
     align-items: center;
-    
-}
+    justify-content: center;
+    align-self: center;
 
-.home_header_button{
-    margin: 0x;
-    padding: 0px;
-    width: 100%;
-    height: auto;
+    background-color: white;
+    border-radius: 50%;
+
+    color: var(--main-color);
     cursor: pointer;
 }
 
+.home_header_button span{
+    font-size: 4.5vh;
+}
+
 .home_header_button:hover{
-    content: url(/assets/icons/home_header_button_hover.png);
+    background-color: var(--secondary-color);
+    color: white;
 }
 
 .home_header_button:active{
-    content: url(/assets/icons/home_header_button_active.png);
+    background-color: var(--tertiary-color);
+    color: white;
 }
 
 /* ************************************************ */
@@ -92,7 +98,7 @@
     
 }
 
-.home_list_title_button_div{
+.home_list_title_button{
     width: 50px;
     height: auto;
 	margin: 0% 8% 0% 0%;
@@ -100,21 +106,17 @@
     align-items: center;
 }
 
-.home_list_title_button{
-    width: 100%;
-    height: auto;
-    margin: 0x;
-    padding: 0px;
+.home_list_title_button span{
     cursor: pointer;
-    z-index: 1;
+    font-size: 50px;
 }
 
 .home_list_title_button:hover{
-    content: url(/assets/icons/new_message_button_hower.png);
+    color: var(--secondary-color);
 }
 
 .home_list_title_button:active{
-    content: url(/assets/icons/new_message_button_active.png);
+    color: var(--tertiary-color);
 }
 
             /* ****************************************************** */    
@@ -323,40 +325,6 @@
 
 /*********************new-conv-popup**********************/
 
-/* Media queries for smaller screens */
-@media screen and (max-width: 1100px) {
-    .home_conversation,
-    .home_list {
-      width: 90vw;
-      margin: 2% 0% 2% 0%;
-    }
-    .home_section{
-        flex-direction: column;
-    }
-    .home_list_title_txt{
-        font-size: 4em;
-    }
-    .home_conversation_tosend{
-        width: 80vw;
-    } 
-    .new_conv_popup{
-        position: fixed;
-        top: 40%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-    .home_msg_content{
-        font-size:1.5em;
-    }
-    .home_conversation_messages{
-        width: 85vw;
-    }
-
-    .home_msg_info{
-        font-size: 0.6em;
-    }
-}
-
 
 /* Base styles for the screen container */
 .screen {
@@ -383,27 +351,24 @@
 
 /* Styles for the back button in the header */
 .back_button {
-    width: 6%;
+    width: 50px;
     margin-right: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Styles for the back button image */
-.back_button_img {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: auto;
+.back_button span{
     cursor: pointer;
+    font-size: 50px;
 }
 
-/* Styles for the back button image on hover */
-.back_button_img:hover {
-    content: url(/assets/icons/hide_home_popup_hower.png);
+.back_button:hover {
+    color: var(--secondary-color);
 }
 
-/* Styles for the back button image when active */
-.back_button_img:active {
-    content: url(/assets/icons/hide_home_popup_active.png);
+.back_button:active {
+    color: var(--tertiary-color);
 }
 
 /* Styles for the username input field */
@@ -451,6 +416,40 @@
 }
 /*************************************************************/
     
+/* Media queries for smaller screens */
+@media screen and (max-width: 1100px) {
+    .home_conversation,
+    .home_list {
+      width: 90vw;
+      margin: 2% 0% 2% 0%;
+    }
+    .home_section{
+        flex-direction: column;
+    }
+    .home_list_title_txt{
+        font-size: 4em;
+    }
+    .home_conversation_tosend{
+        width: 80vw;
+    } 
+    .new_conv_popup{
+        position: fixed;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .home_msg_content{
+        font-size:1.5em;
+    }
+    .home_conversation_messages{
+        width: 85vw;
+    }
+
+    .home_msg_info{
+        font-size: 0.6em;
+    }
+}
+
 @media screen and (min-width: 1101px) and (max-width : 1500px){
     .home_list_conversation,
     .home_list_conversation_active{
