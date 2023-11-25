@@ -40,6 +40,74 @@ export class SettingsAppearanceComponent {
     imageArray.forEach((image, i) => {
       image.isSelected = i === index;
     });
+
+    this.updateMainColor();
+  }
+
+  updateMainColor() {
+    let newMainColor = '#fc9631'; // Default main color
+    let newSecondaryColor = '#f8a95a'; // Default secondary color
+    let newTertiaryColor = '#ffcd9a'; // Default tertiary color
+    let newBackgroundColor = '#f8e4d0'; // Default background color
+
+
+    if (this.selectedIndex60s !== null) {
+      switch(this.selectedIndex60s){
+        case 0:{
+          newMainColor = '#fc9631';
+          newSecondaryColor = '#f8a95a';
+          newTertiaryColor = '#ffcd9a';
+          newBackgroundColor = '#f8e4d0';
+          break;
+        }
+        case 1:{
+          newMainColor = '#3dabab';
+          newSecondaryColor = '#63C3C3';
+          newTertiaryColor = '#94DCDC';
+          newBackgroundColor = '#C5EAEA';
+          break;
+        }
+        case 2:{
+          newMainColor = '#14D899';
+          newSecondaryColor = '#4CE6B4';
+          newTertiaryColor = '#8EEACC';
+          newBackgroundColor = '#D0FBED';
+          break;
+        }
+      }
+
+    } else if (this.selectedIndex70s !== null) {
+      switch(this.selectedIndex70s){
+        case 0:{
+          newMainColor = '#3DBDFF';
+          newSecondaryColor = '#64C6F9';
+          newTertiaryColor = '#A5DFFD';
+          newBackgroundColor = '#D2F0FF';
+          break;
+        }
+        case 1:{
+          newMainColor = '#FF5886';
+          newSecondaryColor = '#FF86A8';
+          newTertiaryColor = '#FBAAC1';
+          newBackgroundColor = '#FBD9E3';
+          break;
+        }
+        case 2:{
+          newMainColor = '#FF5A23';
+          newSecondaryColor = '#FD8259';
+          newTertiaryColor = '#FBAD93';
+          newBackgroundColor = '#F9DBD0';
+          break;
+        }
+      }
+    }
+
+    // Update colors
+    document.documentElement.style.setProperty('--main-color', newMainColor);
+    document.documentElement.style.setProperty('--secondary-color', newSecondaryColor);
+    document.documentElement.style.setProperty('--tertiary-color', newTertiaryColor);
+    document.documentElement.style.setProperty('--background-color', newBackgroundColor);
+
   }
 
 }
