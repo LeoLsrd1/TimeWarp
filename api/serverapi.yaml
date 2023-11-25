@@ -212,19 +212,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/disconnect:
-    post:
-      tags:
-        - user settings
-      responses:
-        '200':
-          description: Success
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
   /user/notifications:
     patch:
       tags:
