@@ -6,6 +6,7 @@ import { Discussion } from 'src/app/models/discussion';
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
 import { Subject, delay } from 'rxjs';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-home',
@@ -34,7 +35,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private router: Router,
     private discussionService: DiscussionService,
     private userService: UserService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    public themeService: ThemeService
   ) {
     // Initialize discussions with data from the service
     this.discussions = this.discussionService.discussions;

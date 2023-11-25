@@ -15,7 +15,7 @@
 
 
 
-<section class="settings_section">
+<section class="settings_section" [ngStyle]="{'background-image': 'url(' + themeService.getSelectedImageSrc() + ')'}">
 
   <div class = "settings_list">
       <div class = "settings_list_title">    

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-settings',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class SettingsComponent {
 
-  constructor(private router:Router){}
+  constructor(private router:Router, public themeService: ThemeService){}
 
   settingsToHome() : void{
     this.router.navigate(['/home']);

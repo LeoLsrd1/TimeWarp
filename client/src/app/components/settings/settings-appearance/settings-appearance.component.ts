@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-settings-appearance',
@@ -24,6 +25,8 @@ export class SettingsAppearanceComponent {
   selectedIndex60s: number | null = 0;
   selectedIndex70s: number | null = null;
 
+  constructor(private themeService: ThemeService){}
+
   // Function to handle image selection
   selectImage(index: number, imageArray: any[], era: string) {
 
@@ -42,6 +45,7 @@ export class SettingsAppearanceComponent {
     });
 
     this.updateMainColor();
+    this.themeService.updateSelectedImageSrc(era, index);
   }
 
   updateMainColor() {
