@@ -13,6 +13,7 @@ export class SettingsComponent implements OnInit{
   constructor(private router:Router, public userSettingsService: UserSettingsService, private userService: UserService){}
 
   ngOnInit(): void {
+    // Fetch user settings from the server
     this.userSettingsService.getUserSettings();
   }
 

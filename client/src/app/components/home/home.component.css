@@ -148,15 +148,20 @@
 }
 
 .contact_picture{
-    margin: auto 0.5em auto 0.5em;
+    margin: auto 0em auto 0.5em;
     width: 2.8em;
-    height: 2.8em;  
-    z-index: 5;    
+    height: 2.8em;   
     border-radius: 50%;
-    background-repeat: no-repeat;
-    background-position : center;
-    background-size: cover;
-    background-color: rgb(255, 255, 255);
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact_picture .material-symbols-rounded{
+    font-size: 2.8em;
+    color: var(--tertiary-color);
 }
 
 .home_list_discussion a{
@@ -250,14 +255,23 @@
 
 .home_msg_info_picture{    
     width: 5em;
-    height: 5em;     
-    z-index: 5;    
+    height: 5em; 
     border-radius: 50%;
     background-repeat: no-repeat;
     background-position : center;
     background-size: cover;
-    background-color: #ffffff;
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.home_msg_info_picture .material-symbols-rounded{
+    font-size: 5em;
+    color: var(--tertiary-color);
+}
+
              /* ***************************************************** */
 
 

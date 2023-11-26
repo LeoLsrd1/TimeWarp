@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // Lifecycle hook - executed after the component is initialized
   ngOnInit() {
+    // Fetch user settings from the server
     this.userSettingsService.getUserSettings();
 
     this.discussionService.discussions.length=0;
@@ -175,5 +176,4 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // Placeholder URLs for profile pictures and contact images
   ownprofilpicture: string = '../../../assets/images/pp_user1.jpg';
-  contact: string = '../../../assets/images/light_contact.svg';
 }
