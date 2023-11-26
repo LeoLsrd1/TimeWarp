@@ -6,7 +6,7 @@ import { Discussion } from 'src/app/models/discussion';
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
 import { Subject, delay } from 'rxjs';
-import { ThemeService } from 'src/app/services/theme.service';
+import { UserSettingsService } from 'src/app/services/user-settings.service';
 
 @Component({
   selector: 'app-home',
@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private discussionService: DiscussionService,
     private userService: UserService,
     private elementRef: ElementRef,
-    public themeService: ThemeService
+    public userSettingsService: UserSettingsService
   ) {
     // Initialize discussions with data from the service
     this.discussions = this.discussionService.discussions;
@@ -44,6 +44,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // Lifecycle hook - executed after the component is initialized
   ngOnInit() {
+    this.userSettingsService.getUserSettings();
+
     this.discussionService.discussions.length=0;
     // Fetch discussions from the service for the logged-in user
     this.discussionService.getDiscussions().subscribe({

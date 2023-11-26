@@ -19,8 +19,12 @@ public class UserSettingsService {
     }
 
     public UserSettingsDTO getUserSettingsByUsername(String username) {
-        UserSettings userSettings = userSettingsRepository.findByUser(username);
-        return (userSettings != null) ? userSettings.toDTO() : null;
+        UserSettings userSettings = userSettingsRepository.findByUsername(username);
+        if(userSettings == null) {
+            userSettingsRepository.save(new UserSettings(username));
+            return null;
+        }
+        return userSettings.toDTO();
     }
 
     @Transactional

@@ -9,15 +9,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
 
 @Repository
-public interface UserSettingsRepository extends JpaRepository<UserSettings, UUID>{
+public interface UserSettingsRepository extends JpaRepository<UserSettings, String>{
 
-    UserSettings findByUser(String username);
+    UserSettings findByUsername(String username);
 
     @Transactional
     @Modifying
-    @Query("UPDATE UserSettings u SET u.theme = :themeId WHERE u.user = :username")
+    @Query("UPDATE UserSettings u SET u.theme = :themeId WHERE u.username = :username")
     void changeTheme(@Param("username") String username, @Param("themeId") int themeId);
 }

@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
-import { ThemeService } from 'src/app/services/theme.service';
+import { Component, OnInit } from '@angular/core';
+import { UserSettingsService } from 'src/app/services/user-settings.service';
 
 @Component({
   selector: 'app-settings-appearance',
   templateUrl: './settings-appearance.component.html',
   styleUrls: ['./settings-appearance.component.css']
 })
-export class SettingsAppearanceComponent {
+export class SettingsAppearanceComponent{
+
+  private themeId: number = 0;
 
   // Arrays to hold image data for the 1960s and 1970s with selection state
   images60s: { src: string; isSelected: boolean }[] = [
@@ -25,93 +27,34 @@ export class SettingsAppearanceComponent {
   selectedIndex60s: number | null = 0;
   selectedIndex70s: number | null = null;
 
-  constructor(private themeService: ThemeService){}
+  constructor(private userSettingsService: UserSettingsService){
+    this.themeId = this.userSettingsService.themeId;
+    if(this.themeId<this.images60s.length) {
+      this.selectedIndex60s = this.themeId;
+      this.selectedIndex70s = null;
+    }
+    else if(this.themeId<this.images60s.length+this.images70s.length) {
+      this.selectedIndex60s = null;
+      this.selectedIndex70s = this.themeId-this.images60s.length;
+    }
+  }
 
   // Function to handle image selection
   selectImage(index: number, imageArray: any[], era: string) {
 
+    let themeId: number = 0;
     // Depending on the era, select or deselect images and update the selected index
     if (era === '60s') {
       this.selectedIndex70s = null; // Deselect the image in the 70s era
       this.selectedIndex60s = index; // Select the image in the 60s era
+      themeId=index;
     } else if (era === '70s') {
       this.selectedIndex60s = null; // Deselect the image in the 60s era
       this.selectedIndex70s = index; // Select the image in the 70s era
+      themeId=index+this.images60s.length
     }
 
-    // Update the isSelected property of each image for styling
-    imageArray.forEach((image, i) => {
-      image.isSelected = i === index;
-    });
-
-    this.updateMainColor();
-    this.themeService.updateSelectedImageSrc(era, index);
-  }
-
-  updateMainColor() {
-    let newMainColor = '#fc9631'; // Default main color
-    let newSecondaryColor = '#f8a95a'; // Default secondary color
-    let newTertiaryColor = '#ffcd9a'; // Default tertiary color
-    let newBackgroundColor = '#f8e4d0'; // Default background color
-
-
-    if (this.selectedIndex60s !== null) {
-      switch(this.selectedIndex60s){
-        case 0:{
-          newMainColor = '#fc9631';
-          newSecondaryColor = '#f8a95a';
-          newTertiaryColor = '#ffcd9a';
-          newBackgroundColor = '#f8e4d0';
-          break;
-        }
-        case 1:{
-          newMainColor = '#3dabab';
-          newSecondaryColor = '#63C3C3';
-          newTertiaryColor = '#94DCDC';
-          newBackgroundColor = '#C5EAEA';
-          break;
-        }
-        case 2:{
-          newMainColor = '#14D899';
-          newSecondaryColor = '#4CE6B4';
-          newTertiaryColor = '#8EEACC';
-          newBackgroundColor = '#D0FBED';
-          break;
-        }
-      }
-
-    } else if (this.selectedIndex70s !== null) {
-      switch(this.selectedIndex70s){
-        case 0:{
-          newMainColor = '#3DBDFF';
-          newSecondaryColor = '#64C6F9';
-          newTertiaryColor = '#A5DFFD';
-          newBackgroundColor = '#D2F0FF';
-          break;
-        }
-        case 1:{
-          newMainColor = '#FF5886';
-          newSecondaryColor = '#FF86A8';
-          newTertiaryColor = '#FBAAC1';
-          newBackgroundColor = '#FBD9E3';
-          break;
-        }
-        case 2:{
-          newMainColor = '#FF5A23';
-          newSecondaryColor = '#FD8259';
-          newTertiaryColor = '#FBAD93';
-          newBackgroundColor = '#F9DBD0';
-          break;
-        }
-      }
-    }
-
-    // Update colors
-    document.documentElement.style.setProperty('--main-color', newMainColor);
-    document.documentElement.style.setProperty('--secondary-color', newSecondaryColor);
-    document.documentElement.style.setProperty('--tertiary-color', newTertiaryColor);
-    document.documentElement.style.setProperty('--background-color', newBackgroundColor);
-
+    this.userSettingsService.updateTheme(themeId);
   }
 
 }

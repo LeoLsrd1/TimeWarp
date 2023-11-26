@@ -28,7 +28,9 @@ public class UserSettingsController {
 
     @GetMapping("/settings")
     public ResponseEntity<UserSettingsDTO> getUserSettings(final Principal user) {
-        return new ResponseEntity<>(userSettingsService.getUserSettingsByUsername(user.getName()), HttpStatus.OK);
+        UserSettingsDTO userSettingsDTO = userSettingsService.getUserSettingsByUsername(user.getName());
+        System.out.println("USERSETTINGS : " +userSettingsDTO);
+        return new ResponseEntity<>(userSettingsDTO, HttpStatus.OK);
     }
 
     @PatchMapping("/account/chgusername")
@@ -52,8 +54,10 @@ public class UserSettingsController {
     }*/
 
     @PatchMapping("/change-theme")
-    public void changeTheme(final Principal user, @RequestBody int themeId) {
+    public ResponseEntity<Object> changeTheme(final Principal user, @RequestBody int themeId) {
         userSettingsService.changeUserTheme(user.getName(), themeId);
+        System.out.println("PATCH");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PatchMapping("/language")
