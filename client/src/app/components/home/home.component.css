@@ -134,7 +134,7 @@
 .home_list_discussion{
     width: 100%;
     min-height: 100px;
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     border-color: transparent;
     border-radius: 30px;
     display: flex;

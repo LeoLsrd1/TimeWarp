@@ -119,8 +119,6 @@
 }
 
 .maincolor-to-white {
-    transition: color 0.5s, background-color 0.5s;
-
     background-color: var(--main-color);
     color: white; /* Color after click */
   }
