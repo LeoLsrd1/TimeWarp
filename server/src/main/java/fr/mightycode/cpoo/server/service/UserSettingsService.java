@@ -21,9 +21,10 @@ public class UserSettingsService {
     public UserSettingsDTO getUserSettingsByUsername(String username) {
         UserSettings userSettings = userSettingsRepository.findByUsername(username);
         if(userSettings == null) {
-            userSettingsRepository.save(new UserSettings(username));
-            return null;
+            userSettings = new UserSettings(username);
+            userSettingsRepository.save(userSettings);
         }
+        System.out.println(userSettings);
         return userSettings.toDTO();
     }
 

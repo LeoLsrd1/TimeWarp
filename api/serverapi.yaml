@@ -243,7 +243,6 @@ paths:
           text/plain:
             schema :
               title : themeId
-              type: integer
       responses:
         '200':
           description: Theme changed successfully
@@ -510,10 +509,10 @@ components:
     ChangePasswordDTO:
       type : object
       properties :
-        old-password:
+        oldpassword:
           type : string
           example: oldpassword
-        new-password : 
+        newpassword : 
           type : string
           example: newpassword
     NotificationsDTO:

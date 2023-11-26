@@ -14,19 +14,19 @@ public class UserSettings {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "theme")
+    @Column(name = "theme", nullable = false)
     private int theme;
     
-    @Column(name = "language")
+    @Column(name = "language", nullable = false)
     private String language;
 
-    @Column(name = "unreadBadges")
+    @Column(name = "unreadBadges", nullable = false)
     private boolean unreadBadges;
 
-    @Column(name = "notificationSound")
+    @Column(name = "notificationSound", nullable = false)
     private boolean notificationSound;
 
-    @Column(name = "profileImage")
+    @Column(name = "profileImage", nullable = false)
     private String profileImage;
     
     public UserSettings(){
@@ -34,6 +34,11 @@ public class UserSettings {
     
     public UserSettings(String username){
         this.username = username;
+        this.theme = 0;
+        this.language = "";
+        this.unreadBadges = true;
+        this.notificationSound = true;
+        profileImage = "";
     }
     public UserSettingsDTO toDTO() {
         return new UserSettingsDTO(theme, language, unreadBadges, notificationSound, profileImage);

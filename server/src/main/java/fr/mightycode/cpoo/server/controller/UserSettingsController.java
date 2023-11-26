@@ -29,7 +29,6 @@ public class UserSettingsController {
     @GetMapping("/settings")
     public ResponseEntity<UserSettingsDTO> getUserSettings(final Principal user) {
         UserSettingsDTO userSettingsDTO = userSettingsService.getUserSettingsByUsername(user.getName());
-        System.out.println("USERSETTINGS : " +userSettingsDTO);
         return new ResponseEntity<>(userSettingsDTO, HttpStatus.OK);
     }
 
@@ -54,9 +53,8 @@ public class UserSettingsController {
     }*/
 
     @PatchMapping("/change-theme")
-    public ResponseEntity<Object> changeTheme(final Principal user, @RequestBody int themeId) {
-        userSettingsService.changeUserTheme(user.getName(), themeId);
-        System.out.println("PATCH");
+    public ResponseEntity<Object> changeTheme(final Principal user, @RequestBody String themeId) {
+        userSettingsService.changeUserTheme(user.getName(), Integer.parseInt(themeId));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
