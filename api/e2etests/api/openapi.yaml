@@ -230,20 +230,6 @@ paths:
       - user settings
       x-content-type: application/json
       x-accepts: application/json
-  /user/disconnect:
-    post:
-      responses:
-        "200":
-          description: Success
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
-          description: Error
-      tags:
-      - user settings
-      x-accepts: application/json
   /user/notifications:
     patch:
       requestBody:
@@ -272,7 +258,6 @@ paths:
           text/plain:
             schema:
               title: themeId
-              type: integer
         required: true
       responses:
         "200":
@@ -575,13 +560,13 @@ components:
       type: object
     ChangePasswordDTO:
       example:
-        old-password: oldpassword
-        new-password: newpassword
+        oldpassword: oldpassword
+        newpassword: newpassword
       properties:
-        old-password:
+        oldpassword:
           example: oldpassword
           type: string
-        new-password:
+        newpassword:
           example: newpassword
           type: string
       type: object

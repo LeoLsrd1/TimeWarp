@@ -227,7 +227,7 @@ public class MessagingApiTest {
             authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
 
             // Create a discussion and get timestamp
-            DiscussionDTO discussion = messageApi.discussionsPost("bob@acme");
+            DiscussionDTO discussion = messageApi.discussionsPost("bob@timewarp");
             long timestampInit = discussion.getTimestamp();
 
             //Update timestamp

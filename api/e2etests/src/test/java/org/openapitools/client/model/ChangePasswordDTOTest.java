@@ -39,12 +39,12 @@ public class ChangePasswordDTOTest {
     @Test
     public void testChangePasswordDTO() {
       ChangePasswordDTO chg = new ChangePasswordDTO();
-      chg.setNewPassword("test");
-      chg.setOldPassword("user");
+      chg.setNewpassword("test");
+      chg.setOldpassword("user");
 
       // Check that properties have been correctly defined
-      assertEquals("test", chg.getNewPassword());
-      assertEquals("user", chg.getOldPassword());
+      assertEquals("test", chg.getNewpassword());
+      assertEquals("user", chg.getOldpassword());
     }
 
     /**
@@ -53,8 +53,8 @@ public class ChangePasswordDTOTest {
     @Test
     public void oldPasswordTest() {
       ChangePasswordDTO chg = new ChangePasswordDTO();
-      chg.setOldPassword("user");
-      assertEquals("user", chg.getOldPassword());
+      chg.setOldpassword("user");
+      assertEquals("user", chg.getOldpassword());
     }
 
     /**
@@ -63,8 +63,8 @@ public class ChangePasswordDTOTest {
     @Test
     public void newPasswordTest() {
       ChangePasswordDTO chg = new ChangePasswordDTO();
-      chg.setNewPassword("test");
-      assertEquals("test", chg.getNewPassword());
+      chg.setNewpassword("test");
+      assertEquals("test", chg.getNewpassword());
     }
 
 }

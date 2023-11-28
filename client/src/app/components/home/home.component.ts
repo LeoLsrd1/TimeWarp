@@ -6,6 +6,7 @@ import { Discussion } from 'src/app/models/discussion';
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
 import { Subject, delay } from 'rxjs';
+import { UserSettingsService } from 'src/app/services/user-settings.service';
 
 @Component({
   selector: 'app-home',
@@ -34,7 +35,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private router: Router,
     private discussionService: DiscussionService,
     private userService: UserService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    public userSettingsService: UserSettingsService
   ) {
     // Initialize discussions with data from the service
     this.discussions = this.discussionService.discussions;
@@ -42,6 +44,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // Lifecycle hook - executed after the component is initialized
   ngOnInit() {
+    // Fetch user settings from the server
+    this.userSettingsService.getUserSettings();
+
     this.discussionService.discussions.length=0;
     // Fetch discussions from the service for the logged-in user
     this.discussionService.getDiscussions().subscribe({
@@ -171,5 +176,4 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // Placeholder URLs for profile pictures and contact images
   ownprofilpicture: string = '../../../assets/images/pp_user1.jpg';
-  contact: string = '../../../assets/images/light_contact.svg';
 }

@@ -156,6 +156,7 @@ public class UserController {
   public ResponseEntity<Object> changepwd(@RequestBody final ChangePasswordDTO pwd, Principal user) {
     try {
       ErrorDTO reponse = new ErrorDTO();
+            System.out.println(pwd);
       int i = userService.changePwd(pwd.oldpassword(),pwd.newpassword());
       if(i==0) {
         reponse.setStatus(HttpStatus.OK.value());

@@ -8,7 +8,6 @@ All URIs are relative to *http://localhost:8080*
 | [**userAccountChgusernamePatch**](UserSettingsApi.md#userAccountChgusernamePatch) | **PATCH** /user/account/chgusername |  |
 | [**userChangeThemePatch**](UserSettingsApi.md#userChangeThemePatch) | **PATCH** /user/change-theme | Change user theme |
 | [**userChangepwdPatch**](UserSettingsApi.md#userChangepwdPatch) | **PATCH** /user/changepwd |  |
-| [**userDisconnectPost**](UserSettingsApi.md#userDisconnectPost) | **POST** /user/disconnect |  |
 | [**userLanguagePatch**](UserSettingsApi.md#userLanguagePatch) | **PATCH** /user/language |  |
 | [**userNotificationsPatch**](UserSettingsApi.md#userNotificationsPatch) | **PATCH** /user/notifications |  |
 | [**userSettingsGet**](UserSettingsApi.md#userSettingsGet) | **GET** /user/settings | Get user settings information |
@@ -176,7 +175,7 @@ public class Example {
     //CookieAuth.setApiKeyPrefix("Token");
 
     UserSettingsApi apiInstance = new UserSettingsApi(defaultClient);
-    Integer body = 56; // Integer | 
+    Object body = null; // Object | 
     try {
       apiInstance.userChangeThemePatch(body);
     } catch (ApiException e) {
@@ -194,7 +193,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **body** | **Integer**|  | |
+| **body** | **Object**|  | |
 
 ### Return type
 
@@ -274,69 +273,6 @@ null (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-| **0** | Error |  -  |
-
-<a id="userDisconnectPost"></a>
-# **userDisconnectPost**
-> userDisconnectPost()
-
-
-
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.UserSettingsApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8080");
-    
-    // Configure API key authorization: CookieAuth
-    ApiKeyAuth CookieAuth = (ApiKeyAuth) defaultClient.getAuthentication("CookieAuth");
-    CookieAuth.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //CookieAuth.setApiKeyPrefix("Token");
-
-    UserSettingsApi apiInstance = new UserSettingsApi(defaultClient);
-    try {
-      apiInstance.userDisconnectPost();
-    } catch (ApiException e) {
-      System.err.println("Exception when calling UserSettingsApi#userDisconnectPost");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[CookieAuth](../README.md#CookieAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details

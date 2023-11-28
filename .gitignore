@@ -17,3 +17,4 @@
 logs/
 **/*.log
 server/cpoo.mv.db
+server/cpoo.trace.db

@@ -137,7 +137,6 @@ Class | Method | HTTP request | Description
 *UserSettingsApi* | [**userAccountChgusernamePatch**](docs/UserSettingsApi.md#userAccountChgusernamePatch) | **PATCH** /user/account/chgusername | 
 *UserSettingsApi* | [**userChangeThemePatch**](docs/UserSettingsApi.md#userChangeThemePatch) | **PATCH** /user/change-theme | Change user theme
 *UserSettingsApi* | [**userChangepwdPatch**](docs/UserSettingsApi.md#userChangepwdPatch) | **PATCH** /user/changepwd | 
-*UserSettingsApi* | [**userDisconnectPost**](docs/UserSettingsApi.md#userDisconnectPost) | **POST** /user/disconnect | 
 *UserSettingsApi* | [**userLanguagePatch**](docs/UserSettingsApi.md#userLanguagePatch) | **PATCH** /user/language | 
 *UserSettingsApi* | [**userNotificationsPatch**](docs/UserSettingsApi.md#userNotificationsPatch) | **PATCH** /user/notifications | 
 *UserSettingsApi* | [**userSettingsGet**](docs/UserSettingsApi.md#userSettingsGet) | **GET** /user/settings | Get user settings information

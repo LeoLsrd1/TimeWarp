@@ -2,7 +2,7 @@
 .screen {
     height: 200px;
     width: 500px;
-    background-color: var(--main-color);
+    background-color: #fc9631;
     z-index: 50;
     border-radius: 30px;
     color: #ffffff;
