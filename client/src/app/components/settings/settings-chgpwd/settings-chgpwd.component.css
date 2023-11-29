@@ -49,16 +49,25 @@ form p {
     box-sizing: border-box;
 }
 
-
-.error_fields{
+.no_error::placeholder {
+    color: var(--secondary-color);
+  }
+  
+  .error_fields::placeholder {
+    color: red; 
+  }
+  
+  .error_fields{
     border: solid;
     border-color: red;
     color: red;
-}
+  }
   
-.no_error{
-    color: var(--main-color);
-}
+  .no_error{
+    color: var(--secondary-color);
+    border: 0;
+  }
+  
   
 /* Button Styles */
 .button {

@@ -118,6 +118,15 @@ input[type="checkbox"]:checked + label::before {
   background-color: #fc9631;
 }
 
+
+.no_error::placeholder {
+  color: #fc9631; 
+}
+
+.error_fields::placeholder {
+  color: red; 
+}
+
 .error_fields{
   border: solid;
   border-color: red;
@@ -128,6 +137,7 @@ input[type="checkbox"]:checked + label::before {
   color: #fc9631;
   border: 0;
 }
+
 
 /* Form Bottom Styles */
 .form-bottom label {

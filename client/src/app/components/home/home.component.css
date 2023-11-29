@@ -1,3 +1,29 @@
+/* Styles généraux pour masquer les barres de défilement */
+body, html {
+    overflow: hidden;
+  }
+  
+  /* Styles spécifiques pour Chrome, Safari et autres navigateurs basés sur WebKit */
+  ::-webkit-scrollbar {
+    width: 0.5em;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Couleur de la poignée de défilement */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent; /* Couleur de la piste de défilement */
+  }
+  
+  /* Pour Firefox */
+  body {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent; /* Couleur de la poignée et de la piste de défilement */
+  }
+  
+
+
 /* ***************** Header *********************** */
 .home_header{
     display: flex;
@@ -85,7 +111,7 @@
     display: flex;
     justify-content: space-between;
 	margin: 6% 0% 0% 6%;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .home_list_title_txt{
@@ -312,6 +338,10 @@
     border-radius: 30px;
 }
 
+.home_conversation_tosend_message input::placeholder {
+    color: #000000;
+}
+
 .home_conversation_tosend .material-symbols-rounded{
     margin-right: 10px;
     cursor: pointer;
@@ -332,6 +362,8 @@
     background-color: transparent;
     border-color: transparent;
   }
+
+
             /* ****************************************************** */ 
     /* ************************************************************** */              
 /* ****************************************************************** */ 
@@ -395,6 +427,12 @@
     border-color: transparent;
     padding: 0.5em 1em; /* Adjust padding for vertical centering */
 }
+
+#username_home_popup::placeholder {
+    color: var(--main-color);
+}
+
+
 
 /* Styles for the contact_who container */
 .contact_who {

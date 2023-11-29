@@ -87,6 +87,14 @@ form div{
  }
 
 
+ .no_error::placeholder {
+  color: #fc9631; 
+}
+
+.error_fields::placeholder {
+  color: red; 
+}
+
 .error_fields{
   border: solid;
   border-color: red;
@@ -95,6 +103,7 @@ form div{
 
 .no_error{
   color: #fc9631;
+  border: 0;
 }
 
  #username,#email,#password,#confirm_password {
