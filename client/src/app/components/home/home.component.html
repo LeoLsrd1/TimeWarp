@@ -1,14 +1,19 @@
-
-  <header class="home_header">
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+</head>
+ 
+ <header class="home_header">
     <div class ="home_header_title">TimeWarp</div>
 
-    <div class="home_header_div_button">
-      <img (click)="homeToSettings()" class="home_header_button" src="/assets/icons/home_header_button.png">
+    <div class="home_header_button">
+      <span class="material-symbols-rounded" (click)="homeToSettings()">
+        tune
+      </span>
     </div>
   </header>
 
 
-  <section class="home_section">
+  <section class="home_section" [ngStyle]="{'background-image': 'url(' + userSettingsService.getSelectedImageSrc() + ')'}">
 
 
 
@@ -16,14 +21,20 @@
 
       <div class = "home_list_title">        
         <div class="home_list_title_txt">Discussions</div>
-        <div class="home_list_title_button_div">
-          <img (click)="display_new_conv_popup()" class="home_list_title_button" src="/assets/icons/new_message_button.png">
+        <div class="home_list_title_button">
+          <span class="material-symbols-rounded" (click)="display_new_conv_popup()">
+            add_circle
+          </span>
         </div>
       </div>  
 
       <div class = "home_list_all_discussion">
         <div class = "home_list_discussion" *ngFor="let discussion of discussions" [ngClass]="{'selected-discussion': selectedDiscussionId === discussion.id}" (click)="selectDiscussion(discussion.id, discussion.user1, discussion.user2)">
-          <div [ngStyle]="{'background-image': 'url(' + contact + ')'}" class="contact_picture"></div>
+          <div class="contact_picture">
+            <span class="material-symbols-rounded">
+                Person
+            </span>
+          </div>
           <a *ngIf="discussion.user1 == loggedUser; else elseBlock"> {{discussion.user2}} </a>
           <ng-template #elseBlock>
             <a>{{discussion.user1}}</a>
@@ -41,7 +52,11 @@
 
         <div class = "home_msg" *ngFor="let message of messages" [ngStyle]="{'justify-content': message.from == loggedUser ? 'flex-end' : 'flex-start'}">
             <div class = "home_msg_info" *ngIf="message.from != loggedUser">
-              <div [ngStyle]="{'background-image': 'url(' + contact + ')'}" class="home_msg_info_picture"></div>
+              <div class="home_msg_info_picture">
+                <span class="material-symbols-rounded">
+                  Person
+                </span>
+              </div>
               <a>{{message.timestamp | date: 'dd/MM/yyyy'}}<br>{{message.timestamp | date: 'HH:mm'}}</a>
             </div>
             <div class = "home_msg_content">
@@ -62,7 +77,9 @@
         <div class = "home_conversation_tosend_message" >
           <input type="text" id="message" name="Enter a message ..." placeholder="Enter a message ..." (keyup.enter)="postMessage()" [(ngModel)]="newMessageContent">
         </div>
-        <img class="home_conversation_tosend_send" src="/assets/icons/send_icon.png" (click)="postMessage()">
+        <span class="material-symbols-rounded" (click)="postMessage()">
+          send
+        </span>
       </div>
 
     
@@ -78,7 +95,9 @@
               New Discussion
           </div>
           <div class ="back_button">
-              <img  class ="back_button_img"  (click)="hide_new_conv_popup()" src="/assets/icons/hide_home_popup.png">
+            <span class="material-symbols-rounded" (click)="hide_new_conv_popup()">
+              close
+            </span>
           </div>
       </div>
   

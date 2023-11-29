@@ -212,19 +212,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /user/disconnect:
-    post:
-      tags:
-        - user settings
-      responses:
-        '200':
-          description: Success
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorDTO'
   /user/notifications:
     patch:
       tags:
@@ -256,7 +243,6 @@ paths:
           text/plain:
             schema :
               title : themeId
-              type: integer
       responses:
         '200':
           description: Theme changed successfully
@@ -523,10 +509,10 @@ components:
     ChangePasswordDTO:
       type : object
       properties :
-        old-password:
+        oldpassword:
           type : string
           example: oldpassword
-        new-password : 
+        newpassword : 
           type : string
           example: newpassword
     NotificationsDTO:

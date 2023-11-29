@@ -3,30 +3,21 @@ package fr.mightycode.cpoo.server.service;
 
 import fr.mightycode.cpoo.server.Manager.TimeWarpUser;
 import fr.mightycode.cpoo.server.Manager.TimeWarpUserDetailsManager;
-import fr.mightycode.cpoo.server.dto.UserDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -38,8 +29,6 @@ public class UserService {
   private TimeWarpUserDetailsManager timeWarpUserDetailsManager;
 
   private final HttpServletRequest httpServletRequest;
-
-
 
   /***
    * @param username
@@ -56,6 +45,7 @@ public class UserService {
       return 1;
     final TimeWarpUser user = new TimeWarpUser(username,email, passwordEncoder.encode(password), List.of(new SimpleGrantedAuthority("ROLE_USER")));
     timeWarpUserDetailsManager.createUser(user);
+    
     return 2;
   }
 

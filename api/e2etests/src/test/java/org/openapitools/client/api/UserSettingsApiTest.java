@@ -23,18 +23,12 @@ import org.openapitools.client.model.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * API tests for UserSettingsApi
  */
-@Disabled
 public class UserSettingsApiTest {
 
-    private final UserSettingsApi UserSettingsapi = new UserSettingsApi();
+    private final UserSettingsApi userSettingsapi = new UserSettingsApi();
 
     private final AuthenticationApi authenticationApi = new AuthenticationApi();
 
@@ -50,7 +44,7 @@ public class UserSettingsApiTest {
         ApiClient apiClient = new ApiClient(okHttpClient);
         authenticationApi.setApiClient(apiClient);
         administrationApi.setApiClient(apiClient);
-        UserSettingsapi.setApiClient(apiClient);
+        userSettingsapi.setApiClient(apiClient);
     }
 
 
@@ -58,9 +52,10 @@ public class UserSettingsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Disabled
     public void userAccountChangeppPatchTest() throws ApiException {
         String body = null;
-        UserSettingsapi.userAccountChangeppPatch(body);
+        userSettingsapi.userAccountChangeppPatch(body);
         // TODO: test validations
     }
 
@@ -68,9 +63,10 @@ public class UserSettingsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Disabled
     public void userAccountChgusernamePatchTest() throws ApiException {
         String body = null;
-        UserSettingsapi.userAccountChgusernamePatch(body);
+        userSettingsapi.userAccountChgusernamePatch(body);
         // TODO: test validations
     }
 
@@ -81,9 +77,28 @@ public class UserSettingsApiTest {
      */
     @Test
     public void userChangeThemePatchTest() throws ApiException {
-        int userChangeThemePatchRequest = 0;
-        UserSettingsapi.userChangeThemePatch(userChangeThemePatchRequest);
-        // TODO: test validations
+        String themeId = "0";
+        // Update theme while not signed in should fail with FORBIDDEN
+        try {
+            userSettingsapi.userChangeThemePatch(themeId);
+            Assertions.fail();
+            }
+            catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+        }
+    
+        // Sign in
+        authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
+
+        userSettingsapi.userSettingsGet(); // To create the user settings save
+ 
+        // Change theme and verify it has change
+        themeId = "3";
+        userSettingsapi.userChangeThemePatch(themeId);
+        Assertions.assertEquals(3, userSettingsapi.userSettingsGet().getTheme());
+        themeId = "0";
+        userSettingsapi.userChangeThemePatch(themeId);
+        Assertions.assertEquals(0, userSettingsapi.userSettingsGet().getTheme());
     }
 
     /**
@@ -117,8 +132,8 @@ public class UserSettingsApiTest {
         authenticationApi.userSigninPost(user);
 
         //Change Password
-        ChangePasswordDTO cpDto = new ChangePasswordDTO().oldPassword(user.getPassword()).newPassword("Pwd2");
-        UserSettingsapi.userChangepwdPatch(cpDto);
+        ChangePasswordDTO cpDto = new ChangePasswordDTO().oldpassword(user.getPassword()).newpassword("Pwd2");
+        userSettingsapi.userChangepwdPatch(cpDto);
         authenticationApi.userSignoutPost();
 
         //SignIn with ancient password should fail
@@ -134,8 +149,8 @@ public class UserSettingsApiTest {
 
         //ChangePassword with incorrect old password should fail
         try {
-            ChangePasswordDTO cpDto2 = new ChangePasswordDTO().oldPassword("Hello").newPassword("Pwd3");
-            UserSettingsapi.userChangepwdPatch(cpDto2);
+            ChangePasswordDTO cpDto2 = new ChangePasswordDTO().oldpassword("Hello").newpassword("Pwd3");
+            userSettingsapi.userChangepwdPatch(cpDto2);
         }
         catch (ApiException e) {
             Assertions.assertEquals(HttpStatus.SC_UNAUTHORIZED, e.getCode());
@@ -147,18 +162,10 @@ public class UserSettingsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void userDisconnectPostTest() throws ApiException {
-        UserSettingsapi.userDisconnectPost();
-        // TODO: test validations
-    }
-
-    /**
-     * @throws ApiException if the Api call fails
-     */
-    @Test
+    @Disabled
     public void userLanguagePatchTest() throws ApiException {
         String body = null;
-        UserSettingsapi.userLanguagePatch(body);
+        userSettingsapi.userLanguagePatch(body);
         // TODO: test validations
     }
 
@@ -166,9 +173,10 @@ public class UserSettingsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
+    @Disabled
     public void userNotificationsPatchTest() throws ApiException {
         NotificationsDTO notificationsDTO = null;
-        UserSettingsapi.userNotificationsPatch(notificationsDTO);
+        userSettingsapi.userNotificationsPatch(notificationsDTO);
         // TODO: test validations
     }
 
@@ -179,8 +187,38 @@ public class UserSettingsApiTest {
      */
     @Test
     public void userSettingsGetTest() throws ApiException {
-        UserSettingsDTO response = UserSettingsapi.userSettingsGet();
-        // TODO: test validations
+        UserSettingsDTO response;
+        
+        // Update theme while not signed in should fail with FORBIDDEN
+        try {
+            userSettingsapi.userSettingsGet();
+            Assertions.fail();
+            }
+            catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+        }
+    
+        // Sign in
+        authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
+
+        UserSettingsDTO userSettingsDTO = new UserSettingsDTO();
+        userSettingsDTO.setTheme(0);
+        userSettingsDTO.setLanguage("");
+        userSettingsDTO.setUnreadBadges(true);
+        userSettingsDTO.setNotificationSound(true);
+        userSettingsDTO.setProfileImage("");
+
+        userSettingsapi.userChangeThemePatch(new String("0")); 
+        // TODO: A décommenter quand ça sera implémenté
+        /*userSettingsapi.userLanguagePatch("");
+        NotificationsDTO notificationsDTO = new NotificationsDTO();
+        notificationsDTO.setBadges(true);
+        notificationsDTO.setSounds(true);
+        userSettingsapi.userNotificationsPatch(notificationsDTO);
+        userSettingsapi.userAccountChangeppPatch("");*/
+
+        response = userSettingsapi.userSettingsGet(); // Create the user settings save
+        Assertions.assertEquals(response, userSettingsDTO);
     }
 
 }
