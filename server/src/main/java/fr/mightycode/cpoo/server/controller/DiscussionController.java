@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import fr.mightycode.cpoo.server.dto.UnreadMessageDTO;
 import fr.mightycode.cpoo.server.model.Discussion;
 import fr.mightycode.cpoo.server.service.DiscussionService;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +49,12 @@ public class DiscussionController {
         UUID uuid = UUID.fromString(discussion_id);
         long newTimestamp = discussionService.changeTimestampDiscussion(uuid);
         return new ResponseEntity<>(newTimestamp, HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "unreadmessage", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> changeUnreadMessage(@RequestBody final UnreadMessageDTO unreadMessageDTO) {
+        discussionService.updateUnreadMessage(unreadMessageDTO.discussionId(), unreadMessageDTO.unreadMessage());
+        return ResponseEntity.ok().build();
     }
 }
 

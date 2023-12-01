@@ -69,4 +69,15 @@ public class DiscussionService {
     public Discussion getDiscussionById(UUID id) {
         return discussionRepository.findById(id).orElse(null);
     }
+
+    /**
+     * Updates the unread message status for a specified discussion.
+     *
+     * @param id              The unique identifier of the discussion.
+     * @param unreadMessage   The new unread message status (true for unread, false for read).
+     */
+    @Transactional
+    public void updateUnreadMessage(UUID id, boolean unreadMessage) {
+        discussionRepository.updateUnreadMessageById(id, unreadMessage);
+    }
 }
