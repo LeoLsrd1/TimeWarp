@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.userSettingsService.getUserSettings();
 
     this.discussionService.discussions.length=0;
+    this.discussionService.selectedDiscussionId='';
     // Fetch discussions from the service for the logged-in user
     this.discussionService.getDiscussions().subscribe({
       next: (discussions) => {
@@ -130,6 +131,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.selectedDiscussionId = this.discussionService.selectedDiscussionId = discussionId;
     if (user1 == this.loggedUser) this.recipient = user2;
     else this.recipient = user1;
+    this.discussionService.updateUnreadMessage(discussionId, false);
 
     // Clear and load messages for the selected discussion
     this.messages = this.discussionService.messages = [];

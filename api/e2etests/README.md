@@ -133,6 +133,7 @@ Class | Method | HTTP request | Description
 *MessagingApi* | [**discussionsMessagePost**](docs/MessagingApi.md#discussionsMessagePost) | **POST** /discussions/message | Send a message in a disccusion
 *MessagingApi* | [**discussionsPatch**](docs/MessagingApi.md#discussionsPatch) | **PATCH** /discussions | Set timestamp to actual time
 *MessagingApi* | [**discussionsPost**](docs/MessagingApi.md#discussionsPost) | **POST** /discussions | Create a new discussion with a user
+*MessagingApi* | [**discussionsUnreadmessagePatch**](docs/MessagingApi.md#discussionsUnreadmessagePatch) | **PATCH** /discussions/unreadmessage | Change unread message parameter
 *UserSettingsApi* | [**userAccountChangeppPatch**](docs/UserSettingsApi.md#userAccountChangeppPatch) | **PATCH** /user/account/changepp | 
 *UserSettingsApi* | [**userAccountChgusernamePatch**](docs/UserSettingsApi.md#userAccountChgusernamePatch) | **PATCH** /user/account/chgusername | 
 *UserSettingsApi* | [**userChangeThemePatch**](docs/UserSettingsApi.md#userChangeThemePatch) | **PATCH** /user/change-theme | Change user theme
@@ -151,6 +152,7 @@ Class | Method | HTTP request | Description
  - [NewPasswordDTO](docs/NewPasswordDTO.md)
  - [NotificationsDTO](docs/NotificationsDTO.md)
  - [PostMessageDTO](docs/PostMessageDTO.md)
+ - [UnreadMessageDTO](docs/UnreadMessageDTO.md)
  - [UserDTO](docs/UserDTO.md)
  - [UserSettingsDTO](docs/UserSettingsDTO.md)
 

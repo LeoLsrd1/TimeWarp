@@ -11,6 +11,7 @@ docs/MessagingApi.md
 docs/NewPasswordDTO.md
 docs/NotificationsDTO.md
 docs/PostMessageDTO.md
+docs/UnreadMessageDTO.md
 docs/UserDTO.md
 docs/UserSettingsApi.md
 docs/UserSettingsDTO.md
@@ -45,5 +46,7 @@ src/main/java/org/openapitools/client/model/MessageDTO.java
 src/main/java/org/openapitools/client/model/NewPasswordDTO.java
 src/main/java/org/openapitools/client/model/NotificationsDTO.java
 src/main/java/org/openapitools/client/model/PostMessageDTO.java
+src/main/java/org/openapitools/client/model/UnreadMessageDTO.java
 src/main/java/org/openapitools/client/model/UserDTO.java
 src/main/java/org/openapitools/client/model/UserSettingsDTO.java
+src/test/java/org/openapitools/client/api/MessagingApiTest.java

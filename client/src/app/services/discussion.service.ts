@@ -4,7 +4,7 @@ import { Discussion } from '../models/discussion';
 import { Message } from '../models/message';
 
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable, map, repeat, retry, share, takeUntil, tap } from 'rxjs';
+import { Observable, distinctUntilChanged, map, repeat, retry, share, takeUntil, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,9 @@ export class DiscussionService {
 
   selectedDiscussionId: string = '';
 
+  private messageNotification = new Audio('../../assets/sounds/message-sound.mp3');
+  private messageSent = new Audio('../../assets/sounds/send-message.mp3');
+
   constructor(private http: HttpClient) { }
 
   /**
@@ -30,7 +33,7 @@ export class DiscussionService {
       tap((response: HttpResponse<any>) => {
         if (response.status === 201) {
           // Create a new Discussion object and add it to the discussions list
-          const discussion = new Discussion(response.body.id, response.body.timestamp, loggedUser, recipient);
+          const discussion = new Discussion(response.body.id, response.body.timestamp, loggedUser, recipient, false);
           this.discussions.unshift(discussion);
         }
       })
@@ -66,6 +69,27 @@ export class DiscussionService {
   }
 
   /**
+   * Updates the unread message status for a specified discussion.
+   *
+   * @param {string} discussionId - The unique identifier of the discussion.
+   * @param {boolean} unreadMessage - The new unread message status (true for unread, false for read).
+   */
+  updateUnreadMessage(discussionId: string, unreadMessage: boolean){
+    const requestBody = {
+      "discussionId": discussionId,
+      "unreadMessage": unreadMessage
+    }
+    this.http.patch(`${this.baseUrl}/unreadmessage`, requestBody).subscribe({
+      error: (e) => console.error('An error has occurred for updateUnreadMessage: ', e),
+      complete: () => {
+        let discussion = this.discussions.find(discussion => discussion.id == discussionId);
+        if(discussion) discussion.unreadMessage = unreadMessage;
+        console.info('Update unreadMessage complete')
+      }
+    });
+  }
+
+  /**
    * Post a new message to a discussion.
    * @param to The username of the recipient.
    * @param body The content of the message.
@@ -82,6 +106,7 @@ export class DiscussionService {
           // Create a new Message object and add it to the messages list
           const message = new Message(response.body.id, response.body.timestamp, response.body.from, response.body.to, response.body.type, response.body.body);
           this.messages.push(message);
+          this.messageSent.play();
           // Update the timestamp of the current discussion
           this.updateTimestampDiscussion(this.selectedDiscussionId);
         }
@@ -118,18 +143,24 @@ export class DiscussionService {
         if (!discussion) {
           this.createDiscussion(message.to, message.from).subscribe(
             {
+              next: (response) => this.updateUnreadMessage(response.body.id, true),
               error: (e) => console.error('Error createDiscussion: ', e),
               complete: () => console.info('Create discussion complete')
             }
           );
         } else {
-          // Update the timestamp of the existing discussion
-          this.updateTimestampDiscussion(discussion.id);
+            // Update the timestamp of the existing discussion
+            this.updateTimestampDiscussion(discussion.id);
+            // Add the message to the discussion
+            if (discussion.id == this.selectedDiscussionId){
+              this.messages.push(message);
+              this.updateUnreadMessage(discussion.id, false);
+            }else{
+              // Update the unreadMessage of the existing discussion
+              this.updateUnreadMessage(discussion.id, true);
+            }
         }
-
-        // Add the message to the discussion
-        if (discussion?.id == this.selectedDiscussionId)
-          this.messages.push(message);
+        this.messageNotification.play();
       }),
       repeat(), // on success, repeat immediately
       retry({ delay: 1000 }), // on error, retry after 1s

@@ -363,6 +363,28 @@ paths:
       - messaging
       x-content-type: text/plain
       x-accepts: application/json
+  /discussions/unreadmessage:
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnreadMessageDTO'
+        required: true
+      responses:
+        "200":
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+          description: Error
+      summary: Change unread message parameter
+      tags:
+      - messaging
+      x-content-type: application/json
+      x-accepts: application/json
   /discussions/{discussion_id}/messages:
     get:
       parameters:
@@ -524,6 +546,7 @@ components:
       example:
         user1: alice@acme
         user2: bob@acme
+        unreadMessage: true
         id: 667bdc23-3de4-482f-a0f4-3391452a7742
         timestamp: 1720294759999
       properties:
@@ -541,6 +564,8 @@ components:
         user2:
           example: bob@acme
           type: string
+        unreadMessage:
+          type: boolean
       type: object
     NewPasswordDTO:
       example:
@@ -579,6 +604,22 @@ components:
           type: boolean
         badges:
           type: boolean
+      type: object
+    UnreadMessageDTO:
+      example:
+        discussionId: 667bdc23-3de4-482f-a0f4-3391452a7742
+        unreadMessage: false
+      properties:
+        discussionId:
+          example: 667bdc23-3de4-482f-a0f4-3391452a7742
+          format: uuid
+          type: string
+        unreadMessage:
+          example: false
+          type: boolean
+      required:
+      - discussionId
+      - unread_message
       type: object
     ErrorDTO:
       description: Error information
