@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { UserSettings } from '../models/user-settings';
 import { Observable } from 'rxjs';
+import { DiscussionService } from './discussion.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,10 @@ export class UserSettingsService {
   // Default theme ID
   themeId: number = 0;
 
-  constructor(private http: HttpClient) { }
+  //Default sound parameter
+  soundParameter: boolean = true;
+
+  constructor(private http: HttpClient, private discussionService: DiscussionService) { }
 
   /**
    * Fetches user settings from the server.
@@ -28,6 +32,7 @@ export class UserSettingsService {
           this.themeId = settings.theme;
           this.updateColorsAndImage(settings.theme);
         }
+        this.discussionService.soundParameter = this.soundParameter = settings.notificationSound;
       }
     });
   }
@@ -131,4 +136,20 @@ export class UserSettingsService {
     document.documentElement.style.setProperty('--tertiary-color', newTertiaryColor);
     document.documentElement.style.setProperty('--background-color', newBackgroundColor);
   }
+
+    /*----------------------------------------------Notifications----------------------------------------------*/
+
+    updateNotificationsSettings(soundParameter: boolean){
+      const notificationsDTO: any = {
+        "sounds": soundParameter,
+        "badges": true
+      };
+      this.http.patch(`${this.baseUrl}/notifications`, notificationsDTO).subscribe({
+        error: (e) => console.error('An error has occurred for updateNotificationsSettings: ', e),
+        complete: () => {
+          this.soundParameter = soundParameter;
+          console.info('Update notifications settings complete')
+        }
+      });
+    }
 }

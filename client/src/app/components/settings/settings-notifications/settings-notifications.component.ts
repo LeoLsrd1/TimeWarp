@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserSettingsService } from 'src/app/services/user-settings.service';
 
 @Component({
   selector: 'app-settings-notifications',
@@ -7,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class SettingsNotificationsComponent {
 
+  soundIsChecked: boolean;
+
+  constructor(private userSettingsService: UserSettingsService){
+    this.soundIsChecked = userSettingsService.soundParameter;
+  }
+
+  onCheckboxChange(){
+    this.userSettingsService.updateNotificationsSettings(!this.soundIsChecked);
+  }
 }

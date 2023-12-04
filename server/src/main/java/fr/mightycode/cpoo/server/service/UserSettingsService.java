@@ -32,4 +32,9 @@ public class UserSettingsService {
     public void changeUserTheme(String username, int themeId) {
         userSettingsRepository.changeTheme(username, themeId);
     }
+
+    @Transactional
+    public void changeNotificationsSettings(String username, boolean notificationSounds, boolean unreadBadges){
+        userSettingsRepository.updateUserNotificationsSettings(username, notificationSounds, unreadBadges);
+    }
 }
