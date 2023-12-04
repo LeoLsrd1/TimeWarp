@@ -14,11 +14,13 @@
 package org.openapitools.client.api;
 
 import okhttp3.OkHttpClient;
+
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
+import org.openapitools.client.ApiResponse;
 import org.openapitools.client.model.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -170,14 +172,28 @@ public class UserSettingsApiTest {
     }
 
     /**
+     * Update notifications settings (notification sounds and Icon badges)
+     * 
      * @throws ApiException if the Api call fails
      */
     @Test
-    @Disabled
     public void userNotificationsPatchTest() throws ApiException {
-        NotificationsDTO notificationsDTO = null;
-        userSettingsapi.userNotificationsPatch(notificationsDTO);
-        // TODO: test validations
+        NotificationsDTO notificationsDTO = new NotificationsDTO().sounds(true).badges(true);;
+        // Update notifications settings while not signed in should fail with FORBIDDEN
+        try {
+            userSettingsapi.userNotificationsPatch(notificationsDTO);
+            Assertions.fail();
+            }
+            catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+        }
+    
+        // Sign in
+        authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
+
+        ApiResponse<Void> response = userSettingsapi.userNotificationsPatchWithHttpInfo(notificationsDTO);
+
+        Assertions.assertEquals(HttpStatus.SC_OK, response.getStatusCode());
     }
 
     /**
@@ -202,6 +218,26 @@ public class UserSettingsApiTest {
         authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
 
         UserSettingsDTO userSettingsDTO = new UserSettingsDTO();
+        userSettingsDTO.setTheme(4);
+        userSettingsDTO.setLanguage("");
+        userSettingsDTO.setUnreadBadges(false);
+        userSettingsDTO.setNotificationSound(true);
+        userSettingsDTO.setProfileImage("");
+
+        userSettingsapi.userChangeThemePatch(new String("4")); 
+        // TODO: A décommenter quand ça sera implémenté
+        //userSettingsapi.userLanguagePatch("");
+        NotificationsDTO notificationsDTO = new NotificationsDTO();
+        notificationsDTO.setBadges(false);
+        notificationsDTO.setSounds(true);
+        userSettingsapi.userNotificationsPatch(notificationsDTO);
+        //userSettingsapi.userAccountChangeppPatch("");*/
+
+        response = userSettingsapi.userSettingsGet(); // Create the user settings save
+        Assertions.assertEquals(response, userSettingsDTO);
+
+
+        
         userSettingsDTO.setTheme(0);
         userSettingsDTO.setLanguage("");
         userSettingsDTO.setUnreadBadges(true);
@@ -210,12 +246,11 @@ public class UserSettingsApiTest {
 
         userSettingsapi.userChangeThemePatch(new String("0")); 
         // TODO: A décommenter quand ça sera implémenté
-        /*userSettingsapi.userLanguagePatch("");
-        NotificationsDTO notificationsDTO = new NotificationsDTO();
+        //userSettingsapi.userLanguagePatch("");
         notificationsDTO.setBadges(true);
         notificationsDTO.setSounds(true);
         userSettingsapi.userNotificationsPatch(notificationsDTO);
-        userSettingsapi.userAccountChangeppPatch("");*/
+        //userSettingsapi.userAccountChangeppPatch("");*/
 
         response = userSettingsapi.userSettingsGet(); // Create the user settings save
         Assertions.assertEquals(response, userSettingsDTO);

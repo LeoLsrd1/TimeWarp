@@ -21,6 +21,7 @@ export class DiscussionService {
   private messageNotification = new Audio('../../assets/sounds/message-sound.mp3');
   private messageSent = new Audio('../../assets/sounds/send-message.mp3');
 
+  //default notifications settings
   soundParameter: boolean = true;
   badgeParameter: boolean = true;
 

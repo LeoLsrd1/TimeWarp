@@ -141,11 +141,17 @@ export class UserSettingsService {
 
     /*----------------------------------------------Notifications----------------------------------------------*/
 
+    /**
+     * Update the notifications settings
+     * @param soundParameter 
+     * @param badgesParameter 
+     */
     updateNotificationsSettings(soundParameter: boolean, badgesParameter: boolean){
       const notificationsDTO: any = {
         "sounds": soundParameter,
         "badges": badgesParameter
       };
+      
       this.http.patch(`${this.baseUrl}/notifications`, notificationsDTO).subscribe({
         error: (e) => console.error('An error has occurred for updateNotificationsSettings: ', e),
         complete: () => {
