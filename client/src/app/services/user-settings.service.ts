@@ -17,8 +17,9 @@ export class UserSettingsService {
   // Default theme ID
   themeId: number = 0;
 
-  //Default sound parameter
+  //Default Notifications settings
   soundParameter: boolean = true;
+  badgesParameter: boolean = true;
 
   constructor(private http: HttpClient, private discussionService: DiscussionService) { }
 
@@ -33,6 +34,7 @@ export class UserSettingsService {
           this.updateColorsAndImage(settings.theme);
         }
         this.discussionService.soundParameter = this.soundParameter = settings.notificationSound;
+        this.discussionService.badgeParameter = this.badgesParameter = settings.unreadBadges;
       }
     });
   }
@@ -139,15 +141,16 @@ export class UserSettingsService {
 
     /*----------------------------------------------Notifications----------------------------------------------*/
 
-    updateNotificationsSettings(soundParameter: boolean){
+    updateNotificationsSettings(soundParameter: boolean, badgesParameter: boolean){
       const notificationsDTO: any = {
         "sounds": soundParameter,
-        "badges": true
+        "badges": badgesParameter
       };
       this.http.patch(`${this.baseUrl}/notifications`, notificationsDTO).subscribe({
         error: (e) => console.error('An error has occurred for updateNotificationsSettings: ', e),
         complete: () => {
-          this.soundParameter = soundParameter;
+          this.soundParameter = this.discussionService.soundParameter = soundParameter;
+          this.badgesParameter = this.discussionService.badgeParameter = badgesParameter;
           console.info('Update notifications settings complete')
         }
       });

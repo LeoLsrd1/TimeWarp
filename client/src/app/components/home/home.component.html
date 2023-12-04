@@ -39,7 +39,7 @@
           <ng-template #elseBlock>
             <a>{{discussion.user1}}</a>
           </ng-template>
-          <span class="unread-indicator" *ngIf="discussion.unreadMessage"></span>
+          <span class="unread-indicator" *ngIf="discussion.unreadMessage && userSettingsService.badgesParameter"></span>
         </div>
       </div>
 

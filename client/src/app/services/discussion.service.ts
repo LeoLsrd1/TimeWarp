@@ -22,6 +22,7 @@ export class DiscussionService {
   private messageSent = new Audio('../../assets/sounds/send-message.mp3');
 
   soundParameter: boolean = true;
+  badgeParameter: boolean = true;
 
   constructor(private http: HttpClient) { }
 
