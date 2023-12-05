@@ -16,15 +16,29 @@ interface UserNameDTO {
 export class SettingsAccountComponent {
   account_picture : string = "/assets/icons/pp_contact1.jpg";
 
-  textContent = "Pierre";
+
+  actual_user : UserNameDTO={ // Object which contains the current user 
+    user_name: ''
+  };
+
+  actual_username = "Pierre";
   isEditing = false;
 
 
-  none_actual_user : UserNameDTO = {  //Object to put to default the current user
-    user_name:''
-  };
-
   constructor(private router:Router, private signinService: SigninServiceService, private signoutService : SignOutService){
+    this.signinService.getActualUser().subscribe(actual_user => {
+      if (actual_user.user_name !== '') {
+        const username = actual_user.user_name;
+        const regex = /^([^@]+)/;
+        const match = username.match(regex);    
+        if (match && match[1]) {
+          this.actual_username = match[1];
+        } else {
+          // Gérer le cas où la correspondance n'est pas trouvée
+          console.error("Aucune correspondance trouvée pour le nom d'utilisateur.");
+        }
+      }
+    });
   }
   
   @Output() go_chg_pwd = new EventEmitter<void>();
@@ -45,5 +59,5 @@ export class SettingsAccountComponent {
     this.navigateToLogin(); 
   }
 
-
+  
 }

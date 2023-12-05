@@ -125,11 +125,9 @@ export class CreateAccountComponent {
 
 
 
-
-
-
   /* Main Fonction */
   createAccountFonction() : void{
+    this.username = this.username.toLowerCase();
     if (this.username_empty()) this.userError = true; else this.userError = false;
     if (this.email_empty()) this.emailError = true; else this.emailError = false;
     if (this.pwd_empty()) this.pwdError = true; else this.pwdError = false;
