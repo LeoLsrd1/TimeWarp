@@ -164,11 +164,24 @@ public class UserSettingsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    @Disabled
     public void userLanguagePatchTest() throws ApiException {
-        String body = null;
-        userSettingsapi.userLanguagePatch(body);
-        // TODO: test validations
+        String language = "";
+        // Update language setting while not signed in should fail with FORBIDDEN
+        try {
+            userSettingsapi.userLanguagePatch(language);
+            Assertions.fail();
+            }
+            catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+        }
+
+        // Sign in
+        authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
+
+        language="browser"; //Default language
+        ApiResponse<Void> response = userSettingsapi.userLanguagePatchWithHttpInfo(language);
+        Assertions.assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+
     }
 
     /**
