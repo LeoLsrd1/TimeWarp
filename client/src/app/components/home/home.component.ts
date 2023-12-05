@@ -71,10 +71,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     // Start polling new messages and updating discussions
     this.discussionService.startPollingNewMessages(this.stopPolling).subscribe({
-      next: () => {
-        setTimeout(() => {
-          this.scrollToBottom();
-        });
+      next: (response) => {
+        if(response){
+          setTimeout(() => {
+            this.scrollToBottom();
+          });
+        }
       },
       error: (e) => console.error('Error getMessage: ', e)
     });

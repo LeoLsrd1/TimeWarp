@@ -130,7 +130,7 @@ export class DiscussionService {
    * Start polling new messages and updating discussions.
    * @param stopPolling Control observable: any event sent on this observable stops the polling.
    */
-  startPollingNewMessages(stopPolling: Observable<void>) {
+  startPollingNewMessages(stopPolling: Observable<void>): Observable<any> {
 
     // Poll the next new message
     return this.http.get<Message>(`${this.baseUrl}/message`).pipe(
@@ -165,6 +165,7 @@ export class DiscussionService {
             }
         }
         if(this.soundParameter) this.messageNotification.play();
+        return message;
       }),
       repeat(), // on success, repeat immediately
       retry({ delay: 1000 }), // on error, retry after 1s
