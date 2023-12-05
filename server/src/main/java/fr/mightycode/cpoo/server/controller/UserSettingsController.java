@@ -63,7 +63,8 @@ public class UserSettingsController {
     }
 
     @PatchMapping("/language")
-    public void changeLanguage(@RequestBody String language) {
-        // Implement change language logic
+    public ResponseEntity<Object> changeLanguage(final Principal user, @RequestBody String language) {
+        userSettingsService.changeUserLanguage(user.getName(), language);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
