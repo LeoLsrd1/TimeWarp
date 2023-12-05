@@ -276,7 +276,7 @@ import okhttp3.OkHttpClient;
      */
     @Test
     public void discussionsUnreadmessagePatchTest() throws ApiException {
-        UnreadMessageDTO unreadMessageDTO = null;
+        UnreadMessageDTO unreadMessageDTO = new UnreadMessageDTO();
 
         // Update unread message while not signed in should fail with FORBIDDEN
         try {
@@ -284,7 +284,7 @@ import okhttp3.OkHttpClient;
             Assertions.fail();
             }
             catch (ApiException e) {
-            //Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
         }
     
         // Sign in
@@ -294,10 +294,10 @@ import okhttp3.OkHttpClient;
         DiscussionDTO discussion = messageApi.discussionsPost("bob@timewarp");
         UUID id = discussion.getId();
 
-        unreadMessageDTO = new UnreadMessageDTO();
         unreadMessageDTO.discussionId(id).unreadMessage(false);
         //Update unread message
-        messageApi.discussionsUnreadmessagePatch(unreadMessageDTO);
+        ApiResponse<Void> response = messageApi.discussionsUnreadmessagePatchWithHttpInfo(unreadMessageDTO);
+        Assertions.assertEquals(HttpStatus.SC_OK, response.getStatusCode());
     }
 
 }

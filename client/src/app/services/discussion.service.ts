@@ -21,6 +21,10 @@ export class DiscussionService {
   private messageNotification = new Audio('../../assets/sounds/message-sound.mp3');
   private messageSent = new Audio('../../assets/sounds/send-message.mp3');
 
+  //default notifications settings
+  soundParameter: boolean = true;
+  badgeParameter: boolean = true;
+
   constructor(private http: HttpClient) { }
 
   /**
@@ -106,7 +110,7 @@ export class DiscussionService {
           // Create a new Message object and add it to the messages list
           const message = new Message(response.body.id, response.body.timestamp, response.body.from, response.body.to, response.body.type, response.body.body);
           this.messages.push(message);
-          this.messageSent.play();
+          if(this.soundParameter) this.messageSent.play();
           // Update the timestamp of the current discussion
           this.updateTimestampDiscussion(this.selectedDiscussionId);
         }
@@ -126,7 +130,7 @@ export class DiscussionService {
    * Start polling new messages and updating discussions.
    * @param stopPolling Control observable: any event sent on this observable stops the polling.
    */
-  startPollingNewMessages(stopPolling: Observable<void>) {
+  startPollingNewMessages(stopPolling: Observable<void>): Observable<any> {
 
     // Poll the next new message
     return this.http.get<Message>(`${this.baseUrl}/message`).pipe(
@@ -160,7 +164,8 @@ export class DiscussionService {
               this.updateUnreadMessage(discussion.id, true);
             }
         }
-        this.messageNotification.play();
+        if(this.soundParameter) this.messageNotification.play();
+        return message;
       }),
       repeat(), // on success, repeat immediately
       retry({ delay: 1000 }), // on error, retry after 1s

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { UserSettings } from '../models/user-settings';
 import { Observable } from 'rxjs';
+import { DiscussionService } from './discussion.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,11 @@ export class UserSettingsService {
   // Default theme ID
   themeId: number = 0;
 
-  constructor(private http: HttpClient) { }
+  //Default Notifications settings
+  soundParameter: boolean = true;
+  badgesParameter: boolean = true;
+
+  constructor(private http: HttpClient, private discussionService: DiscussionService) { }
 
   /**
    * Fetches user settings from the server.
@@ -28,6 +33,8 @@ export class UserSettingsService {
           this.themeId = settings.theme;
           this.updateColorsAndImage(settings.theme);
         }
+        this.discussionService.soundParameter = this.soundParameter = settings.notificationSound;
+        this.discussionService.badgeParameter = this.badgesParameter = settings.unreadBadges;
       }
     });
   }
@@ -131,4 +138,27 @@ export class UserSettingsService {
     document.documentElement.style.setProperty('--tertiary-color', newTertiaryColor);
     document.documentElement.style.setProperty('--background-color', newBackgroundColor);
   }
+
+    /*----------------------------------------------Notifications----------------------------------------------*/
+
+    /**
+     * Update the notifications settings
+     * @param soundParameter 
+     * @param badgesParameter 
+     */
+    updateNotificationsSettings(soundParameter: boolean, badgesParameter: boolean){
+      const notificationsDTO: any = {
+        "sounds": soundParameter,
+        "badges": badgesParameter
+      };
+      
+      this.http.patch(`${this.baseUrl}/notifications`, notificationsDTO).subscribe({
+        error: (e) => console.error('An error has occurred for updateNotificationsSettings: ', e),
+        complete: () => {
+          this.soundParameter = this.discussionService.soundParameter = soundParameter;
+          this.badgesParameter = this.discussionService.badgeParameter = badgesParameter;
+          console.info('Update notifications settings complete')
+        }
+      });
+    }
 }
