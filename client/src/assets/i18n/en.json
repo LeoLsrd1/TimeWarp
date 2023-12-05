@@ -25,7 +25,7 @@
     "EmailAlreadyExists": "Email already exists",
     "NotACorrectEmail": "Not a correct email",
     "NotTheSamePassword": "Not the same password",
-    "Discussion": "Discussion",
+    "Discussions": "Discussions",
     "NewDiscussion": "New Discussion",
     "Valid": "Valid",
     "EnterAMessage": "Enter a message",
@@ -44,7 +44,7 @@
     "The1970S": "The 1970s",
     "Language": "Language",
     "SelectALanguage": "Select a language",
-    "Acknoledgements": "Acknoledgements",
+    "Acknowledgements": "Acknoledgements",
     "ImageBy": "Image by",
     "By": "By"
 }
