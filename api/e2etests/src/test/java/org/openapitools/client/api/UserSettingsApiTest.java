@@ -232,18 +232,18 @@ public class UserSettingsApiTest {
 
         UserSettingsDTO userSettingsDTO = new UserSettingsDTO();
         userSettingsDTO.setTheme(4);
-        userSettingsDTO.setLanguage("");
+        userSettingsDTO.setLanguage("es");
         userSettingsDTO.setUnreadBadges(false);
         userSettingsDTO.setNotificationSound(true);
         userSettingsDTO.setProfileImage("");
 
         userSettingsapi.userChangeThemePatch(new String("4")); 
-        // TODO: A décommenter quand ça sera implémenté
-        //userSettingsapi.userLanguagePatch("");
+        userSettingsapi.userLanguagePatch("es");
         NotificationsDTO notificationsDTO = new NotificationsDTO();
         notificationsDTO.setBadges(false);
         notificationsDTO.setSounds(true);
         userSettingsapi.userNotificationsPatch(notificationsDTO);
+        // TODO: A décommenter quand ça sera implémenté
         //userSettingsapi.userAccountChangeppPatch("");*/
 
         response = userSettingsapi.userSettingsGet(); // Create the user settings save
@@ -252,17 +252,17 @@ public class UserSettingsApiTest {
 
         
         userSettingsDTO.setTheme(0);
-        userSettingsDTO.setLanguage("");
+        userSettingsDTO.setLanguage("browser");
         userSettingsDTO.setUnreadBadges(true);
         userSettingsDTO.setNotificationSound(true);
         userSettingsDTO.setProfileImage("");
 
         userSettingsapi.userChangeThemePatch(new String("0")); 
-        // TODO: A décommenter quand ça sera implémenté
-        //userSettingsapi.userLanguagePatch("");
+        userSettingsapi.userLanguagePatch("browser");
         notificationsDTO.setBadges(true);
         notificationsDTO.setSounds(true);
         userSettingsapi.userNotificationsPatch(notificationsDTO);
+        // TODO: A décommenter quand ça sera implémenté
         //userSettingsapi.userAccountChangeppPatch("");*/
 
         response = userSettingsapi.userSettingsGet(); // Create the user settings save
