@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SigninServiceService } from 'src/app/services/signin-service.service';
 import{SignOutService} from 'src/app/services/signout.service';
+import { UserService } from 'src/app/services/user.service';
 
 interface UserNameDTO {
   user_name: string;
@@ -16,7 +17,7 @@ interface UserNameDTO {
 export class SettingsAccountComponent {
   account_picture : string = "/assets/icons/pp_contact1.jpg";
 
-  textContent = "Pierre";
+  textContent = "TempUser";
   isEditing = false;
 
 
@@ -24,8 +25,7 @@ export class SettingsAccountComponent {
     user_name:''
   };
 
-  constructor(private router:Router, private signinService: SigninServiceService, private signoutService : SignOutService){
-  }
+  constructor(private router:Router, private signinService: SigninServiceService, private signoutService : SignOutService, private userService: UserService){ }
   
   @Output() go_chg_pwd = new EventEmitter<void>();
 

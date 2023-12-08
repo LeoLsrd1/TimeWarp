@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class UserSettingsService {
 
-  private baseUrl = 'http://localhost:4200/serverapi/user';
+  private baseUrl = '/serverapi/user';
 
   // Default image source
   private selectedImageSrc: string = '/assets/images/blur-background-60s-0.jpg';
