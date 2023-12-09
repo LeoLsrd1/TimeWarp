@@ -30,11 +30,16 @@ public class UserSettingsService {
 
     @Transactional
     public void changeUserTheme(String username, int themeId) {
-        userSettingsRepository.changeTheme(username, themeId);
+        userSettingsRepository.updateUserTheme(username, themeId);
     }
 
     @Transactional
     public void changeNotificationsSettings(String username, boolean notificationSounds, boolean unreadBadges){
         userSettingsRepository.updateUserNotificationsSettings(username, notificationSounds, unreadBadges);
+    }
+
+    @Transactional
+    public void changeUserLanguage(String username, String language) {
+        userSettingsRepository.updateUserLanguage(username, language);
     }
 }

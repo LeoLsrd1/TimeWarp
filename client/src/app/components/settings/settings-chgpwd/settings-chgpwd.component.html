@@ -1,8 +1,8 @@
-<h1>CREATE NEW PASSWORD</h1>
+<h1>{{'CreateNewPassword' | translate | uppercase}}</h1>
 <form>
     <div *ngIf="oldPwdError==false; else elseOldPwd">
       <div class="input-container">
-        <input class="no_error" [(ngModel)]="oldPwd" type="password" id="old-password" name="old-password" placeholder="Old Password">
+        <input class="no_error" [(ngModel)]="oldPwd" type="password" id="old-password" name="old-password" placeholder="{{'OldPassword' | translate}}">
         <span class="material-symbols-rounded">lock</span>
       </div>
       </div>
@@ -15,7 +15,7 @@
 
       <div *ngIf="newPwdError==false; else elseNewPwd">
         <div class="input-container">
-          <input class="no_error" [(ngModel)]="newPwd" type="password" id="password" name="password" placeholder="Password">
+          <input class="no_error" [(ngModel)]="newPwd" type="password" id="password" name="password" placeholder="{{'Password' | translate}}">
           <span class="material-symbols-rounded">lock</span>
         </div>
       </div>
@@ -28,7 +28,7 @@
 
       <div *ngIf="confirmNewPwdError==false; else elseconfirmNewPwd">
         <div class="input-container">
-          <input class="no_error" [(ngModel)]="confirmNewPwd" type="password" id="confirm-password" name="confirm-password" placeholder="Confirm password">
+          <input class="no_error" [(ngModel)]="confirmNewPwd" type="password" id="confirm-password" name="confirm-password" placeholder="{{'ConfirmPassword' | translate}}">
           <span class="material-symbols-rounded">lock</span>
         </div>
       </div>
@@ -42,6 +42,6 @@
         
     <!-- Confirm button -->
     <div>
-        <input type="submit" value="CONFIRM" class="button" (click)="changePwd()">
+        <input type="submit" value="{{'Confirm' | translate | uppercase}}" class="button" (click)="changePwd()">
     </div>
 </form>

@@ -11,7 +11,7 @@ import { Observable, distinctUntilChanged, map, repeat, retry, share, takeUntil,
 })
 export class DiscussionService {
 
-  private baseUrl = 'http://localhost:4200/serverapi/discussions';
+  private baseUrl = '/serverapi/discussions';
 
   discussions: Discussion[] = [];
   messages: Message[] = [];
