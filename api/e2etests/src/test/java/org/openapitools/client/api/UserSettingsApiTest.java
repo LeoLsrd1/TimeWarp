@@ -14,11 +14,13 @@
 package org.openapitools.client.api;
 
 import okhttp3.OkHttpClient;
+
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
+import org.openapitools.client.ApiResponse;
 import org.openapitools.client.model.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -162,22 +164,49 @@ public class UserSettingsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    @Disabled
     public void userLanguagePatchTest() throws ApiException {
-        String body = null;
-        userSettingsapi.userLanguagePatch(body);
-        // TODO: test validations
+        String language = "";
+        // Update language setting while not signed in should fail with FORBIDDEN
+        try {
+            userSettingsapi.userLanguagePatch(language);
+            Assertions.fail();
+            }
+            catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+        }
+
+        // Sign in
+        authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
+
+        language="browser"; //Default language
+        ApiResponse<Void> response = userSettingsapi.userLanguagePatchWithHttpInfo(language);
+        Assertions.assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+
     }
 
     /**
+     * Update notifications settings (notification sounds and Icon badges)
+     * 
      * @throws ApiException if the Api call fails
      */
     @Test
-    @Disabled
     public void userNotificationsPatchTest() throws ApiException {
-        NotificationsDTO notificationsDTO = null;
-        userSettingsapi.userNotificationsPatch(notificationsDTO);
-        // TODO: test validations
+        NotificationsDTO notificationsDTO = new NotificationsDTO().sounds(true).badges(true);;
+        // Update notifications settings while not signed in should fail with FORBIDDEN
+        try {
+            userSettingsapi.userNotificationsPatch(notificationsDTO);
+            Assertions.fail();
+            }
+            catch (ApiException e) {
+            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+        }
+    
+        // Sign in
+        authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
+
+        ApiResponse<Void> response = userSettingsapi.userNotificationsPatchWithHttpInfo(notificationsDTO);
+
+        Assertions.assertEquals(HttpStatus.SC_OK, response.getStatusCode());
     }
 
     /**
@@ -202,20 +231,39 @@ public class UserSettingsApiTest {
         authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
 
         UserSettingsDTO userSettingsDTO = new UserSettingsDTO();
+        userSettingsDTO.setTheme(4);
+        userSettingsDTO.setLanguage("es");
+        userSettingsDTO.setUnreadBadges(false);
+        userSettingsDTO.setNotificationSound(true);
+        userSettingsDTO.setProfileImage("");
+
+        userSettingsapi.userChangeThemePatch(new String("4")); 
+        userSettingsapi.userLanguagePatch("es");
+        NotificationsDTO notificationsDTO = new NotificationsDTO();
+        notificationsDTO.setBadges(false);
+        notificationsDTO.setSounds(true);
+        userSettingsapi.userNotificationsPatch(notificationsDTO);
+        // TODO: A décommenter quand ça sera implémenté
+        //userSettingsapi.userAccountChangeppPatch("");*/
+
+        response = userSettingsapi.userSettingsGet(); // Create the user settings save
+        Assertions.assertEquals(response, userSettingsDTO);
+
+
+        
         userSettingsDTO.setTheme(0);
-        userSettingsDTO.setLanguage("");
+        userSettingsDTO.setLanguage("browser");
         userSettingsDTO.setUnreadBadges(true);
         userSettingsDTO.setNotificationSound(true);
         userSettingsDTO.setProfileImage("");
 
         userSettingsapi.userChangeThemePatch(new String("0")); 
-        // TODO: A décommenter quand ça sera implémenté
-        /*userSettingsapi.userLanguagePatch("");
-        NotificationsDTO notificationsDTO = new NotificationsDTO();
+        userSettingsapi.userLanguagePatch("browser");
         notificationsDTO.setBadges(true);
         notificationsDTO.setSounds(true);
         userSettingsapi.userNotificationsPatch(notificationsDTO);
-        userSettingsapi.userAccountChangeppPatch("");*/
+        // TODO: A décommenter quand ça sera implémenté
+        //userSettingsapi.userAccountChangeppPatch("");*/
 
         response = userSettingsapi.userSettingsGet(); // Create the user settings save
         Assertions.assertEquals(response, userSettingsDTO);

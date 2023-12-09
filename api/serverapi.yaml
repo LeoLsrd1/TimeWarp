@@ -336,6 +336,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
+  
+  /discussions/unreadmessage:
+    patch:
+      tags:
+        - messaging
+      summary: Change unread message parameter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnreadMessageDTO'
+      responses:
+        '200':
+          description: Success
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
                   
   /discussions/{discussion_id}/messages:
     get:
@@ -494,6 +515,8 @@ components:
         user2:
           type: string
           example: bob@acme
+        unreadMessage:
+          type: boolean
     NewPasswordDTO:
       type : object
       properties :
@@ -522,6 +545,19 @@ components:
           type: boolean
         badges:
           type: boolean
+    UnreadMessageDTO:
+      type: object
+      required:
+        - discussionId
+        - unread_message
+      properties:
+        discussionId:
+          type: string
+          format: uuid
+          example: 667bdc23-3de4-482f-a0f4-3391452a7742
+        unreadMessage:
+          type: boolean
+          example: false
     ErrorDTO:
       description: Error information
       type: object

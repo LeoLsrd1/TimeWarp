@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 export class ChangePwdService {
   /*** Service that sends a post request to the server for the ChangePwd function ***/
 
-  private baseUrl = 'http://localhost:4200/serverapi/'; 
+  private baseUrl = '/serverapi/'; 
 
   constructor(private http: HttpClient) { }
 

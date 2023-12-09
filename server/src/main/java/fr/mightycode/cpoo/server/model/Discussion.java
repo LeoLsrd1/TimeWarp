@@ -23,5 +23,8 @@ public class Discussion {
 
     @Column(name = "user2", nullable = false)
     private String user2;
+
+    @Column(name = "unreadMessage", nullable = false)
+    private boolean unreadMessage = false;
     
 }

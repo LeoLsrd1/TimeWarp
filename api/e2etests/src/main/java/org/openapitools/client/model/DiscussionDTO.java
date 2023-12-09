@@ -68,6 +68,10 @@ public class DiscussionDTO {
   @SerializedName(SERIALIZED_NAME_USER2)
   private String user2;
 
+  public static final String SERIALIZED_NAME_UNREAD_MESSAGE = "unreadMessage";
+  @SerializedName(SERIALIZED_NAME_UNREAD_MESSAGE)
+  private Boolean unreadMessage;
+
   public DiscussionDTO() {
   }
 
@@ -155,6 +159,27 @@ public class DiscussionDTO {
   }
 
 
+  public DiscussionDTO unreadMessage(Boolean unreadMessage) {
+    
+    this.unreadMessage = unreadMessage;
+    return this;
+  }
+
+   /**
+   * Get unreadMessage
+   * @return unreadMessage
+  **/
+  @javax.annotation.Nullable
+  public Boolean getUnreadMessage() {
+    return unreadMessage;
+  }
+
+
+  public void setUnreadMessage(Boolean unreadMessage) {
+    this.unreadMessage = unreadMessage;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -168,12 +193,13 @@ public class DiscussionDTO {
     return Objects.equals(this.id, discussionDTO.id) &&
         Objects.equals(this.timestamp, discussionDTO.timestamp) &&
         Objects.equals(this.user1, discussionDTO.user1) &&
-        Objects.equals(this.user2, discussionDTO.user2);
+        Objects.equals(this.user2, discussionDTO.user2) &&
+        Objects.equals(this.unreadMessage, discussionDTO.unreadMessage);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, timestamp, user1, user2);
+    return Objects.hash(id, timestamp, user1, user2, unreadMessage);
   }
 
   @Override
@@ -184,6 +210,7 @@ public class DiscussionDTO {
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    user1: ").append(toIndentedString(user1)).append("\n");
     sb.append("    user2: ").append(toIndentedString(user2)).append("\n");
+    sb.append("    unreadMessage: ").append(toIndentedString(unreadMessage)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -210,6 +237,7 @@ public class DiscussionDTO {
     openapiFields.add("timestamp");
     openapiFields.add("user1");
     openapiFields.add("user2");
+    openapiFields.add("unreadMessage");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();

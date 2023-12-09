@@ -19,4 +19,8 @@ public interface DiscussionRepository extends JpaRepository<Discussion, UUID>{
     @Query("UPDATE Discussion d SET d.timestamp = :timestamp WHERE d.id = :id")
     void updateTimestampById(@Param("id") UUID id, @Param("timestamp") long timestamp);
 
+    @Modifying
+    @Query("UPDATE Discussion d SET d.unreadMessage = :unreadMessage WHERE d.id = :id")
+    void updateUnreadMessageById(@Param("id") UUID id, @Param("unreadMessage") boolean unreadMessage);
+    
 }
