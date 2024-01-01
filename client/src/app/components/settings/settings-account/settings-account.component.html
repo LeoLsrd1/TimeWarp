@@ -1,17 +1,17 @@
 <div [ngStyle]="{'background-image': 'url(' + account_picture + ')'}" class="account_picture"></div>
 
 <div class = "account_username">
-    <div class ="account_username_title"> Username : </div>
+    <div class ="account_username_title"> {{'Username' | translate}} : </div>
     <div class ="account_username_input">
         <input [(ngModel)]="actual_username"/>
     </div>
 </div>
 
 <div (click)="navigateToChgPwd()" class = "account_pwd">
-    <div class ="account_pwd_title"> Password </div>
+    <div class ="account_pwd_title"> {{'Password' | translate}} </div>
     <img src="/assets/icons/go_chg_pwd.png">
 </div>
 
 <div class = "account_disconnect" (click)="disconnect()">
-    <a>DISCONNECT</a>
+    <a>{{'Disconnect' | translate | uppercase}}</a>
 </div>

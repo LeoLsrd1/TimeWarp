@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SigninServiceService } from 'src/app/services/signin-service.service';
 import{SignOutService} from 'src/app/services/signout.service';
+import { UserService } from 'src/app/services/user.service';
 
 interface UserNameDTO {
   user_name: string;
@@ -21,7 +22,7 @@ export class SettingsAccountComponent {
     user_name: ''
   };
 
-  actual_username = "Pierre";
+  actual_username = "TempUser";
   isEditing = false;
 
 

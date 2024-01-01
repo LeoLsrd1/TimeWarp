@@ -20,7 +20,7 @@
     <div class = "home_list">
 
       <div class = "home_list_title">        
-        <div class="home_list_title_txt">Discussions</div>
+        <div class="home_list_title_txt">{{'Discussions' | translate}}</div>
         <div class="home_list_title_button">
           <span class="material-symbols-rounded" (click)="display_new_conv_popup()">
             add_circle
@@ -39,7 +39,7 @@
           <ng-template #elseBlock>
             <a>{{discussion.user1}}</a>
           </ng-template>
-          <span class="unread-indicator" *ngIf="discussion.unreadMessage"></span>
+          <span class="unread-indicator" *ngIf="discussion.unreadMessage && userSettingsService.badgesParameter"></span>
         </div>
       </div>
 
@@ -76,7 +76,7 @@
           <img src="/assets/icons/other_files_button.png">
         </div>
         <div class = "home_conversation_tosend_message" >
-          <input type="text" id="message" name="Enter a message ..." placeholder="Enter a message ..." (keyup.enter)="postMessage()" [(ngModel)]="newMessageContent">
+          <input type="text" id="message" name="Enter a message ..." placeholder="{{'EnterAMessage' | translate}}" (keyup.enter)="postMessage()" [(ngModel)]="newMessageContent">
         </div>
         <span class="material-symbols-rounded" (click)="postMessage()">
           send
@@ -93,7 +93,7 @@
     <div class = "screen">
       <div class="screen_head">
           <div class = "title">
-              New Discussion
+              {{'NewDiscussion' | translate}}
           </div>
           <div class ="back_button">
             <span class="material-symbols-rounded" (click)="hide_new_conv_popup()">
@@ -103,9 +103,9 @@
       </div>
   
       <div class="contact_who">        
-          <input type="text" id="username_home_popup" name="username_home_popup" placeholder="Username" (keyup.enter)="hide_new_conv_popup(); createDiscussion()" [(ngModel)]="newDiscussionUsername">
+          <input type="text" id="username_home_popup" name="username_home_popup" placeholder="{{'Username' | translate}}" (keyup.enter)="hide_new_conv_popup(); createDiscussion()" [(ngModel)]="newDiscussionUsername">
           
-          <input type="submit" value="VALID" class="contact_who_button" (click)="hide_new_conv_popup(); createDiscussion()">
+          <input type="submit" value="{{'Valid' | translate |uppercase}}" class="contact_who_button" (click)="hide_new_conv_popup(); createDiscussion()">
   
       </div>
   </div>

@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { UserSettings } from '../models/user-settings';
 import { Observable } from 'rxjs';
+import { DiscussionService } from './discussion.service';
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserSettingsService {
 
-  private baseUrl = 'http://localhost:4200/serverapi/user';
+  private baseUrl = '/serverapi/user';
 
   // Default image source
   private selectedImageSrc: string = '/assets/images/blur-background-60s-0.jpg';
@@ -16,7 +19,14 @@ export class UserSettingsService {
   // Default theme ID
   themeId: number = 0;
 
-  constructor(private http: HttpClient) { }
+  //Default Notifications settings
+  soundParameter: boolean = true;
+  badgesParameter: boolean = true;
+
+  //Default language
+  language: string = 'browser';
+
+  constructor(private http: HttpClient, private discussionService: DiscussionService, private translate: TranslateService) { }
 
   /**
    * Fetches user settings from the server.
@@ -28,6 +38,12 @@ export class UserSettingsService {
           this.themeId = settings.theme;
           this.updateColorsAndImage(settings.theme);
         }
+        this.discussionService.soundParameter = this.soundParameter = settings.notificationSound;
+        this.discussionService.badgeParameter = this.badgesParameter = settings.unreadBadges;
+
+        if(settings.language=='') this.updateLanguage('browser');
+        else if(settings.language!='browser') this.translate.use(settings.language);
+        this.language = settings.language;
       }
     });
   }
@@ -131,4 +147,45 @@ export class UserSettingsService {
     document.documentElement.style.setProperty('--tertiary-color', newTertiaryColor);
     document.documentElement.style.setProperty('--background-color', newBackgroundColor);
   }
+
+  /*----------------------------------------------Notifications----------------------------------------------*/
+
+  /**
+   * Update the notifications settings
+   * @param soundParameter 
+   * @param badgesParameter 
+   */
+  updateNotificationsSettings(soundParameter: boolean, badgesParameter: boolean){
+    const notificationsDTO: any = {
+      "sounds": soundParameter,
+      "badges": badgesParameter
+    };
+    
+    this.http.patch(`${this.baseUrl}/notifications`, notificationsDTO).subscribe({
+      error: (e) => console.error('An error has occurred for updateNotificationsSettings: ', e),
+      complete: () => {
+        this.soundParameter = this.discussionService.soundParameter = soundParameter;
+        this.badgesParameter = this.discussionService.badgeParameter = badgesParameter;
+        console.info('Update notifications settings complete')
+      }
+    });
+  }
+
+  /*----------------------------------------------Language----------------------------------------------*/
+    /**
+   * Updates the user's selected language.
+   * @param language - The selected language.
+   */
+    updateLanguage(language: string): void{
+      // Update language on the server
+      this.http.patch(`${this.baseUrl}/language`, language).subscribe();
+      // Update language locally
+      if(language!='browser') this.translate.use(language);
+      else {
+        const browserLang = this.translate.getBrowserLang();
+        this.translate.use(browserLang?.match(/en|fr|es/) ? browserLang : 'en');
+      }
+      this.language = language;
+    }
+
 }
