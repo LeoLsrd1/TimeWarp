@@ -1,3 +1,7 @@
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+</head>
+  
 <div [ngStyle]="{'background-image': 'url(' + account_picture + ')'}" class="account_picture"></div>
 
 <div class = "account_username">
@@ -5,6 +9,9 @@
     <div class ="account_username_input">
         <input [(ngModel)]="actual_username"/>
     </div>
+    <span class="material-symbols-rounded" (click)="chg_username()">
+      done
+    </span>
 </div>
 
 <div (click)="navigateToChgPwd()" class = "account_pwd">

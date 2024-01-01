@@ -45,7 +45,7 @@ public class UserService {
       return 1;
     final TimeWarpUser user = new TimeWarpUser(username,email, passwordEncoder.encode(password), List.of(new SimpleGrantedAuthority("ROLE_USER")));
     timeWarpUserDetailsManager.createUser(user);
-    
+
     return 2;
   }
 
@@ -118,6 +118,13 @@ public class UserService {
     SecurityContextHolder.getContext().setAuthentication(updatedToken);
 
     return 0; // Password change is a success
+  }
+
+  public int changeUsername(String username){
+    if (timeWarpUserDetailsManager.userExists(username)){
+      return 1;
+    }
+    return 0; //Success
   }
 
 

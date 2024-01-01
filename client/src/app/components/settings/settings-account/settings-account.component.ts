@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SigninServiceService } from 'src/app/services/signin-service.service';
 import{SignOutService} from 'src/app/services/signout.service';
 import { UserService } from 'src/app/services/user.service';
+import { ChangeUsernameService } from 'src/app/services/change-username.service';
 
 interface UserNameDTO {
   user_name: string;
@@ -26,7 +27,7 @@ export class SettingsAccountComponent {
   isEditing = false;
 
 
-  constructor(private router:Router, private signinService: SigninServiceService, private signoutService : SignOutService){
+  constructor(private router:Router, private signinService: SigninServiceService, private signoutService : SignOutService, private changeusername: ChangeUsernameService){
     this.signinService.getActualUser().subscribe(actual_user => {
       if (actual_user.user_name !== '') {
         const username = actual_user.user_name;
@@ -58,6 +59,34 @@ export class SettingsAccountComponent {
     this.signoutService.signOut().subscribe();
     this.signinService.setActualUserToDefault();          //Set the current user to default beacause there is no user
     this.navigateToLogin(); 
+  }
+
+
+  /* Change Username */
+  chg_username() : void{
+    const UserDTO = <JSON><unknown>{
+    "username": this.actual_username,
+    "email" : "",
+    "password": ""
+  }          
+
+    this.changeusername.change_username(UserDTO).subscribe(
+      (response) => {
+        /* Post returns a success (code 200) */
+        if (response.status === 200) {
+          console.log('Success');
+        }
+        else if (response.status === 409) {
+          console.log('error');
+        }
+      },
+      (error) => {
+        /* Post returns an error (code 409). Here it is if the post returns the error as an error */
+        if (error.status === 409) {
+          console.log('error');
+        }
+      }
+    );
   }
 
   

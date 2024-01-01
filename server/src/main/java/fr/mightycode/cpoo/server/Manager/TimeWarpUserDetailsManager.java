@@ -21,6 +21,7 @@ public class TimeWarpUserDetailsManager extends JdbcUserDetailsManager {
   private String createUserSql = "insert into users (username, email, password, enabled) values (?,?,?,?)";
   private String createAuthoritySql = "insert into authorities (username, authority) values (?,?)";
   private String emailExistsSql = "select email from users where email = ?";
+  private String changeUsernameSql= "update users set username = ? where username = ?";
 
   public TimeWarpUserDetailsManager(DataSource dataSource) {
     super(dataSource);
@@ -64,6 +65,7 @@ public class TimeWarpUserDetailsManager extends JdbcUserDetailsManager {
       return emails.size() == 1;
     }
   }
+
 
   private void validateUserDetails(UserDetails user) {
     Assert.hasText(user.getUsername(), "Username may not be empty or null");
