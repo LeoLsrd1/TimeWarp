@@ -64,6 +64,7 @@ export class SettingsAccountComponent {
 
   /* Change Username */
   chg_username() : void{
+    this.actual_username = this.actual_username.toLowerCase();
     const UserDTO = <JSON><unknown>{
     "username": this.actual_username,
     "email" : "",
@@ -75,6 +76,7 @@ export class SettingsAccountComponent {
         /* Post returns a success (code 200) */
         if (response.status === 200) {
           console.log('Success');
+          this.disconnect();
         }
         else if (response.status === 409) {
           console.log('error');

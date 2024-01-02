@@ -1,5 +1,6 @@
 package fr.mightycode.cpoo.server.Manager;
 
+import jakarta.transaction.Transactional;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -89,7 +90,27 @@ public class TimeWarpUserDetailsManager extends JdbcUserDetailsManager {
       GrantedAuthority auth = (GrantedAuthority)var2.next();
       this.getJdbcTemplate().update(this.createAuthoritySql, new Object[]{user.getUsername(), auth.getAuthority()});
     }
-
   }
 
+  @Transactional
+  public void changeUsername(String oldUsername, String newUsername){
+    // Désactiver temporairement la contrainte de clé étrangère
+    this.getJdbcTemplate().execute("SET REFERENTIAL_INTEGRITY FALSE");
+
+    // Mettre à jour la table 'users'
+    this.getJdbcTemplate().update(this.changeUsernameSql, newUsername, oldUsername);
+
+    // Mettre à jour la table 'authorities'
+    if (this.getEnableAuthorities()) {
+      this.updateAuthoritiesUsername(oldUsername, newUsername);
+    }
+
+    // Réactiver la contrainte de clé étrangère
+    this.getJdbcTemplate().execute("SET REFERENTIAL_INTEGRITY TRUE");
+  }
+
+  private void updateAuthoritiesUsername(String oldUsername, String newUsername) {
+    String updateAuthoritiesSql = "update authorities set username = ? where username = ?";
+    this.getJdbcTemplate().update(updateAuthoritiesSql, newUsername, oldUsername);
+  }
 }

@@ -3,9 +3,13 @@ package fr.mightycode.cpoo.server.service;
 
 import fr.mightycode.cpoo.server.Manager.TimeWarpUser;
 import fr.mightycode.cpoo.server.Manager.TimeWarpUserDetailsManager;
+import fr.mightycode.cpoo.server.repository.DiscussionRepository;
+import fr.mightycode.cpoo.server.repository.MessageRepository;
+import fr.mightycode.cpoo.server.repository.UserSettingsRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,6 +31,10 @@ public class UserService {
 
   @Autowired
   private TimeWarpUserDetailsManager timeWarpUserDetailsManager;
+
+  private final DiscussionRepository discussionRepository;
+  private final MessageRepository messageRepository;
+  private final UserSettingsRepository userSettingsRepository;
 
   private final HttpServletRequest httpServletRequest;
 
@@ -120,10 +128,22 @@ public class UserService {
     return 0; // Password change is a success
   }
 
-  public int changeUsername(String username){
-    if (timeWarpUserDetailsManager.userExists(username)){
+  @Transactional
+  public int changeUsername(String oldUsername, String newUsername){
+    if (timeWarpUserDetailsManager.userExists(newUsername)){
       return 1;
     }
+
+    timeWarpUserDetailsManager.changeUsername(oldUsername, newUsername);
+
+    discussionRepository.updateUsernameInUser1(oldUsername+"@timewarp", newUsername+"@timewarp");
+    discussionRepository.updateUsernameInUser2(oldUsername+"@timewarp", newUsername+"@timewarp");
+
+    userSettingsRepository.updateUsername(oldUsername, newUsername);
+
+    messageRepository.updateUsernameFrom(oldUsername+"@timewarp", newUsername+"@timewarp");;
+    messageRepository.updateUsernameTo(oldUsername+"@timewarp", newUsername+"@timewarp");;
+
     return 0; //Success
   }
 

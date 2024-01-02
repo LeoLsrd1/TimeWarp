@@ -97,6 +97,36 @@ public class SecurityConfiguration {
     }
 
     try {
+      // Create a user account to be used by end-to-end tests
+      TimeWarpUser user = TimeWarpUser
+        .withUsernameTW("a")
+        .password(passwordEncoder.encode("a"))
+        .email("a@a.fr")
+        .roles("USER")
+        .build();
+      userDetailsManager.createUser(user);
+    }
+    catch (Exception e) {
+      System.out.println("'user' account already created");
+      System.out.println(e);
+    }
+
+    try {
+      // Create a user account to be used by end-to-end tests
+      TimeWarpUser user = TimeWarpUser
+        .withUsernameTW("b")
+        .password(passwordEncoder.encode("b"))
+        .email("b@b.fr")
+        .roles("USER")
+        .build();
+      userDetailsManager.createUser(user);
+    }
+    catch (Exception e) {
+      System.out.println("'user' account already created");
+      System.out.println(e);
+    }
+
+    try {
       // Create an administrator account
       TimeWarpUser admin = TimeWarpUser.withUsernameTW("admin")
         .password(passwordEncoder.encode("admin"))
