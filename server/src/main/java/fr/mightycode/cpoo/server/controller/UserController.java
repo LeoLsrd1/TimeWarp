@@ -28,7 +28,6 @@ public class UserController {
 
   private final UserService userService;
 
-
   /***
    * Create the user
    * @param user which is an UserDTO
@@ -135,7 +134,6 @@ public class UserController {
     }
   }
 
-
   @DeleteMapping(value = "/{username}")
   public void delete(Principal user, @PathVariable("username") String username) {
     if (!userService.delete(username))
@@ -188,28 +186,31 @@ public class UserController {
     }
   }
 
-  @PatchMapping(value = "changeusername",  consumes = MediaType.APPLICATION_JSON_VALUE)
+  /***
+   * Change Username
+   * @param newUser who is an UserDTO with only the username
+   * @param user who is the principal user (we get the old username with this)
+   * @return
+   * 200 if success
+   * 409 if the new username already exist
+   * 500 for other issues
+   */
+  @PatchMapping(value = "account/chgusername",  consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Object> changeusername(@RequestBody final UserDTO newUser, Principal user) {
     try {
       ErrorDTO reponse = new ErrorDTO();
 
-      int i = userService.changeUsername(user.getName(), newUser.username());
-
-      if (i == 0) {
+      if (userService.changeUsername(user.getName(), newUser.username())) {
         reponse.setStatus(HttpStatus.OK.value());
         reponse.setError("Success");
         reponse.setMessage("Username change is a success");
         return ResponseEntity.status(HttpStatus.OK).body(reponse); // Success (200)
-      } else if (i == 1) {
+      }
+      else{
         reponse.setStatus(HttpStatus.CONFLICT.value());
         reponse.setError("UNAUTHORIZED");
         reponse.setMessage("New username already exists");
         return ResponseEntity.status(HttpStatus.CONFLICT).body(reponse);  // New username already exists (409)
-      } else {
-        reponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        reponse.setError("INTERNAL_SERVER_ERROR");
-        reponse.setMessage("Others Issues");
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(reponse); // Others Issues
       }
     }
     catch (final Exception ex) {

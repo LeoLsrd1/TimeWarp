@@ -16,7 +16,7 @@ export class ChangeUsernameService {
   constructor(private http: HttpClient) { }
 
   change_username(userDTO: any): Observable<any> {
-    const url = `${this.baseUrl}/user/changeusername`;    
+    const url = `${this.baseUrl}/user/account/chgusername`;    
     return this.http.patch(url, userDTO);
   }
 }

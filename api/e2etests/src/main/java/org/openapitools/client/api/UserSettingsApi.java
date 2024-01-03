@@ -30,6 +30,7 @@ import java.io.IOException;
 import org.openapitools.client.model.ChangePasswordDTO;
 import org.openapitools.client.model.ErrorDTO;
 import org.openapitools.client.model.NotificationsDTO;
+import org.openapitools.client.model.UserDTO;
 import org.openapitools.client.model.UserSettingsDTO;
 
 import java.lang.reflect.Type;
@@ -200,7 +201,7 @@ public class UserSettingsApi {
     }
     /**
      * Build call for userAccountChgusernamePatch
-     * @param body  (required)
+     * @param userDTO  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -211,7 +212,7 @@ public class UserSettingsApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userAccountChgusernamePatchCall(String body, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call userAccountChgusernamePatchCall(UserDTO userDTO, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -225,7 +226,7 @@ public class UserSettingsApi {
             basePath = null;
         }
 
-        Object localVarPostBody = body;
+        Object localVarPostBody = userDTO;
 
         // create path and map variables
         String localVarPath = "/user/account/chgusername";
@@ -245,7 +246,7 @@ public class UserSettingsApi {
         }
 
         final String[] localVarContentTypes = {
-            "text/plain"
+            "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
@@ -257,20 +258,20 @@ public class UserSettingsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call userAccountChgusernamePatchValidateBeforeCall(String body, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'body' is set
-        if (body == null) {
-            throw new ApiException("Missing the required parameter 'body' when calling userAccountChgusernamePatch(Async)");
+    private okhttp3.Call userAccountChgusernamePatchValidateBeforeCall(UserDTO userDTO, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'userDTO' is set
+        if (userDTO == null) {
+            throw new ApiException("Missing the required parameter 'userDTO' when calling userAccountChgusernamePatch(Async)");
         }
 
-        return userAccountChgusernamePatchCall(body, _callback);
+        return userAccountChgusernamePatchCall(userDTO, _callback);
 
     }
 
     /**
      * 
      * 
-     * @param body  (required)
+     * @param userDTO  (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -279,14 +280,14 @@ public class UserSettingsApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public void userAccountChgusernamePatch(String body) throws ApiException {
-        userAccountChgusernamePatchWithHttpInfo(body);
+    public void userAccountChgusernamePatch(UserDTO userDTO) throws ApiException {
+        userAccountChgusernamePatchWithHttpInfo(userDTO);
     }
 
     /**
      * 
      * 
-     * @param body  (required)
+     * @param userDTO  (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -296,15 +297,15 @@ public class UserSettingsApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> userAccountChgusernamePatchWithHttpInfo(String body) throws ApiException {
-        okhttp3.Call localVarCall = userAccountChgusernamePatchValidateBeforeCall(body, null);
+    public ApiResponse<Void> userAccountChgusernamePatchWithHttpInfo(UserDTO userDTO) throws ApiException {
+        okhttp3.Call localVarCall = userAccountChgusernamePatchValidateBeforeCall(userDTO, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * 
-     * @param body  (required)
+     * @param userDTO  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -315,9 +316,9 @@ public class UserSettingsApi {
         <tr><td> 0 </td><td> Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call userAccountChgusernamePatchAsync(String body, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call userAccountChgusernamePatchAsync(UserDTO userDTO, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = userAccountChgusernamePatchValidateBeforeCall(body, _callback);
+        okhttp3.Call localVarCall = userAccountChgusernamePatchValidateBeforeCall(userDTO, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }

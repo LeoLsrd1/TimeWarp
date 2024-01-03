@@ -57,7 +57,13 @@
     text-align: right;
 }
 
-
+.change_username_already_exist{
+    color:red;
+    width: 45%;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+}
 
 .account_pwd{
     margin: 0.5em auto 2.5em auto;
@@ -124,6 +130,9 @@
     .account_pwd{
         width: 75%;
     }
+    .change_username_already_exist{
+        width: 75%;        
+    }
 }
 @media screen and (min-width: 1101px) and (max-width : 1500px){
     .account_username{
@@ -134,5 +143,8 @@
     }
     .account_pwd{
         width: 75%;
+    }
+    .change_username_already_exist{
+        width: 75%;        
     }
 }

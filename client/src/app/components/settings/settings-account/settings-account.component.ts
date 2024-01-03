@@ -26,6 +26,8 @@ export class SettingsAccountComponent {
   actual_username = "TempUser";
   isEditing = false;
 
+  username_already_exists = false;
+
 
   constructor(private router:Router, private signinService: SigninServiceService, private signoutService : SignOutService, private changeusername: ChangeUsernameService){
     this.signinService.getActualUser().subscribe(actual_user => {
@@ -36,7 +38,6 @@ export class SettingsAccountComponent {
         if (match && match[1]) {
           this.actual_username = match[1];
         } else {
-          // Gérer le cas où la correspondance n'est pas trouvée
           console.error("Aucune correspondance trouvée pour le nom d'utilisateur.");
         }
       }
@@ -80,12 +81,14 @@ export class SettingsAccountComponent {
         }
         else if (response.status === 409) {
           console.log('error');
+          this.username_already_exists = true;
         }
       },
       (error) => {
         /* Post returns an error (code 409). Here it is if the post returns the error as an error */
         if (error.status === 409) {
           console.log('error');
+          this.username_already_exists = true;
         }
       }
     );

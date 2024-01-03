@@ -1,6 +1,5 @@
 package fr.mightycode.cpoo.server.service;
 
-
 import fr.mightycode.cpoo.server.Manager.TimeWarpUser;
 import fr.mightycode.cpoo.server.Manager.TimeWarpUserDetailsManager;
 import fr.mightycode.cpoo.server.repository.DiscussionRepository;
@@ -57,7 +56,6 @@ public class UserService {
     return 2;
   }
 
-
   /***
    * @param login
    * @param password
@@ -74,11 +72,9 @@ public class UserService {
     return true;
   }
 
-
   public void signout() throws ServletException {
     httpServletRequest.logout();
   }
-
 
   /***
    * @param username
@@ -92,7 +88,6 @@ public class UserService {
     timeWarpUserDetailsManager.deleteUser(username);
     return true;
   }
-
 
   /***
    * @param oldPwd
@@ -128,10 +123,18 @@ public class UserService {
     return 0; // Password change is a success
   }
 
+  /***
+   * Change Username into all the tables of the database
+   * @param oldUsername
+   * @param newUsername
+   * @return
+   * true if success
+   * false if new username already exists
+   */
   @Transactional
-  public int changeUsername(String oldUsername, String newUsername){
+  public boolean changeUsername(String oldUsername, String newUsername){
     if (timeWarpUserDetailsManager.userExists(newUsername)){
-      return 1;
+      return false;
     }
 
     timeWarpUserDetailsManager.changeUsername(oldUsername, newUsername);
@@ -144,7 +147,7 @@ public class UserService {
     messageRepository.updateUsernameFrom(oldUsername+"@timewarp", newUsername+"@timewarp");;
     messageRepository.updateUsernameTo(oldUsername+"@timewarp", newUsername+"@timewarp");;
 
-    return 0; //Success
+    return true; //Success
   }
 
 

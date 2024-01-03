@@ -14,6 +14,10 @@
     </span>
 </div>
 
+<div *ngIf="username_already_exists==true;" class="change_username_already_exist">
+    {{'UsernameAlreadyExists' | translate}}
+</div>
+
 <div (click)="navigateToChgPwd()" class = "account_pwd">
     <div class ="account_pwd_title"> {{'Password' | translate}} </div>
     <img src="/assets/icons/go_chg_pwd.png">
