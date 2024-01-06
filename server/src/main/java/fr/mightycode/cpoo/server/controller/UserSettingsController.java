@@ -74,7 +74,7 @@ public class UserSettingsController {
     try {
       ErrorDTO reponse = new ErrorDTO();
       System.out.println(pwd);
-      int i = userService.changePwd(pwd.oldpassword(),pwd.newpassword());
+      int i = userSettingsService.changePwd(pwd.oldpassword(),pwd.newpassword());
       if(i==0) {
         reponse.setStatus(HttpStatus.OK.value());
         reponse.setError("Success");
@@ -119,7 +119,7 @@ public class UserSettingsController {
     try {
       ErrorDTO reponse = new ErrorDTO();
 
-      if (userService.changeUsername(user.getName(), newUser.username())) {
+      if (userSettingsService.changeUsername(user.getName(), newUser.username())) {
         reponse.setStatus(HttpStatus.OK.value());
         reponse.setError("Success");
         reponse.setMessage("Username change is a success");

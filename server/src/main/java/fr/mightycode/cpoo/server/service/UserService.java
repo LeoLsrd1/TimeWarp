@@ -31,10 +31,6 @@ public class UserService {
   @Autowired
   private TimeWarpUserDetailsManager timeWarpUserDetailsManager;
 
-  private final DiscussionRepository discussionRepository;
-  private final MessageRepository messageRepository;
-  private final UserSettingsRepository userSettingsRepository;
-
   private final HttpServletRequest httpServletRequest;
 
   /***
@@ -88,67 +84,4 @@ public class UserService {
     timeWarpUserDetailsManager.deleteUser(username);
     return true;
   }
-
-  /***
-   * @param oldPwd
-   * @param newPwd
-   * @return
-   * 0 if it's OK /
-   * 1 User not logged in /
-   * 2 if Incorrect Old Password
-   * @throws ServletException
-   */
-  public int changePwd(String oldPwd, String newPwd) throws ServletException {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-    if (authentication == null || !(authentication instanceof UsernamePasswordAuthenticationToken)) {
-      return 1; // User not logged in
-    }
-
-    UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
-    UserDetails userDetails = (UserDetails) token.getPrincipal();
-    String username = userDetails.getUsername();
-    UserDetails storedUserDetails = timeWarpUserDetailsManager.loadUserByUsername(username); // Get User details thanks to userDetailsManager
-
-    if (!(passwordEncoder.matches(oldPwd, storedUserDetails.getPassword()))) {
-      return 2; // Incorrect old password
-    }
-
-    timeWarpUserDetailsManager.changePassword(passwordEncoder.encode(oldPwd), passwordEncoder.encode(newPwd));
-
-    UserDetails updatedUser = new User(username, passwordEncoder.encode(newPwd), userDetails.getAuthorities());
-    UsernamePasswordAuthenticationToken updatedToken = new UsernamePasswordAuthenticationToken(updatedUser, token.getCredentials(), updatedUser.getAuthorities());
-    SecurityContextHolder.getContext().setAuthentication(updatedToken);
-
-    return 0; // Password change is a success
-  }
-
-  /***
-   * Change Username into all the tables of the database
-   * @param oldUsername
-   * @param newUsername
-   * @return
-   * true if success
-   * false if new username already exists
-   */
-  @Transactional
-  public boolean changeUsername(String oldUsername, String newUsername){
-    if (timeWarpUserDetailsManager.userExists(newUsername)){
-      return false;
-    }
-
-    timeWarpUserDetailsManager.changeUsername(oldUsername, newUsername);
-
-    discussionRepository.updateUsernameInUser1(oldUsername+"@timewarp", newUsername+"@timewarp");
-    discussionRepository.updateUsernameInUser2(oldUsername+"@timewarp", newUsername+"@timewarp");
-
-    userSettingsRepository.updateUsername(oldUsername, newUsername);
-
-    messageRepository.updateUsernameFrom(oldUsername+"@timewarp", newUsername+"@timewarp");;
-    messageRepository.updateUsernameTo(oldUsername+"@timewarp", newUsername+"@timewarp");;
-
-    return true; //Success
-  }
-
-
 }
