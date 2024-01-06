@@ -1,6 +1,6 @@
 /*
  * CPOO Server API
- * This is a prototype of CPOO Project's front/back API. 
+ * This is a prototype of CPOO Project's front/back API.
  *
  * The version of the OpenAPI document: 0.0.1
  * Contact: contact@mightycode.fr
@@ -27,11 +27,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * API tests for AuthenticationApi
@@ -69,7 +64,7 @@ public class AuthenticationApiTest {
      */
     @Test
     public void userSigninPostTest() throws ApiException {
-        
+
         // Signing in with invalid credentials should fail with UNAUTHORIZED
         UserDTO userDTO = new UserDTO().username("user").password("invalid");
         try {
@@ -134,7 +129,7 @@ public class AuthenticationApiTest {
      */
     @Test
     public void userSignupPostTest() throws ApiException {
-        
+
         // Delete the test account if exists
         authenticationApi.userSigninPost(new UserDTO().username("admin").email("admin").password("admin"));
         try {
@@ -277,7 +272,6 @@ public class AuthenticationApiTest {
         authenticationApi.userSignupPost(testUserDelete3);
     }
 
-
     @Test
     public void currentUser() throws ApiException{
         //Signout if a user altready Signin
@@ -308,6 +302,5 @@ public class AuthenticationApiTest {
         //Should Return the current User, so testCurrentUserDTO Username and no email and no password
         UserDTO retour = authenticationApi.userCurrentuserPost();
         Assertions.assertEquals(retour, testRetourCurrentUser);
-
     }
 }

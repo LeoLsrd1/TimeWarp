@@ -169,10 +169,9 @@ paths:
     patch:
       requestBody:
         content:
-          text/plain:
+          application/json:
             schema:
-              title: username
-              type: string
+              $ref: '#/components/schemas/UserDTO'
         required: true
       responses:
         "200":
@@ -185,7 +184,7 @@ paths:
           description: Error
       tags:
       - user settings
-      x-content-type: text/plain
+      x-content-type: application/json
       x-accepts: application/json
   /user/account/changepp:
     patch:

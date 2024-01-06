@@ -1,6 +1,6 @@
 /*
  * CPOO Server API
- * This is a prototype of CPOO Project's front/back API. 
+ * This is a prototype of CPOO Project's front/back API.
  *
  * The version of the OpenAPI document: 0.0.1
  * Contact: contact@mightycode.fr
@@ -61,15 +61,79 @@ public class UserSettingsApiTest {
         // TODO: test validations
     }
 
+
     /**
+     * Change username test
      * @throws ApiException if the Api call fails
      */
     @Test
-    @Disabled
     public void userAccountChgusernamePatchTest() throws ApiException {
-        String body = null;
-        userSettingsapi.userAccountChgusernamePatch(body);
-        // TODO: test validations
+      //Signout if a user altready Signin
+      try{
+        authenticationApi.userSignoutPost();
+      }
+      catch (ApiException e) {
+        Assertions.assertEquals(403, e.getCode());
+      }
+
+      // Delete the test account if exists
+      authenticationApi.userSigninPost(new UserDTO().username("admin").email("admin").password("admin"));
+      try {
+        administrationApi.userUsernameDelete("testChangeUsername0");
+      }
+      catch (ApiException e) {
+        Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
+      }
+      try {
+        administrationApi.userUsernameDelete("testChangeUsername1");
+      }
+      catch (ApiException e) {
+        Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
+      }
+      try {
+        administrationApi.userUsernameDelete("testChangeUsername2");
+      }
+      catch (ApiException e) {
+        Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
+      }
+      authenticationApi.userSignoutPost();
+
+      //Create DTO of account test and signup user0 and user2 (user1 is the DTO for the newUsername which work)
+      UserDTO user0 = new UserDTO().username("testChangeUsername0").email("a").password("a");
+      UserDTO user1 = new UserDTO().username("testChangeUsername1").email("a").password("a");
+      UserDTO user2 = new UserDTO().username("testChangeUsername2").email("c").password("a");
+      authenticationApi.userSignupPost(user0);
+      authenticationApi.userSignupPost(user2);;
+
+      //Change Username
+      authenticationApi.userSigninPost(user0);
+      UserDTO newUsername = new UserDTO().username("testChangeUsername1").email("").password("");
+      userSettingsapi.userAccountChgusernamePatch(newUsername);
+      authenticationApi.userSignoutPost();
+
+      //SignIn with the old username should fail
+      try {
+        authenticationApi.userSigninPost(user0);
+        Assertions.fail();
+      }
+      catch (ApiException e) {
+        Assertions.assertEquals(HttpStatus.SC_UNAUTHORIZED, e.getCode());
+      }
+
+      //Signin with the new Username should work
+      authenticationApi.userSigninPost(user1);
+
+      //Change username with a new username which already exist should fail
+      try {
+        UserDTO newUsername1 = new UserDTO().username("testChangeUsername2").email("").password("");
+        userSettingsapi.userAccountChgusernamePatch(newUsername1);
+        Assertions.fail();
+      }
+      catch (ApiException e) {
+        Assertions.assertEquals(HttpStatus.SC_CONFLICT, e.getCode());
+      }
+
+      authenticationApi.userSignoutPost();
     }
 
     /**
@@ -88,12 +152,12 @@ public class UserSettingsApiTest {
             catch (ApiException e) {
             Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
         }
-    
+
         // Sign in
         authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
 
         userSettingsapi.userSettingsGet(); // To create the user settings save
- 
+
         // Change theme and verify it has change
         themeId = "3";
         userSettingsapi.userChangeThemePatch(themeId);
@@ -181,12 +245,11 @@ public class UserSettingsApiTest {
         language="browser"; //Default language
         ApiResponse<Void> response = userSettingsapi.userLanguagePatchWithHttpInfo(language);
         Assertions.assertEquals(HttpStatus.SC_OK, response.getStatusCode());
-
     }
 
     /**
      * Update notifications settings (notification sounds and Icon badges)
-     * 
+     *
      * @throws ApiException if the Api call fails
      */
     @Test
@@ -200,7 +263,7 @@ public class UserSettingsApiTest {
             catch (ApiException e) {
             Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
         }
-    
+
         // Sign in
         authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
 
@@ -217,7 +280,7 @@ public class UserSettingsApiTest {
     @Test
     public void userSettingsGetTest() throws ApiException {
         UserSettingsDTO response;
-        
+
         // Update theme while not signed in should fail with FORBIDDEN
         try {
             userSettingsapi.userSettingsGet();
@@ -226,7 +289,7 @@ public class UserSettingsApiTest {
             catch (ApiException e) {
             Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
         }
-    
+
         // Sign in
         authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
 
@@ -237,7 +300,7 @@ public class UserSettingsApiTest {
         userSettingsDTO.setNotificationSound(true);
         userSettingsDTO.setProfileImage("");
 
-        userSettingsapi.userChangeThemePatch(new String("4")); 
+        userSettingsapi.userChangeThemePatch(new String("4"));
         userSettingsapi.userLanguagePatch("es");
         NotificationsDTO notificationsDTO = new NotificationsDTO();
         notificationsDTO.setBadges(false);
@@ -249,15 +312,13 @@ public class UserSettingsApiTest {
         response = userSettingsapi.userSettingsGet(); // Create the user settings save
         Assertions.assertEquals(response, userSettingsDTO);
 
-
-        
         userSettingsDTO.setTheme(0);
         userSettingsDTO.setLanguage("browser");
         userSettingsDTO.setUnreadBadges(true);
         userSettingsDTO.setNotificationSound(true);
         userSettingsDTO.setProfileImage("");
 
-        userSettingsapi.userChangeThemePatch(new String("0")); 
+        userSettingsapi.userChangeThemePatch(new String("0"));
         userSettingsapi.userLanguagePatch("browser");
         notificationsDTO.setBadges(true);
         notificationsDTO.setSounds(true);

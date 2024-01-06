@@ -21,7 +21,6 @@ import { ImageComponent } from './components/settings/settings-appearance/image/
 import { FormsModule } from '@angular/forms';
 import { SettingsChgpwdComponent } from './components/settings/settings-chgpwd/settings-chgpwd.component';
 import { CApopUpErrorsComponent } from './src/app/components/login/create-account/capop-up-errors/capop-up-errors.component';
-import { CaPopupErrorsComponent } from './components/login/create-account/ca-popup-errors/ca-popup-errors.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { TranslateModuleConfig } from './app.translate.config';
@@ -44,8 +43,6 @@ import { TranslateService } from '@ngx-translate/core';
     SettingsAcknowlodgementsComponent,
     ImageComponent,
     SettingsChgpwdComponent,
-    CApopUpErrorsComponent,
-    CaPopupErrorsComponent,
   ],
   imports: [
     BrowserModule,

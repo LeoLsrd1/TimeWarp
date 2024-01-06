@@ -32,4 +32,12 @@ public interface UserSettingsRepository extends JpaRepository<UserSettings, Stri
     @Query("UPDATE UserSettings u SET u.language = :language WHERE u.username = :username")
     void updateUserLanguage(@Param("username") String username,
                             @Param("language") String language);
+
+    @Modifying
+    @Query("UPDATE UserSettings u SET u.username = :newUsername WHERE u.username = :oldUsername")
+    void updateUsername(@Param("oldUsername") String oldUsername, @Param("newUsername") String newUsername);
+
+
+
+
 }

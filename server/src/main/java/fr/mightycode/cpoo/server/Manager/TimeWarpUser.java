@@ -10,7 +10,6 @@ import org.springframework.util.Assert;
 import java.util.*;
 import java.util.function.Function;
 
-
 public class TimeWarpUser extends User {
   private String email;
 
@@ -70,7 +69,6 @@ public class TimeWarpUser extends User {
   public String getEmail() {
     return this.email;
   }
-
 
   /***
    *  User.UserBuilder but with email
@@ -172,8 +170,6 @@ public class TimeWarpUser extends User {
       String encodedPassword = (String)this.passwordEncoder.apply(this.password);
       return new TimeWarpUser(this.username, this.email ,encodedPassword, !this.disabled, !this.accountExpired, !this.credentialsExpired, !this.accountLocked, this.authorities);
     }
-
   }
-
 
 }

@@ -1,5 +1,6 @@
 package fr.mightycode.cpoo.server.Manager;
 
+import jakarta.transaction.Transactional;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -21,6 +22,7 @@ public class TimeWarpUserDetailsManager extends JdbcUserDetailsManager {
   private String createUserSql = "insert into users (username, email, password, enabled) values (?,?,?,?)";
   private String createAuthoritySql = "insert into authorities (username, authority) values (?,?)";
   private String emailExistsSql = "select email from users where email = ?";
+  private String changeUsernameSql= "update users set username = ? where username = ?";
 
   public TimeWarpUserDetailsManager(DataSource dataSource) {
     super(dataSource);
@@ -87,7 +89,25 @@ public class TimeWarpUserDetailsManager extends JdbcUserDetailsManager {
       GrantedAuthority auth = (GrantedAuthority)var2.next();
       this.getJdbcTemplate().update(this.createAuthoritySql, new Object[]{user.getUsername(), auth.getAuthority()});
     }
-
   }
 
+  /***
+   * Change username in the table users and authorities
+   * @param oldUsername
+   * @param newUsername
+   */
+  @Transactional
+  public void changeUsername(String oldUsername, String newUsername){
+    this.getJdbcTemplate().execute("SET REFERENTIAL_INTEGRITY FALSE");
+    this.getJdbcTemplate().update(this.changeUsernameSql, newUsername, oldUsername);
+    if (this.getEnableAuthorities()) {
+      this.updateAuthoritiesUsername(oldUsername, newUsername);
+    }
+    this.getJdbcTemplate().execute("SET REFERENTIAL_INTEGRITY TRUE");
+  }
+
+  private void updateAuthoritiesUsername(String oldUsername, String newUsername) {
+    String updateAuthoritiesSql = "update authorities set username = ? where username = ?";
+    this.getJdbcTemplate().update(updateAuthoritiesSql, newUsername, oldUsername);
+  }
 }

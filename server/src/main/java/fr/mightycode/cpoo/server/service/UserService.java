@@ -1,11 +1,14 @@
 package fr.mightycode.cpoo.server.service;
 
-
 import fr.mightycode.cpoo.server.Manager.TimeWarpUser;
 import fr.mightycode.cpoo.server.Manager.TimeWarpUserDetailsManager;
+import fr.mightycode.cpoo.server.repository.DiscussionRepository;
+import fr.mightycode.cpoo.server.repository.MessageRepository;
+import fr.mightycode.cpoo.server.repository.UserSettingsRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -45,10 +48,9 @@ public class UserService {
       return 1;
     final TimeWarpUser user = new TimeWarpUser(username,email, passwordEncoder.encode(password), List.of(new SimpleGrantedAuthority("ROLE_USER")));
     timeWarpUserDetailsManager.createUser(user);
-    
+
     return 2;
   }
-
 
   /***
    * @param login
@@ -66,11 +68,9 @@ public class UserService {
     return true;
   }
 
-
   public void signout() throws ServletException {
     httpServletRequest.logout();
   }
-
 
   /***
    * @param username
@@ -84,41 +84,4 @@ public class UserService {
     timeWarpUserDetailsManager.deleteUser(username);
     return true;
   }
-
-
-  /***
-   * @param oldPwd
-   * @param newPwd
-   * @return
-   * 0 if it's OK /
-   * 1 User not logged in /
-   * 2 if Incorrect Old Password
-   * @throws ServletException
-   */
-  public int changePwd(String oldPwd, String newPwd) throws ServletException {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-    if (authentication == null || !(authentication instanceof UsernamePasswordAuthenticationToken)) {
-      return 1; // User not logged in
-    }
-
-    UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
-    UserDetails userDetails = (UserDetails) token.getPrincipal();
-    String username = userDetails.getUsername();
-    UserDetails storedUserDetails = timeWarpUserDetailsManager.loadUserByUsername(username); // Get User details thanks to userDetailsManager
-
-    if (!(passwordEncoder.matches(oldPwd, storedUserDetails.getPassword()))) {
-      return 2; // Incorrect old password
-    }
-
-    timeWarpUserDetailsManager.changePassword(passwordEncoder.encode(oldPwd), passwordEncoder.encode(newPwd));
-
-    UserDetails updatedUser = new User(username, passwordEncoder.encode(newPwd), userDetails.getAuthorities());
-    UsernamePasswordAuthenticationToken updatedToken = new UsernamePasswordAuthenticationToken(updatedUser, token.getCredentials(), updatedUser.getAuthorities());
-    SecurityContextHolder.getContext().setAuthentication(updatedToken);
-
-    return 0; // Password change is a success
-  }
-
-
 }

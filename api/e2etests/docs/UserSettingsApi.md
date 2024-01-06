@@ -82,7 +82,7 @@ null (empty response body)
 
 <a id="userAccountChgusernamePatch"></a>
 # **userAccountChgusernamePatch**
-> userAccountChgusernamePatch(body)
+> userAccountChgusernamePatch(userDTO)
 
 
 
@@ -108,9 +108,9 @@ public class Example {
     //CookieAuth.setApiKeyPrefix("Token");
 
     UserSettingsApi apiInstance = new UserSettingsApi(defaultClient);
-    String body = "body_example"; // String | 
+    UserDTO userDTO = new UserDTO(); // UserDTO | 
     try {
-      apiInstance.userAccountChgusernamePatch(body);
+      apiInstance.userAccountChgusernamePatch(userDTO);
     } catch (ApiException e) {
       System.err.println("Exception when calling UserSettingsApi#userAccountChgusernamePatch");
       System.err.println("Status code: " + e.getCode());
@@ -126,7 +126,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **body** | **String**|  | |
+| **userDTO** | [**UserDTO**](UserDTO.md)|  | |
 
 ### Return type
 
@@ -138,7 +138,7 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: text/plain
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
