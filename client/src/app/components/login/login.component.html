@@ -8,13 +8,13 @@
   <form>
     <!-- Form Row containing Username and Password input fields -->
     <div class="form-row">      
-      <div *ngIf="userError==false; else elseUser">
+      <div *ngIf="userError===false; else elseUser">
         <input class="no_error" [(ngModel)]="username" type="text" id="username" name="username" placeholder="{{'Username' | translate}}">
       </div>
       <ng-template #elseUser>
         <input class="error_fields" [(ngModel)]="username" type="text" id="username" name="username" placeholder={{userErrorMessage}}>
       </ng-template>
-      <div *ngIf="pwdError==false; else elsePwd">
+      <div *ngIf="pwdError===false; else elsePwd">
         <input class="no_error" [(ngModel)]="password" type="password" id="password" name="password" placeholder="{{'Password' | translate}}">
       </div>
       <ng-template #elsePwd>

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { ChangePwdService } from 'src/app/services/change-pwd.service';
 import { TranslateService } from '@ngx-translate/core';
+import { UserSettingsService } from 'src/app/services/user-settings.service';
 
 interface ChangePwdDTO {
   oldpassword: string;
@@ -14,7 +14,7 @@ interface ChangePwdDTO {
 })
 export class SettingsChgpwdComponent {
 
-  constructor(private changePwdService: ChangePwdService, private translate: TranslateService){}
+  constructor(private userSettingsService: UserSettingsService, private translate: TranslateService){}
   
   @Output() go_account = new EventEmitter<void>();
 
@@ -73,7 +73,7 @@ export class SettingsChgpwdComponent {
 
   /* Request to the server and response study */
   request_changePwd(data : ChangePwdDTO) : void{
-    this.changePwdService.changepwd(data).subscribe(
+    this.userSettingsService.changepwd(data).subscribe(
       /* Classic Response */ 
       (response) => {
         if (response.status === 200) {

@@ -48,6 +48,18 @@ export class UserSettingsService {
     });
   }
 
+  /*------------------------------------------Change-Password---------------------------------------*/
+  changepwd(ChangePwdDTO: any): Observable<any> {
+    const url = `${this.baseUrl}/changepwd`;
+    return this.http.patch(url, ChangePwdDTO);
+  }
+
+  /*------------------------------------------Change-Username---------------------------------------*/
+  change_username(userDTO: any): Observable<any> {
+    const url = `${this.baseUrl}/account/chgusername`;    
+    return this.http.patch(url, userDTO);
+  }
+
   /*----------------------------------------------Theme----------------------------------------------*/
 
   /**

@@ -1,10 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SigninServiceService } from 'src/app/services/signin-service.service';
 import{SignOutService} from 'src/app/services/signout.service';
-import { UserService } from 'src/app/services/user.service';
-import { ChangeUsernameService } from 'src/app/services/change-username.service';
+import { UserSettingsService } from 'src/app/services/user-settings.service';
 
 interface UserNameDTO {
   user_name: string;
@@ -16,7 +14,7 @@ interface UserNameDTO {
   styleUrls: ['./settings-account.component.css']
 })
 export class SettingsAccountComponent {
-  account_picture : string = "/assets/icons/pp_contact1.jpg";
+  account_picture : string = "/assets/images/pp_user1.jpg";
 
 
   actual_user : UserNameDTO={ // Object which contains the current user 
@@ -29,7 +27,7 @@ export class SettingsAccountComponent {
   username_already_exists = false;
 
 
-  constructor(private router:Router, private signinService: SigninServiceService, private signoutService : SignOutService, private changeusername: ChangeUsernameService){
+  constructor(private router:Router, private signinService: SigninServiceService, private signoutService : SignOutService, private userSettingsService: UserSettingsService){
     this.signinService.getActualUser().subscribe(actual_user => {
       if (actual_user.user_name !== '') {
         const username = actual_user.user_name;
@@ -72,7 +70,7 @@ export class SettingsAccountComponent {
     "password": ""
   }          
 
-    this.changeusername.change_username(UserDTO).subscribe(
+    this.userSettingsService.change_username(UserDTO).subscribe(
       (response) => {
         /* Post returns a success (code 200) */
         if (response.status === 200) {
