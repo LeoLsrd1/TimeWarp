@@ -14,7 +14,7 @@ interface UserNameDTO {
   styleUrls: ['./settings-account.component.css']
 })
 export class SettingsAccountComponent {
-  account_picture : string = "/assets/images/pp_user1.jpg";
+  account_picture  = "/assets/images/pp_user1.jpg";
 
 
   actual_user : UserNameDTO={ // Object which contains the current user 

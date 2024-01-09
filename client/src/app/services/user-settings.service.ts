@@ -14,17 +14,17 @@ export class UserSettingsService {
   private baseUrl = '/serverapi/user';
 
   // Default image source
-  private selectedImageSrc: string = '/assets/images/blur-background-60s-0.jpg';
+  private selectedImageSrc = '/assets/images/blur-background-60s-0.jpg';
 
   // Default theme ID
-  themeId: number = 0;
+  themeId = 0;
 
   //Default Notifications settings
-  soundParameter: boolean = true;
-  badgesParameter: boolean = true;
+  soundParameter = true;
+  badgesParameter = true;
 
   //Default language
-  language: string = 'browser';
+  language = 'browser';
 
   constructor(private http: HttpClient, private discussionService: DiscussionService, private translate: TranslateService) { }
 

@@ -46,22 +46,19 @@ public class UserController {
       success.setError("Success");
       success.setMessage("Successful Registration");
       return ResponseEntity.status(HttpStatus.OK).body(success); // Success (200)
-    }
-    else if (res == 0) {
+    } else if (res == 0) {
       ErrorDTO error = new ErrorDTO();
       error.setStatus(HttpStatus.CONFLICT.value());
       error.setError("Conflict");
       error.setMessage("Username already exists");
       return ResponseEntity.status(HttpStatus.CONFLICT).body(error);// Username Already Exists (409)
-    }
-    else if (res == 1) {
+    } else if (res == 1) {
       ErrorDTO error = new ErrorDTO();
       error.setStatus(HttpStatus.CONFLICT.value());
       error.setError("Conflict");
       error.setMessage("Email already exists");
       return ResponseEntity.status(HttpStatus.CONFLICT).body(error);// Username Already Exists (409)
-    }
-    else {
+    } else {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Another error has occurred");
     }
   }
@@ -84,14 +81,14 @@ public class UserController {
         retour.setError("Conflict");
         retour.setMessage("Already signed in");
         return ResponseEntity.status(HttpStatus.CONFLICT).body(retour);// Already signed in (409)
-      }
-      else{
+      } else {
         retour.setStatus(HttpStatus.OK.value());
         retour.setError("Success");
         retour.setMessage("Successful Login");
         return ResponseEntity.status(HttpStatus.OK).body(retour); // Success (200)
       }
-    } catch (final ServletException ex) {
+    }
+    catch (final ServletException ex) {
       if (ex.getCause() instanceof BadCredentialsException) {
         retour.setStatus(HttpStatus.UNAUTHORIZED.value());
         retour.setError("UNAUTHORIZED");
@@ -123,10 +120,10 @@ public class UserController {
    * 200 with the current user /
    * 500 for an error
    */
-  @PostMapping(value= "currentuser")
+  @PostMapping(value = "currentuser")
   public ResponseEntity<UserDTO> currentuser(Principal user) {
     try {
-      UserDTO udto = new UserDTO(user.getName() + "@" + serverDomain,"","");
+      UserDTO udto = new UserDTO(user.getName() + "@" + serverDomain, "", "");
       return ResponseEntity.status(HttpStatus.OK).body(udto);
     }
     catch (final Exception ex) {

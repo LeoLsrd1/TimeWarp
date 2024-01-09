@@ -18,6 +18,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -31,39 +32,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Model tests for NotificationsDTO
  */
 public class NotificationsDTOTest {
-    private final NotificationsDTO model = new NotificationsDTO();
+  private final NotificationsDTO model = new NotificationsDTO();
 
-    /**
-     * Model tests for NotificationsDTO
-     */
-    @Test
-    public void testNotificationsDTO() {
-      NotificationsDTO n = new NotificationsDTO();
-      n.setBadges(true);
-      n.setSounds(false);
+  /**
+   * Model tests for NotificationsDTO
+   */
+  @Test
+  public void testNotificationsDTO() {
+    NotificationsDTO n = new NotificationsDTO();
+    n.setBadges(true);
+    n.setSounds(false);
 
-      assertEquals(true, n.getBadges());
-      assertEquals(false,n.getSounds());
-    }
+    assertEquals(true, n.getBadges());
+    assertEquals(false, n.getSounds());
+  }
 
-    /**
-     * Test the property 'sounds'
-     */
-    @Test
-    public void soundsTest() {
-      NotificationsDTO n = new NotificationsDTO();
-      n.setSounds(true);
-      assertEquals(true,n.getSounds());
-    }
+  /**
+   * Test the property 'sounds'
+   */
+  @Test
+  public void soundsTest() {
+    NotificationsDTO n = new NotificationsDTO();
+    n.setSounds(true);
+    assertEquals(true, n.getSounds());
+  }
 
-    /**
-     * Test the property 'badges'
-     */
-    @Test
-    public void badgesTest() {
-      NotificationsDTO n = new NotificationsDTO();
-      n.setBadges(false);
-      assertEquals(false, n.getBadges());
-    }
+  /**
+   * Test the property 'badges'
+   */
+  @Test
+  public void badgesTest() {
+    NotificationsDTO n = new NotificationsDTO();
+    n.setBadges(false);
+    assertEquals(false, n.getBadges());
+  }
 
 }

@@ -22,7 +22,7 @@ public class TimeWarpUserDetailsManager extends JdbcUserDetailsManager {
   private String createUserSql = "insert into users (username, email, password, enabled) values (?,?,?,?)";
   private String createAuthoritySql = "insert into authorities (username, authority) values (?,?)";
   private String emailExistsSql = "select email from users where email = ?";
-  private String changeUsernameSql= "update users set username = ? where username = ?";
+  private String changeUsernameSql = "update users set username = ? where username = ?";
 
   public TimeWarpUserDetailsManager(DataSource dataSource) {
     super(dataSource);
@@ -37,7 +37,7 @@ public class TimeWarpUserDetailsManager extends JdbcUserDetailsManager {
     this.validateUserDetails(user);
     this.getJdbcTemplate().update(this.createUserSql, (ps) -> {
       ps.setString(1, user.getUsername());
-      ps.setString(2,user.getEmail());
+      ps.setString(2, user.getEmail());
       ps.setString(3, user.getPassword());
       ps.setBoolean(4, user.isEnabled());
       int paramCount = ps.getParameterMetaData().getParameterCount();
@@ -50,7 +50,7 @@ public class TimeWarpUserDetailsManager extends JdbcUserDetailsManager {
     if (this.getEnableAuthorities()) {
       this.insertUserAuthorities(user);
     }
-}
+  }
 
   /***
    * Search in the database if an email already exists
@@ -82,11 +82,12 @@ public class TimeWarpUserDetailsManager extends JdbcUserDetailsManager {
       Assert.hasText(authority.getAuthority(), "getAuthority() method must return a non-empty string");
     }
   }
+
   private void insertUserAuthorities(UserDetails user) {
     Iterator var2 = user.getAuthorities().iterator();
 
-    while(var2.hasNext()) {
-      GrantedAuthority auth = (GrantedAuthority)var2.next();
+    while (var2.hasNext()) {
+      GrantedAuthority auth = (GrantedAuthority) var2.next();
       this.getJdbcTemplate().update(this.createAuthoritySql, new Object[]{user.getUsername(), auth.getAuthority()});
     }
   }
@@ -97,7 +98,7 @@ public class TimeWarpUserDetailsManager extends JdbcUserDetailsManager {
    * @param newUsername
    */
   @Transactional
-  public void changeUsername(String oldUsername, String newUsername){
+  public void changeUsername(String oldUsername, String newUsername) {
     this.getJdbcTemplate().execute("SET REFERENTIAL_INTEGRITY FALSE");
     this.getJdbcTemplate().update(this.changeUsernameSql, newUsername, oldUsername);
     if (this.getEnableAuthorities()) {

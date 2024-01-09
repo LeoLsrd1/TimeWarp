@@ -33,38 +33,38 @@ public class UserSettingsService {
   @Value("${cpoo.server.domain}")
   private String serverDomain;
 
-    @Autowired
-    public UserSettingsService(UserSettingsRepository userSettingsRepository, DiscussionRepository discussionRepository, MessageRepository messageRepository, PasswordEncoder passwordEncoder) {
-        this.userSettingsRepository = userSettingsRepository;
-        this.discussionRepository = discussionRepository;
-        this.messageRepository = messageRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+  @Autowired
+  public UserSettingsService(UserSettingsRepository userSettingsRepository, DiscussionRepository discussionRepository, MessageRepository messageRepository, PasswordEncoder passwordEncoder) {
+    this.userSettingsRepository = userSettingsRepository;
+    this.discussionRepository = discussionRepository;
+    this.messageRepository = messageRepository;
+    this.passwordEncoder = passwordEncoder;
+  }
 
-    public UserSettingsDTO getUserSettingsByUsername(String username) {
-        UserSettings userSettings = userSettingsRepository.findByUsername(username);
-        if(userSettings == null) {
-            userSettings = new UserSettings(username);
-            userSettingsRepository.save(userSettings);
-        }
-        System.out.println(userSettings);
-        return userSettings.toDTO();
+  public UserSettingsDTO getUserSettingsByUsername(String username) {
+    UserSettings userSettings = userSettingsRepository.findByUsername(username);
+    if (userSettings == null) {
+      userSettings = new UserSettings(username);
+      userSettingsRepository.save(userSettings);
     }
+    System.out.println(userSettings);
+    return userSettings.toDTO();
+  }
 
-    @Transactional
-    public void changeUserTheme(String username, int themeId) {
-        userSettingsRepository.updateUserTheme(username, themeId);
-    }
+  @Transactional
+  public void changeUserTheme(String username, int themeId) {
+    userSettingsRepository.updateUserTheme(username, themeId);
+  }
 
-    @Transactional
-    public void changeNotificationsSettings(String username, boolean notificationSounds, boolean unreadBadges){
-        userSettingsRepository.updateUserNotificationsSettings(username, notificationSounds, unreadBadges);
-    }
+  @Transactional
+  public void changeNotificationsSettings(String username, boolean notificationSounds, boolean unreadBadges) {
+    userSettingsRepository.updateUserNotificationsSettings(username, notificationSounds, unreadBadges);
+  }
 
-    @Transactional
-    public void changeUserLanguage(String username, String language) {
-        userSettingsRepository.updateUserLanguage(username, language);
-    }
+  @Transactional
+  public void changeUserLanguage(String username, String language) {
+    userSettingsRepository.updateUserLanguage(username, language);
+  }
 
   /***
    * @param oldPwd
@@ -109,20 +109,20 @@ public class UserSettingsService {
    * false if new username already exists
    */
   @Transactional
-  public boolean changeUsername(String oldUsername, String newUsername){
-    if (timeWarpUserDetailsManager.userExists(newUsername)){
+  public boolean changeUsername(String oldUsername, String newUsername) {
+    if (timeWarpUserDetailsManager.userExists(newUsername)) {
       return false;
     }
 
     timeWarpUserDetailsManager.changeUsername(oldUsername, newUsername);
 
-    discussionRepository.updateUsernameInUser1(oldUsername+"@"+serverDomain, newUsername+"@"+serverDomain);
-    discussionRepository.updateUsernameInUser2(oldUsername+"@"+serverDomain, newUsername+"@"+serverDomain);
+    discussionRepository.updateUsernameInUser1(oldUsername + "@" + serverDomain, newUsername + "@" + serverDomain);
+    discussionRepository.updateUsernameInUser2(oldUsername + "@" + serverDomain, newUsername + "@" + serverDomain);
 
     userSettingsRepository.updateUsername(oldUsername, newUsername);
 
-    messageRepository.updateUsernameFrom(oldUsername+"@"+serverDomain, newUsername+"@"+serverDomain);
-    messageRepository.updateUsernameTo(oldUsername+"@"+serverDomain, newUsername+"@"+serverDomain);
+    messageRepository.updateUsernameFrom(oldUsername + "@" + serverDomain, newUsername + "@" + serverDomain);
+    messageRepository.updateUsernameTo(oldUsername + "@" + serverDomain, newUsername + "@" + serverDomain);
 
     return true; //Success
   }

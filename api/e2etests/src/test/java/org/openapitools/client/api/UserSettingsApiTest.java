@@ -30,304 +30,307 @@ import org.junit.jupiter.api.Test;
  */
 public class UserSettingsApiTest {
 
-    private final UserSettingsApi userSettingsapi = new UserSettingsApi();
+  private final UserSettingsApi userSettingsapi = new UserSettingsApi();
 
-    private final AuthenticationApi authenticationApi = new AuthenticationApi();
+  private final AuthenticationApi authenticationApi = new AuthenticationApi();
 
-    private final AdministrationApi administrationApi = new AdministrationApi();
-
-
-    @BeforeEach
-    public void init() throws ApiException {
-
-        // Simulate the behavior of a web browser by remembering cookies set by the server
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        OkHttpClient okHttpClient = builder.cookieJar(new MyCookieJar()).build();
-        ApiClient apiClient = new ApiClient(okHttpClient);
-        authenticationApi.setApiClient(apiClient);
-        administrationApi.setApiClient(apiClient);
-        userSettingsapi.setApiClient(apiClient);
-    }
+  private final AdministrationApi administrationApi = new AdministrationApi();
 
 
-    /**
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    @Disabled
-    public void userAccountChangeppPatchTest() throws ApiException {
-        String body = null;
-        userSettingsapi.userAccountChangeppPatch(body);
-        // TODO: test validations
-    }
+  @BeforeEach
+  public void init() throws ApiException {
+
+    // Simulate the behavior of a web browser by remembering cookies set by the server
+    OkHttpClient.Builder builder = new OkHttpClient.Builder();
+    OkHttpClient okHttpClient = builder.cookieJar(new MyCookieJar()).build();
+    ApiClient apiClient = new ApiClient(okHttpClient);
+    authenticationApi.setApiClient(apiClient);
+    administrationApi.setApiClient(apiClient);
+    userSettingsapi.setApiClient(apiClient);
+  }
 
 
-    /**
-     * Change username test
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userAccountChgusernamePatchTest() throws ApiException {
-      //Signout if a user altready Signin
-      try{
-        authenticationApi.userSignoutPost();
-      }
-      catch (ApiException e) {
-        Assertions.assertEquals(403, e.getCode());
-      }
+  /**
+   * @throws ApiException if the Api call fails
+   */
+  @Test
+  @Disabled
+  public void userAccountChangeppPatchTest() throws ApiException {
+    String body = null;
+    userSettingsapi.userAccountChangeppPatch(body);
+    // TODO: test validations
+  }
 
-      // Delete the test account if exists
-      authenticationApi.userSigninPost(new UserDTO().username("admin").email("admin").password("admin"));
-      try {
-        administrationApi.userUsernameDelete("testChangeUsername0");
-      }
-      catch (ApiException e) {
-        Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
-      }
-      try {
-        administrationApi.userUsernameDelete("testChangeUsername1");
-      }
-      catch (ApiException e) {
-        Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
-      }
-      try {
-        administrationApi.userUsernameDelete("testChangeUsername2");
-      }
-      catch (ApiException e) {
-        Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
-      }
+
+  /**
+   * Change username test
+   *
+   * @throws ApiException if the Api call fails
+   */
+  @Test
+  public void userAccountChgusernamePatchTest() throws ApiException {
+    //Signout if a user altready Signin
+    try {
       authenticationApi.userSignoutPost();
+    }
+    catch (ApiException e) {
+      Assertions.assertEquals(403, e.getCode());
+    }
 
-      //Create DTO of account test and signup user0 and user2 (user1 is the DTO for the newUsername which work)
-      UserDTO user0 = new UserDTO().username("testChangeUsername0").email("a").password("a");
-      UserDTO user1 = new UserDTO().username("testChangeUsername1").email("a").password("a");
-      UserDTO user2 = new UserDTO().username("testChangeUsername2").email("c").password("a");
-      authenticationApi.userSignupPost(user0);
-      authenticationApi.userSignupPost(user2);;
+    // Delete the test account if exists
+    authenticationApi.userSigninPost(new UserDTO().username("admin").email("admin").password("admin"));
+    try {
+      administrationApi.userUsernameDelete("testChangeUsername0");
+    }
+    catch (ApiException e) {
+      Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
+    }
+    try {
+      administrationApi.userUsernameDelete("testChangeUsername1");
+    }
+    catch (ApiException e) {
+      Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
+    }
+    try {
+      administrationApi.userUsernameDelete("testChangeUsername2");
+    }
+    catch (ApiException e) {
+      Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
+    }
+    authenticationApi.userSignoutPost();
 
-      //Change Username
+    //Create DTO of account test and signup user0 and user2 (user1 is the DTO for the newUsername which work)
+    UserDTO user0 = new UserDTO().username("testChangeUsername0").email("a").password("a");
+    UserDTO user1 = new UserDTO().username("testChangeUsername1").email("a").password("a");
+    UserDTO user2 = new UserDTO().username("testChangeUsername2").email("c").password("a");
+    authenticationApi.userSignupPost(user0);
+    authenticationApi.userSignupPost(user2);
+    ;
+
+    //Change Username
+    authenticationApi.userSigninPost(user0);
+    UserDTO newUsername = new UserDTO().username("testChangeUsername1").email("").password("");
+    userSettingsapi.userAccountChgusernamePatch(newUsername);
+    authenticationApi.userSignoutPost();
+
+    //SignIn with the old username should fail
+    try {
       authenticationApi.userSigninPost(user0);
-      UserDTO newUsername = new UserDTO().username("testChangeUsername1").email("").password("");
-      userSettingsapi.userAccountChgusernamePatch(newUsername);
+      Assertions.fail();
+    }
+    catch (ApiException e) {
+      Assertions.assertEquals(HttpStatus.SC_UNAUTHORIZED, e.getCode());
+    }
+
+    //Signin with the new Username should work
+    authenticationApi.userSigninPost(user1);
+
+    //Change username with a new username which already exist should fail
+    try {
+      UserDTO newUsername1 = new UserDTO().username("testChangeUsername2").email("").password("");
+      userSettingsapi.userAccountChgusernamePatch(newUsername1);
+      Assertions.fail();
+    }
+    catch (ApiException e) {
+      Assertions.assertEquals(HttpStatus.SC_CONFLICT, e.getCode());
+    }
+
+    authenticationApi.userSignoutPost();
+  }
+
+  /**
+   * Change user theme
+   *
+   * @throws ApiException if the Api call fails
+   */
+  @Test
+  public void userChangeThemePatchTest() throws ApiException {
+    String themeId = "0";
+    // Update theme while not signed in should fail with FORBIDDEN
+    try {
+      userSettingsapi.userChangeThemePatch(themeId);
+      Assertions.fail();
+    }
+    catch (ApiException e) {
+      Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
+    }
+
+    // Sign in
+    authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
+
+    userSettingsapi.userSettingsGet(); // To create the user settings save
+
+    // Change theme and verify it has change
+    themeId = "3";
+    userSettingsapi.userChangeThemePatch(themeId);
+    Assertions.assertEquals(3, userSettingsapi.userSettingsGet().getTheme());
+    themeId = "0";
+    userSettingsapi.userChangeThemePatch(themeId);
+    Assertions.assertEquals(0, userSettingsapi.userSettingsGet().getTheme());
+  }
+
+  /**
+   * @throws ApiException if the Api call fails
+   */
+  @Test
+  public void userChangepwdPatchTest() throws ApiException {
+    //Signout if a user altready Signin
+    try {
       authenticationApi.userSignoutPost();
-
-      //SignIn with the old username should fail
-      try {
-        authenticationApi.userSigninPost(user0);
-        Assertions.fail();
-      }
-      catch (ApiException e) {
-        Assertions.assertEquals(HttpStatus.SC_UNAUTHORIZED, e.getCode());
-      }
-
-      //Signin with the new Username should work
-      authenticationApi.userSigninPost(user1);
-
-      //Change username with a new username which already exist should fail
-      try {
-        UserDTO newUsername1 = new UserDTO().username("testChangeUsername2").email("").password("");
-        userSettingsapi.userAccountChgusernamePatch(newUsername1);
-        Assertions.fail();
-      }
-      catch (ApiException e) {
-        Assertions.assertEquals(HttpStatus.SC_CONFLICT, e.getCode());
-      }
-
-      authenticationApi.userSignoutPost();
+    }
+    catch (ApiException e) {
+      Assertions.assertEquals(403, e.getCode());
     }
 
-    /**
-     * Change user theme
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userChangeThemePatchTest() throws ApiException {
-        String themeId = "0";
-        // Update theme while not signed in should fail with FORBIDDEN
-        try {
-            userSettingsapi.userChangeThemePatch(themeId);
-            Assertions.fail();
-            }
-            catch (ApiException e) {
-            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
-        }
+    // Delete the test account if exists
+    authenticationApi.userSigninPost(new UserDTO().username("admin").email("admin").password("admin"));
+    try {
+      administrationApi.userUsernameDelete("testchangepwd");
+    }
+    catch (ApiException e) {
+      Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
+    }
+    authenticationApi.userSignoutPost();
 
-        // Sign in
-        authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
 
-        userSettingsapi.userSettingsGet(); // To create the user settings save
+    UserDTO user = new UserDTO().username("testchangepwd").email("TestChangePassword").password("Pwd1");
+    authenticationApi.userSignupPost(user);
 
-        // Change theme and verify it has change
-        themeId = "3";
-        userSettingsapi.userChangeThemePatch(themeId);
-        Assertions.assertEquals(3, userSettingsapi.userSettingsGet().getTheme());
-        themeId = "0";
-        userSettingsapi.userChangeThemePatch(themeId);
-        Assertions.assertEquals(0, userSettingsapi.userSettingsGet().getTheme());
+    //SignIn with First Password should work
+    authenticationApi.userSigninPost(user);
+
+    //Change Password
+    ChangePasswordDTO cpDto = new ChangePasswordDTO().oldpassword(user.getPassword()).newpassword("Pwd2");
+    userSettingsapi.userChangepwdPatch(cpDto);
+    authenticationApi.userSignoutPost();
+
+    //SignIn with ancient password should fail
+    try {
+      authenticationApi.userSigninPost(user);
+    }
+    catch (ApiException e) {
+      Assertions.assertEquals(HttpStatus.SC_UNAUTHORIZED, e.getCode());
     }
 
-    /**
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userChangepwdPatchTest() throws ApiException {
-        //Signout if a user altready Signin
-        try{
-            authenticationApi.userSignoutPost();
-        }
-        catch (ApiException e) {
-            Assertions.assertEquals(403, e.getCode());
-        }
+    //SignIn with new password should work
+    authenticationApi.userSigninPost(new UserDTO().username("testchangepwd").email("TestChangePassword").password("Pwd2"));
 
-        // Delete the test account if exists
-        authenticationApi.userSigninPost(new UserDTO().username("admin").email("admin").password("admin"));
-        try {
-            administrationApi.userUsernameDelete("testchangepwd");
-        }
-        catch (ApiException e) {
-            Assertions.assertEquals(HttpStatus.SC_NOT_FOUND, e.getCode());
-        }
-        authenticationApi.userSignoutPost();
+    //ChangePassword with incorrect old password should fail
+    try {
+      ChangePasswordDTO cpDto2 = new ChangePasswordDTO().oldpassword("Hello").newpassword("Pwd3");
+      userSettingsapi.userChangepwdPatch(cpDto2);
+    }
+    catch (ApiException e) {
+      Assertions.assertEquals(HttpStatus.SC_UNAUTHORIZED, e.getCode());
+    }
+    authenticationApi.userSignoutPost();
+  }
 
-
-        UserDTO user = new UserDTO().username("testchangepwd").email("TestChangePassword").password("Pwd1");
-        authenticationApi.userSignupPost(user);
-
-        //SignIn with First Password should work
-        authenticationApi.userSigninPost(user);
-
-        //Change Password
-        ChangePasswordDTO cpDto = new ChangePasswordDTO().oldpassword(user.getPassword()).newpassword("Pwd2");
-        userSettingsapi.userChangepwdPatch(cpDto);
-        authenticationApi.userSignoutPost();
-
-        //SignIn with ancient password should fail
-        try {
-            authenticationApi.userSigninPost(user);
-        }
-        catch (ApiException e) {
-            Assertions.assertEquals(HttpStatus.SC_UNAUTHORIZED, e.getCode());
-        }
-
-        //SignIn with new password should work
-        authenticationApi.userSigninPost(new UserDTO().username("testchangepwd").email("TestChangePassword").password("Pwd2"));
-
-        //ChangePassword with incorrect old password should fail
-        try {
-            ChangePasswordDTO cpDto2 = new ChangePasswordDTO().oldpassword("Hello").newpassword("Pwd3");
-            userSettingsapi.userChangepwdPatch(cpDto2);
-        }
-        catch (ApiException e) {
-            Assertions.assertEquals(HttpStatus.SC_UNAUTHORIZED, e.getCode());
-        }
-        authenticationApi.userSignoutPost();
+  /**
+   * @throws ApiException if the Api call fails
+   */
+  @Test
+  public void userLanguagePatchTest() throws ApiException {
+    String language = "";
+    // Update language setting while not signed in should fail with FORBIDDEN
+    try {
+      userSettingsapi.userLanguagePatch(language);
+      Assertions.fail();
+    }
+    catch (ApiException e) {
+      Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
     }
 
-    /**
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userLanguagePatchTest() throws ApiException {
-        String language = "";
-        // Update language setting while not signed in should fail with FORBIDDEN
-        try {
-            userSettingsapi.userLanguagePatch(language);
-            Assertions.fail();
-            }
-            catch (ApiException e) {
-            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
-        }
+    // Sign in
+    authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
 
-        // Sign in
-        authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
+    language = "browser"; //Default language
+    ApiResponse<Void> response = userSettingsapi.userLanguagePatchWithHttpInfo(language);
+    Assertions.assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+  }
 
-        language="browser"; //Default language
-        ApiResponse<Void> response = userSettingsapi.userLanguagePatchWithHttpInfo(language);
-        Assertions.assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+  /**
+   * Update notifications settings (notification sounds and Icon badges)
+   *
+   * @throws ApiException if the Api call fails
+   */
+  @Test
+  public void userNotificationsPatchTest() throws ApiException {
+    NotificationsDTO notificationsDTO = new NotificationsDTO().sounds(true).badges(true);
+    ;
+    // Update notifications settings while not signed in should fail with FORBIDDEN
+    try {
+      userSettingsapi.userNotificationsPatch(notificationsDTO);
+      Assertions.fail();
+    }
+    catch (ApiException e) {
+      Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
     }
 
-    /**
-     * Update notifications settings (notification sounds and Icon badges)
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userNotificationsPatchTest() throws ApiException {
-        NotificationsDTO notificationsDTO = new NotificationsDTO().sounds(true).badges(true);;
-        // Update notifications settings while not signed in should fail with FORBIDDEN
-        try {
-            userSettingsapi.userNotificationsPatch(notificationsDTO);
-            Assertions.fail();
-            }
-            catch (ApiException e) {
-            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
-        }
+    // Sign in
+    authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
 
-        // Sign in
-        authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
+    ApiResponse<Void> response = userSettingsapi.userNotificationsPatchWithHttpInfo(notificationsDTO);
 
-        ApiResponse<Void> response = userSettingsapi.userNotificationsPatchWithHttpInfo(notificationsDTO);
+    Assertions.assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+  }
 
-        Assertions.assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+  /**
+   * Get user settings information
+   *
+   * @throws ApiException if the Api call fails
+   */
+  @Test
+  public void userSettingsGetTest() throws ApiException {
+    UserSettingsDTO response;
+
+    // Update theme while not signed in should fail with FORBIDDEN
+    try {
+      userSettingsapi.userSettingsGet();
+      Assertions.fail();
+    }
+    catch (ApiException e) {
+      Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
     }
 
-    /**
-     * Get user settings information
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void userSettingsGetTest() throws ApiException {
-        UserSettingsDTO response;
+    // Sign in
+    authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
 
-        // Update theme while not signed in should fail with FORBIDDEN
-        try {
-            userSettingsapi.userSettingsGet();
-            Assertions.fail();
-            }
-            catch (ApiException e) {
-            Assertions.assertEquals(HttpStatus.SC_FORBIDDEN, e.getCode());
-        }
+    UserSettingsDTO userSettingsDTO = new UserSettingsDTO();
+    userSettingsDTO.setTheme(4);
+    userSettingsDTO.setLanguage("es");
+    userSettingsDTO.setUnreadBadges(false);
+    userSettingsDTO.setNotificationSound(true);
+    userSettingsDTO.setProfileImage("");
 
-        // Sign in
-        authenticationApi.userSigninPost(new UserDTO().username("user").password("user"));
+    userSettingsapi.userChangeThemePatch(new String("4"));
+    userSettingsapi.userLanguagePatch("es");
+    NotificationsDTO notificationsDTO = new NotificationsDTO();
+    notificationsDTO.setBadges(false);
+    notificationsDTO.setSounds(true);
+    userSettingsapi.userNotificationsPatch(notificationsDTO);
+    // TODO: A décommenter quand ça sera implémenté
+    //userSettingsapi.userAccountChangeppPatch("");*/
 
-        UserSettingsDTO userSettingsDTO = new UserSettingsDTO();
-        userSettingsDTO.setTheme(4);
-        userSettingsDTO.setLanguage("es");
-        userSettingsDTO.setUnreadBadges(false);
-        userSettingsDTO.setNotificationSound(true);
-        userSettingsDTO.setProfileImage("");
+    response = userSettingsapi.userSettingsGet(); // Create the user settings save
+    Assertions.assertEquals(response, userSettingsDTO);
 
-        userSettingsapi.userChangeThemePatch(new String("4"));
-        userSettingsapi.userLanguagePatch("es");
-        NotificationsDTO notificationsDTO = new NotificationsDTO();
-        notificationsDTO.setBadges(false);
-        notificationsDTO.setSounds(true);
-        userSettingsapi.userNotificationsPatch(notificationsDTO);
-        // TODO: A décommenter quand ça sera implémenté
-        //userSettingsapi.userAccountChangeppPatch("");*/
+    userSettingsDTO.setTheme(0);
+    userSettingsDTO.setLanguage("browser");
+    userSettingsDTO.setUnreadBadges(true);
+    userSettingsDTO.setNotificationSound(true);
+    userSettingsDTO.setProfileImage("");
 
-        response = userSettingsapi.userSettingsGet(); // Create the user settings save
-        Assertions.assertEquals(response, userSettingsDTO);
+    userSettingsapi.userChangeThemePatch(new String("0"));
+    userSettingsapi.userLanguagePatch("browser");
+    notificationsDTO.setBadges(true);
+    notificationsDTO.setSounds(true);
+    userSettingsapi.userNotificationsPatch(notificationsDTO);
+    // TODO: A décommenter quand ça sera implémenté
+    //userSettingsapi.userAccountChangeppPatch("");*/
 
-        userSettingsDTO.setTheme(0);
-        userSettingsDTO.setLanguage("browser");
-        userSettingsDTO.setUnreadBadges(true);
-        userSettingsDTO.setNotificationSound(true);
-        userSettingsDTO.setProfileImage("");
-
-        userSettingsapi.userChangeThemePatch(new String("0"));
-        userSettingsapi.userLanguagePatch("browser");
-        notificationsDTO.setBadges(true);
-        notificationsDTO.setSounds(true);
-        userSettingsapi.userNotificationsPatch(notificationsDTO);
-        // TODO: A décommenter quand ça sera implémenté
-        //userSettingsapi.userAccountChangeppPatch("");*/
-
-        response = userSettingsapi.userSettingsGet(); // Create the user settings save
-        Assertions.assertEquals(response, userSettingsDTO);
-    }
+    response = userSettingsapi.userSettingsGet(); // Create the user settings save
+    Assertions.assertEquals(response, userSettingsDTO);
+  }
 
 }

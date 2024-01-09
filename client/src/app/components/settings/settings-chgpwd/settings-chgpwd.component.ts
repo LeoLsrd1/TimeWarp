@@ -19,9 +19,9 @@ export class SettingsChgpwdComponent {
   @Output() go_account = new EventEmitter<void>();
 
 
-  oldPwd : string = "";
-  newPwd : string = "";
-  confirmNewPwd : string ="";
+  oldPwd  = "";
+  newPwd  = "";
+  confirmNewPwd  ="";
   
 /* Json which contains the information that will be sent to the server */
   changePwdDTO : ChangePwdDTO = {          
@@ -30,14 +30,14 @@ export class SettingsChgpwdComponent {
   }  
 
   /* Message that will display the corresponding field in case of error */
-  oldPwdErrorMessage : string ="";
-  newPwdErrorMessage : string ="";
-  confirmNewPwdErrorMessage : string ="";
+  oldPwdErrorMessage  ="";
+  newPwdErrorMessage  ="";
+  confirmNewPwdErrorMessage  ="";
 
   /* Will be true if the corresponding field contain an error, else false */
-  oldPwdError : boolean = false;
-  newPwdError : boolean = false;
-  confirmNewPwdError : boolean = false;
+  oldPwdError  = false;
+  newPwdError  = false;
+  confirmNewPwdError  = false;
 
 
   navigateToAccount() : void{
@@ -98,7 +98,7 @@ export class SettingsChgpwdComponent {
     if (this.newPwd_empty()) this.newPwdError = true; else this.newPwdError = false;
     if (this.confirmNewPwd_empty()) this.confirmNewPwdError = true; else this.confirmNewPwdError = false;
 
-    let isSamePassword = this.samePwd();
+    const isSamePassword = this.samePwd();
 
     if(!this.newPwdError && !isSamePassword){ this.newPwdError = true; this.newPwdErrorMessage = this.translate.instant('NotTheSamePassword');}
     if(!this.confirmNewPwdError && !isSamePassword){this.confirmNewPwdError = true; this.confirmNewPwdErrorMessage = this.translate.instant('NotTheSamePassword');}

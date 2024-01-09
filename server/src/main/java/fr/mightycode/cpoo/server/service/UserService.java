@@ -46,7 +46,7 @@ public class UserService {
       return 0;
     if (timeWarpUserDetailsManager.emailExists(email))
       return 1;
-    final TimeWarpUser user = new TimeWarpUser(username,email, passwordEncoder.encode(password), List.of(new SimpleGrantedAuthority("ROLE_USER")));
+    final TimeWarpUser user = new TimeWarpUser(username, email, passwordEncoder.encode(password), List.of(new SimpleGrantedAuthority("ROLE_USER")));
     timeWarpUserDetailsManager.createUser(user);
 
     return 2;
@@ -55,7 +55,7 @@ public class UserService {
   /***
    * @param login
    * @param password
-   * @return  false if an user is already signin /
+   * @return false if an user is already signin /
    * true if it's a success
    * @throws ServletException   if there are bad credentials
    */

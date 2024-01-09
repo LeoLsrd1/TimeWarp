@@ -18,8 +18,10 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+
 import java.io.IOException;
 import java.util.Arrays;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -29,79 +31,79 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Model tests for ErrorDTO
  */
 public class ErrorDTOTest {
-    private final ErrorDTO model = new ErrorDTO();
+  private final ErrorDTO model = new ErrorDTO();
 
-    /**
-     * Model tests for ErrorDTO
-     */
-    @Test
-    public void testErrorDTO() {
-      ErrorDTO err = new ErrorDTO();
-      err.setError("test1");
-      err.setMessage("test2");
-      err.setPath("test3");
-      err.setStatus(200);
-      err.setTimestamp("test4");
+  /**
+   * Model tests for ErrorDTO
+   */
+  @Test
+  public void testErrorDTO() {
+    ErrorDTO err = new ErrorDTO();
+    err.setError("test1");
+    err.setMessage("test2");
+    err.setPath("test3");
+    err.setStatus(200);
+    err.setTimestamp("test4");
 
-      assertEquals("test1", err.getError());
-      assertEquals("test2", err.getMessage());
-      assertEquals("test3", err.getPath());
-      assertEquals(200, err.getStatus());
-      assertEquals("test4", err.getTimestamp());
-    }
+    assertEquals("test1", err.getError());
+    assertEquals("test2", err.getMessage());
+    assertEquals("test3", err.getPath());
+    assertEquals(200, err.getStatus());
+    assertEquals("test4", err.getTimestamp());
+  }
 
-    /**
-     * Test the property 'timestamp'
-     */
-    @Test
-    public void timestampTest() {
-      ErrorDTO err = new ErrorDTO();
-      err.setTimestamp("test");
+  /**
+   * Test the property 'timestamp'
+   */
+  @Test
+  public void timestampTest() {
+    ErrorDTO err = new ErrorDTO();
+    err.setTimestamp("test");
 
-      assertEquals("test", err.getTimestamp());
-    }
+    assertEquals("test", err.getTimestamp());
+  }
 
-    /**
-     * Test the property 'status'
-     */
-    @Test
-    public void statusTest() {
-      ErrorDTO err = new ErrorDTO();
-      err.setStatus(401);
+  /**
+   * Test the property 'status'
+   */
+  @Test
+  public void statusTest() {
+    ErrorDTO err = new ErrorDTO();
+    err.setStatus(401);
 
-      assertEquals(401, err.getStatus());
-    }
+    assertEquals(401, err.getStatus());
+  }
 
-    /**
-     * Test the property 'error'
-     */
-    @Test
-    public void errorTest() {
-      ErrorDTO err = new ErrorDTO();
-      err.setError("test");
+  /**
+   * Test the property 'error'
+   */
+  @Test
+  public void errorTest() {
+    ErrorDTO err = new ErrorDTO();
+    err.setError("test");
 
-      assertEquals("test", err.getError());
-    }
+    assertEquals("test", err.getError());
+  }
 
-    /**
-     * Test the property 'message'
-     */
-    @Test
-    public void messageTest() {
-      ErrorDTO err = new ErrorDTO();
-      err.setMessage("test");
-      assertEquals("test", err.getMessage());
-    }
+  /**
+   * Test the property 'message'
+   */
+  @Test
+  public void messageTest() {
+    ErrorDTO err = new ErrorDTO();
+    err.setMessage("test");
+    assertEquals("test", err.getMessage());
+  }
 
-    /**
-     * Test the property 'path'
-     */
-    @Test
-    public void pathTest() {
-      ErrorDTO err = new ErrorDTO();
-      err.setPath("test");
+  /**
+   * Test the property 'path'
+   */
+  @Test
+  public void pathTest() {
+    ErrorDTO err = new ErrorDTO();
+    err.setPath("test");
 
-      assertEquals("test", err.getPath());
-    }
+    assertEquals("test", err.getPath());
+  }
 
 }
