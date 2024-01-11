@@ -13,24 +13,24 @@ export class CreateAccountComponent {
 
   constructor(private router:Router, private signupService: SignupServiceService, private translate: TranslateService){}
 
-  username : string = "";
-  email : string = "";
-  password : string = "";
-  confirmPwd : string ="";
+  username  = "";
+  email  = "";
+  password  = "";
+  confirmPwd  ="";
 
   UserDTO : JSON = <JSON><unknown>{}   // Json which contains the information that will be sent to the server
 
   /* Message that will display the corresponding field in case of error */
-  userErrorMessage : string ="";
-  emailErrorMessage : string ="";
-  pwdErrorMessage : string ="";
-  cfpwdErrorMessage : string ="";
+  userErrorMessage  ="";
+  emailErrorMessage  ="";
+  pwdErrorMessage  ="";
+  cfpwdErrorMessage  ="";
 
   /* Will be true if the corresponding field contain an error, else false */
-  userError : boolean = false;
-  emailError : boolean = false;
-  pwdError : boolean = false;
-  cfpwdError : boolean = false;
+  userError  = false;
+  emailError  = false;
+  pwdError  = false;
+  cfpwdError  = false;
 
 
 
@@ -47,7 +47,7 @@ export class CreateAccountComponent {
 
   /* Using a regex we check if what the user enters in email looks like an email address */
   validation_email() : boolean{
-    let sampleRegEx: RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const sampleRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return sampleRegEx.test(this.email);
   }
 
@@ -126,18 +126,16 @@ export class CreateAccountComponent {
 
 
 
-
-
-
   /* Main Fonction */
   createAccountFonction() : void{
+    this.username = this.username.toLowerCase();
     if (this.username_empty()) this.userError = true; else this.userError = false;
     if (this.email_empty()) this.emailError = true; else this.emailError = false;
     if (this.pwd_empty()) this.pwdError = true; else this.pwdError = false;
     if (this.cfmPwd_empty()) this.cfpwdError = true; else this.cfpwdError = false;
 
-    let isSamePassword = this.samePwd();
-    let isCorrectEmail = this.validation_email();
+    const isSamePassword = this.samePwd();
+    const isCorrectEmail = this.validation_email();
 
     if(!this.pwdError && !isSamePassword){ this.pwdError = true; this.pwdErrorMessage = this.translate.instant('NotTheSamePassword');}
     if(!this.cfpwdError && !isSamePassword){this.cfpwdError = true; this.cfpwdErrorMessage = this.translate.instant('NotTheSamePassword');}

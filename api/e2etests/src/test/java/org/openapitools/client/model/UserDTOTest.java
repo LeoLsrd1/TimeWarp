@@ -18,8 +18,10 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+
 import java.io.IOException;
 import java.util.Arrays;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -29,51 +31,51 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Model tests for UserDTO
  */
 public class UserDTOTest {
-    private final UserDTO model = new UserDTO();
+  private final UserDTO model = new UserDTO();
 
-    /**
-     * Model tests for UserDTO
-     */
-    @Test
-    public void testUserDTO() {
-      UserDTO user = new UserDTO();
-      user.setEmail("testE");
-      user.setPassword("testP");
-      user.setUsername("testU");
+  /**
+   * Model tests for UserDTO
+   */
+  @Test
+  public void testUserDTO() {
+    UserDTO user = new UserDTO();
+    user.setEmail("testE");
+    user.setPassword("testP");
+    user.setUsername("testU");
 
-      assertEquals("testE", user.getEmail());
-      assertEquals("testP", user.getPassword());
-      assertEquals("testU", user.getUsername());
-    }
+    assertEquals("testE", user.getEmail());
+    assertEquals("testP", user.getPassword());
+    assertEquals("testU", user.getUsername());
+  }
 
-    /**
-     * Test the property 'username'
-     */
-    @Test
-    public void usernameTest() {
-      UserDTO user = new UserDTO();
-      user.setUsername("test");
-      assertEquals("test", user.getUsername());
-    }
+  /**
+   * Test the property 'username'
+   */
+  @Test
+  public void usernameTest() {
+    UserDTO user = new UserDTO();
+    user.setUsername("test");
+    assertEquals("test", user.getUsername());
+  }
 
-    /**
-     * Test the property 'email'
-     */
-    @Test
-    public void emailTest() {
-      UserDTO user = new UserDTO();
-      user.setEmail("test");
-      assertEquals("test", user.getEmail());
-    }
+  /**
+   * Test the property 'email'
+   */
+  @Test
+  public void emailTest() {
+    UserDTO user = new UserDTO();
+    user.setEmail("test");
+    assertEquals("test", user.getEmail());
+  }
 
-    /**
-     * Test the property 'password'
-     */
-    @Test
-    public void passwordTest() {
-      UserDTO user = new UserDTO();
-      user.setPassword("test");
-      assertEquals("test", user.getPassword());
-    }
+  /**
+   * Test the property 'password'
+   */
+  @Test
+  public void passwordTest() {
+    UserDTO user = new UserDTO();
+    user.setPassword("test");
+    assertEquals("test", user.getPassword());
+  }
 
 }

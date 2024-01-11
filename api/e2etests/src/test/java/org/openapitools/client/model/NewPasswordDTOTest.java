@@ -18,8 +18,10 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+
 import java.io.IOException;
 import java.util.Arrays;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -29,51 +31,51 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Model tests for NewPasswordDTO
  */
 public class NewPasswordDTOTest {
-    private final NewPasswordDTO model = new NewPasswordDTO();
+  private final NewPasswordDTO model = new NewPasswordDTO();
 
-    /**
-     * Model tests for NewPasswordDTO
-     */
-    @Test
-    public void testNewPasswordDTO() {
-      NewPasswordDTO n = new NewPasswordDTO();
-      n.setPassword("testP");
-      n.setCode(200);
-      n.setEmail("testE");
+  /**
+   * Model tests for NewPasswordDTO
+   */
+  @Test
+  public void testNewPasswordDTO() {
+    NewPasswordDTO n = new NewPasswordDTO();
+    n.setPassword("testP");
+    n.setCode(200);
+    n.setEmail("testE");
 
-      assertEquals("testP", n.getPassword());
-      assertEquals(200, n.getCode());
-      assertEquals("testE",n.getEmail());
-    }
+    assertEquals("testP", n.getPassword());
+    assertEquals(200, n.getCode());
+    assertEquals("testE", n.getEmail());
+  }
 
-    /**
-     * Test the property 'email'
-     */
-    @Test
-    public void emailTest() {
-      NewPasswordDTO n = new NewPasswordDTO();
-      n.setEmail("testE");
-      assertEquals("testE",n.getEmail());
-    }
+  /**
+   * Test the property 'email'
+   */
+  @Test
+  public void emailTest() {
+    NewPasswordDTO n = new NewPasswordDTO();
+    n.setEmail("testE");
+    assertEquals("testE", n.getEmail());
+  }
 
-    /**
-     * Test the property 'code'
-     */
-    @Test
-    public void codeTest() {
-      NewPasswordDTO n = new NewPasswordDTO();
-      n.setCode(200);
-      assertEquals(200, n.getCode());
-    }
+  /**
+   * Test the property 'code'
+   */
+  @Test
+  public void codeTest() {
+    NewPasswordDTO n = new NewPasswordDTO();
+    n.setCode(200);
+    assertEquals(200, n.getCode());
+  }
 
-    /**
-     * Test the property 'password'
-     */
-    @Test
-    public void passwordTest() {
-      NewPasswordDTO n = new NewPasswordDTO();
-      n.setPassword("testP");
-      assertEquals("testP", n.getPassword());
-    }
+  /**
+   * Test the property 'password'
+   */
+  @Test
+  public void passwordTest() {
+    NewPasswordDTO n = new NewPasswordDTO();
+    n.setPassword("testP");
+    assertEquals("testP", n.getPassword());
+  }
 
 }

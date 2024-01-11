@@ -16,14 +16,14 @@ export class DiscussionService {
   discussions: Discussion[] = [];
   messages: Message[] = [];
 
-  selectedDiscussionId: string = '';
+  selectedDiscussionId = '';
 
   private messageNotification = new Audio('../../assets/sounds/message-sound.mp3');
   private messageSent = new Audio('../../assets/sounds/send-message.mp3');
 
   //default notifications settings
-  soundParameter: boolean = true;
-  badgeParameter: boolean = true;
+  soundParameter = true;
+  badgeParameter = true;
 
   constructor(private http: HttpClient) { }
 
@@ -86,7 +86,7 @@ export class DiscussionService {
     this.http.patch(`${this.baseUrl}/unreadmessage`, requestBody).subscribe({
       error: (e) => console.error('An error has occurred for updateUnreadMessage: ', e),
       complete: () => {
-        let discussion = this.discussions.find(discussion => discussion.id == discussionId);
+        const discussion = this.discussions.find(discussion => discussion.id == discussionId);
         if(discussion) discussion.unreadMessage = unreadMessage;
         console.info('Update unreadMessage complete')
       }
@@ -141,7 +141,7 @@ export class DiscussionService {
 
         // If the message is sent by the current user, search for an existing discussion with the receiver;
         // otherwise, if the message is received by the current user, search for an existing discussion with the sender
-        let discussion = this.discussions.find(discussion => discussion.user1 === message.from || discussion.user2 === message.from);
+        const discussion = this.discussions.find(discussion => discussion.user1 === message.from || discussion.user2 === message.from);
 
         // If no discussion has been found, create a new one and add it to the array of discussions
         if (!discussion) {

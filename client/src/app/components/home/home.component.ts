@@ -19,13 +19,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   messages: Message[] = [];
 
   // Variables to store input values and selected discussion
-  newDiscussionUsername: string = '';
-  selectedDiscussionId: string = '';
-  newMessageContent: string = '';
+  newDiscussionUsername = '';
+  selectedDiscussionId = '';
+  newMessageContent = '';
 
   // Variables for user information
-  loggedUser: string = ''; // The username of the currently logged-in user
-  recipient: string = ''; // The recipient for new messages
+  loggedUser = ''; // The username of the currently logged-in user
+  recipient = ''; // The recipient for new messages
 
   // Subject to stop polling messages on component destruction
   private stopPolling = new Subject<void>();
@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   /* ----- New Conversation Popup Management ----- */
 
   // Variable to control the visibility of the new conversation popup
-  new_conv_popup: boolean = false;
+  new_conv_popup = false;
 
   // Display the new conversation popup
   display_new_conv_popup() {
@@ -179,5 +179,5 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   // Placeholder URLs for profile pictures and contact images
-  ownprofilpicture: string = '../../../assets/images/pp_user1.jpg';
+  ownprofilpicture = '../../../assets/images/pp_user1.jpg';
 }

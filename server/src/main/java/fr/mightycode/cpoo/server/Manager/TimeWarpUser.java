@@ -10,7 +10,6 @@ import org.springframework.util.Assert;
 import java.util.*;
 import java.util.function.Function;
 
-
 public class TimeWarpUser extends User {
   private String email;
 
@@ -24,7 +23,7 @@ public class TimeWarpUser extends User {
    * @param authorities
    */
   public TimeWarpUser(String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
-    super(username, password,  authorities);
+    super(username, password, authorities);
     this.email = email;
   }
 
@@ -71,7 +70,6 @@ public class TimeWarpUser extends User {
     return this.email;
   }
 
-
   /***
    *  User.UserBuilder but with email
    *  Allow to create a user with different characteristics, then use build to call the TimeWarpUser constructor.
@@ -92,7 +90,7 @@ public class TimeWarpUser extends User {
     private TimeWarpUserBuilder() {
     }
 
-    public TimeWarpUserBuilder username(String username){
+    public TimeWarpUserBuilder username(String username) {
       Assert.notNull(username, "username cannot be null");
       this.username = username;
       return this;
@@ -121,7 +119,7 @@ public class TimeWarpUser extends User {
       String[] var3 = roles;
       int var4 = roles.length;
 
-      for(int var5 = 0; var5 < var4; ++var5) {
+      for (int var5 = 0; var5 < var4; ++var5) {
         String role = var3[var5];
         Assert.isTrue(!role.startsWith("ROLE_"), () -> {
           return role + " cannot start with ROLE_ (it is automatically added)";
@@ -129,7 +127,7 @@ public class TimeWarpUser extends User {
         authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
       }
 
-      return this.authorities((Collection)authorities);
+      return this.authorities((Collection) authorities);
     }
 
     public TimeWarpUserBuilder authorities(GrantedAuthority... authorities) {
@@ -169,11 +167,9 @@ public class TimeWarpUser extends User {
     }
 
     public TimeWarpUser build() {
-      String encodedPassword = (String)this.passwordEncoder.apply(this.password);
-      return new TimeWarpUser(this.username, this.email ,encodedPassword, !this.disabled, !this.accountExpired, !this.credentialsExpired, !this.accountLocked, this.authorities);
+      String encodedPassword = (String) this.passwordEncoder.apply(this.password);
+      return new TimeWarpUser(this.username, this.email, encodedPassword, !this.disabled, !this.accountExpired, !this.credentialsExpired, !this.accountLocked, this.authorities);
     }
-
   }
-
 
 }

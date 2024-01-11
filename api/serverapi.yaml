@@ -159,10 +159,9 @@ paths:
       requestBody:
         required: true
         content:
-          text/plain:
+          application/json:
             schema:
-              title: username
-              type: string
+              $ref: '#/components/schemas/UserDTO'
       responses:
         '200':
           description: Success

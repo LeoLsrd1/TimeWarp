@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { ChangePwdService } from 'src/app/services/change-pwd.service';
 import { TranslateService } from '@ngx-translate/core';
+import { UserSettingsService } from 'src/app/services/user-settings.service';
 
 interface ChangePwdDTO {
   oldpassword: string;
@@ -14,14 +14,14 @@ interface ChangePwdDTO {
 })
 export class SettingsChgpwdComponent {
 
-  constructor(private changePwdService: ChangePwdService, private translate: TranslateService){}
+  constructor(private userSettingsService: UserSettingsService, private translate: TranslateService){}
   
   @Output() go_account = new EventEmitter<void>();
 
 
-  oldPwd : string = "";
-  newPwd : string = "";
-  confirmNewPwd : string ="";
+  oldPwd  = "";
+  newPwd  = "";
+  confirmNewPwd  ="";
   
 /* Json which contains the information that will be sent to the server */
   changePwdDTO : ChangePwdDTO = {          
@@ -30,14 +30,14 @@ export class SettingsChgpwdComponent {
   }  
 
   /* Message that will display the corresponding field in case of error */
-  oldPwdErrorMessage : string ="";
-  newPwdErrorMessage : string ="";
-  confirmNewPwdErrorMessage : string ="";
+  oldPwdErrorMessage  ="";
+  newPwdErrorMessage  ="";
+  confirmNewPwdErrorMessage  ="";
 
   /* Will be true if the corresponding field contain an error, else false */
-  oldPwdError : boolean = false;
-  newPwdError : boolean = false;
-  confirmNewPwdError : boolean = false;
+  oldPwdError  = false;
+  newPwdError  = false;
+  confirmNewPwdError  = false;
 
 
   navigateToAccount() : void{
@@ -73,7 +73,7 @@ export class SettingsChgpwdComponent {
 
   /* Request to the server and response study */
   request_changePwd(data : ChangePwdDTO) : void{
-    this.changePwdService.changepwd(data).subscribe(
+    this.userSettingsService.changepwd(data).subscribe(
       /* Classic Response */ 
       (response) => {
         if (response.status === 200) {
@@ -98,7 +98,7 @@ export class SettingsChgpwdComponent {
     if (this.newPwd_empty()) this.newPwdError = true; else this.newPwdError = false;
     if (this.confirmNewPwd_empty()) this.confirmNewPwdError = true; else this.confirmNewPwdError = false;
 
-    let isSamePassword = this.samePwd();
+    const isSamePassword = this.samePwd();
 
     if(!this.newPwdError && !isSamePassword){ this.newPwdError = true; this.newPwdErrorMessage = this.translate.instant('NotTheSamePassword');}
     if(!this.confirmNewPwdError && !isSamePassword){this.confirmNewPwdError = true; this.confirmNewPwdErrorMessage = this.translate.instant('NotTheSamePassword');}
