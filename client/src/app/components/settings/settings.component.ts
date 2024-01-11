@@ -26,12 +26,12 @@ export class SettingsComponent implements OnInit{
   }
 
   /* ----------------------------------------------------------------------------------------------------------------------------------------- */
-account : boolean = false;
-notifications : boolean = false;
-appearance : boolean = false;
-language : boolean = false;
-acknowlodgements : boolean = false;
-chg_pwd : boolean = false;
+account  = false;
+notifications  = false;
+appearance  = false;
+language  = false;
+acknowlodgements  = false;
+chg_pwd  = false;
 
 display_account_settings() {
   this.account = true;

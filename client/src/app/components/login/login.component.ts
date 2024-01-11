@@ -66,18 +66,18 @@ export class LoginComponent {
 
 
 
-  username : string = "";
-  password : string = "";
+  username  = "";
+  password  = "";
 
   
 
   /* Message that will display the corresponding field in case of error */
-  userErrorMessage : string ="";
-  pwdErrorMessage : string ="";
+  userErrorMessage  ="";
+  pwdErrorMessage  ="";
 
   /* Will be true if the corresponding field contain an error, else false */
-  userError : boolean = false;
-  pwdError : boolean = false;
+  userError  = false;
+  pwdError  = false;
   
  /* Checks if the different fields are empty */
   username_empty (): boolean{

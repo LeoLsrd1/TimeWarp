@@ -9,7 +9,7 @@ import { UserSettingsService } from 'src/app/services/user-settings.service';
 })
 export class SettingsLanguageComponent {
 
-  selectedLanguage: string = 'browser';
+  selectedLanguage = 'browser';
 
   constructor(private userSettingsService: UserSettingsService, private translate: TranslateService) {
     this.selectedLanguage = userSettingsService.language;

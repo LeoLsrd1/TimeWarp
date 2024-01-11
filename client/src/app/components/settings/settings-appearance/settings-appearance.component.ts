@@ -8,7 +8,7 @@ import { UserSettingsService } from 'src/app/services/user-settings.service';
 })
 export class SettingsAppearanceComponent{
 
-  private themeId: number = 0;
+  private themeId = 0;
 
   // Arrays to hold image data for the 1960s and 1970s with selection state
   images60s: { src: string; isSelected: boolean }[] = [
@@ -42,7 +42,7 @@ export class SettingsAppearanceComponent{
   // Function to handle image selection
   selectImage(index: number, imageArray: any[], era: string) {
 
-    let themeId: number = 0;
+    let themeId = 0;
     // Depending on the era, select or deselect images and update the selected index
     if (era === '60s') {
       this.selectedIndex70s = null; // Deselect the image in the 70s era
