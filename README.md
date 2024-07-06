@@ -17,7 +17,7 @@ Here are some screenshots of the TimeWarp application:
 ## Getting Started
 
 To get the TimeWarp application up and running on your local machine, follow these steps:
-s
+
 ### Prerequisites
 
 Ensure you have the following installed:
